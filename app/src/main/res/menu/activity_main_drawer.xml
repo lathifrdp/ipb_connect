@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/home"
+            android:icon="@drawable/home"
+            android:title="Home" />
+        <item
+            android:id="@+id/job"
+            android:icon="@drawable/job"
+            android:title="Job Vacancy" />
+        <item
+            android:id="@+id/event"
+            android:icon="@drawable/event"
+            android:title="Event Reunion" />
+        <item
+            android:id="@+id/explore"
+            android:icon="@drawable/explore"
+            android:title="Explore Alumni" />
+        <item
+            android:id="@+id/memories"
+            android:icon="@drawable/memories"
+            android:title="Our Memories" />
+        <item
+            android:id="@+id/sharing"
+            android:icon="@drawable/ic_menu_share"
+            android:title="Knowledge Sharing" />
+        <item
+            android:id="@+id/group"
+            android:icon="@drawable/group"
+            android:title="Group Discussion" />
+    </group>
+
+    <item android:title="Your Activity">
+        <menu>
+            <item
+                android:id="@+id/bookmark"
+                android:title="My Bookmark" />
+            <!--android:icon="@drawable/ic_menu_share"-->
+            <item
+                android:id="@+id/post"
+                android:title="My Post Activity" />
+            <!--android:icon="@drawable/ic_menu_send"-->
+        </menu>
+    </item>
+
+</menu>
