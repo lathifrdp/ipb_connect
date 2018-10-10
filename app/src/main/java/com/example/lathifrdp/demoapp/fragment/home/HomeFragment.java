@@ -141,7 +141,7 @@ public class HomeFragment extends Fragment {
 
         pieChart.setUsePercentValues(true);
         pieChart.getDescription().setEnabled(false);
-        pieChart.setExtraOffsets(5,10,5,5);
+        pieChart.setExtraOffsets(0,0,0,0);
         pieChart.setDragDecelerationFrictionCoef(0.9f);
         pieChart.setTransparentCircleRadius(61f);
         pieChart.setHoleColor(Color.WHITE);
@@ -151,17 +151,15 @@ public class HomeFragment extends Fragment {
         ArrayList<PieEntry> yValues = new ArrayList<>();
         yValues.add(new PieEntry(perempuan,"Perempuan"));
         yValues.add(new PieEntry(laki,"Laki-laki"));
-//        yValues.add(new PieEntry(66f,"Kinondoni"));
-//        yValues.add(new PieEntry(45f,"Kigamboni"));
 
         PieDataSet dataSet = new PieDataSet(yValues,"");
         dataSet.setSliceSpace(3f);
         dataSet.setSelectionShift(5f);
-        dataSet.setColors(ColorTemplate.LIBERTY_COLORS);
+        dataSet.setColors(ColorTemplate.COLORFUL_COLORS);
         PieData pieData = new PieData((dataSet));
         pieData.setValueTextSize(10f);
         pieData.setValueFormatter(new MyValueFormatter());
-        pieData.setValueTextColor(Color.BLACK);
+        pieData.setValueTextColor(Color.WHITE);
         pieChart.setData(pieData);
         //PieChart Ends Here
     }
@@ -170,7 +168,7 @@ public class HomeFragment extends Fragment {
 
         pieChart2.setUsePercentValues(true);
         pieChart2.getDescription().setEnabled(false);
-        pieChart2.setExtraOffsets(5,10,5,5);
+        pieChart2.setExtraOffsets(0,0,0,0);
         pieChart2.setDragDecelerationFrictionCoef(0.9f);
         pieChart2.setTransparentCircleRadius(61f);
         pieChart2.setHoleColor(Color.WHITE);
@@ -180,8 +178,6 @@ public class HomeFragment extends Fragment {
         ArrayList<PieEntry> yValues2 = new ArrayList<>();
         yValues2.add(new PieEntry(alumni,"Alumni"));
         yValues2.add(new PieEntry(mahasiswa,"Mahasiswa"));
-//        yValues.add(new PieEntry(66f,"Kinondoni"));
-//        yValues.add(new PieEntry(45f,"Kigamboni"));
 
         PieDataSet dataSet2 = new PieDataSet(yValues2,"");
         dataSet2.setSliceSpace(3f);
