@@ -14,11 +14,21 @@ import android.widget.TextView;
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.model.Job;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListener {
     private List<Job> dataSet;
     Context mContext;
+
+    public void setList(List<Job> list) {
+        if(dataSet==null) dataSet=new ArrayList<>();
+        this.dataSet = list;
+    }
+    public void addList(List<Job> list) {
+        if(dataSet==null) dataSet=new ArrayList<>();
+        this.dataSet.addAll(list);
+    }
 
     // View lookup cache
     private static class ViewHolder {
@@ -29,9 +39,14 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
     }
 
     public VacancyList(List<Job> data, Context context) {
-        super(context, R.layout.row_item, data);
+        super(context, R.layout.row_item_vc, data);
         this.dataSet = data;
         this.mContext=context;
+
+    }
+    public int getSize(){
+        if(dataSet==null) dataSet=new ArrayList<>();
+        return dataSet.size();
 
     }
 
@@ -66,10 +81,10 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
 
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
-            convertView = inflater.inflate(R.layout.row_item, parent, false);
-            viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.txtSubject = (TextView) convertView.findViewById(R.id.type);
-            viewHolder.txtCompany = (TextView) convertView.findViewById(R.id.version_number);
+            convertView = inflater.inflate(R.layout.row_item_vc, parent, false);
+            viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.title_vc);
+            viewHolder.txtSubject = (TextView) convertView.findViewById(R.id.subject_vc);
+            viewHolder.txtCompany = (TextView) convertView.findViewById(R.id.company_vc);
             viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
             result=convertView;
