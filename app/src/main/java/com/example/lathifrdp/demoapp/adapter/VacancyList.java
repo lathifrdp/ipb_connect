@@ -22,9 +22,9 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
 
     // View lookup cache
     private static class ViewHolder {
-        TextView txtName;
-        TextView txtType;
-        TextView txtVersion;
+        TextView txtTitle;
+        TextView txtSubject;
+        TextView txtCompany;
         ImageView info;
     }
 
@@ -67,9 +67,9 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
             viewHolder = new ViewHolder();
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item, parent, false);
-            viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
-            viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.version_number);
+            viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.name);
+            viewHolder.txtSubject = (TextView) convertView.findViewById(R.id.type);
+            viewHolder.txtCompany = (TextView) convertView.findViewById(R.id.version_number);
             viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
             result=convertView;
@@ -84,9 +84,9 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
         result.startAnimation(animation);
         lastPosition = position;
 
-        viewHolder.txtName.setText(dataModel.getTitle());
-        viewHolder.txtType.setText(dataModel.getSubject());
-        viewHolder.txtVersion.setText(dataModel.getCompany());
+        viewHolder.txtTitle.setText(dataModel.getTitle());
+        viewHolder.txtSubject.setText(dataModel.getSubject());
+        viewHolder.txtCompany.setText(dataModel.getCompany());
         viewHolder.info.setOnClickListener(this);
         viewHolder.info.setTag(position);
         // Return the completed view to render on screen
