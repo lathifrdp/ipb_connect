@@ -60,5 +60,6 @@ public interface ApiInterface {
 
     @GET("vacancies")
     Call<JobResponse> getJob(@Header("Authorization") String token,
-                             @Query("title") String title);
+                             @Query("title") String title,
+                             @Query("page") Integer page);
 }
