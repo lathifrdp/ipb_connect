@@ -148,6 +148,7 @@ public class HomeFragment extends Fragment {
         pieChart.setDrawEntryLabels(false);
         pieChart.setCenterText("Gender");
         pieChart.animateY(2000, Easing.EasingOption.EaseInOutCubic);
+        //pieChart.animateX(2000, Easing.EasingOption.EaseInBack);
         ArrayList<PieEntry> yValues = new ArrayList<>();
         yValues.add(new PieEntry(perempuan,"Perempuan"));
         yValues.add(new PieEntry(laki,"Laki-laki"));
@@ -175,6 +176,7 @@ public class HomeFragment extends Fragment {
         pieChart2.setDrawEntryLabels(false);
         pieChart2.setCenterText("Account");
         pieChart2.animateY(2000, Easing.EasingOption.EaseInOutCubic);
+        //pieChart2.animateX(2000, Easing.EasingOption.EaseInBack);
         ArrayList<PieEntry> yValues2 = new ArrayList<>();
         yValues2.add(new PieEntry(alumni,"Alumni"));
         yValues2.add(new PieEntry(mahasiswa,"Mahasiswa"));
