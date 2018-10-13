@@ -3,6 +3,7 @@ package com.example.lathifrdp.demoapp.api;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.response.CountResponse;
+import com.example.lathifrdp.demoapp.response.EventResponse;
 import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
@@ -62,4 +63,9 @@ public interface ApiInterface {
     Call<JobResponse> getJob(@Header("Authorization") String token,
                              @Query("title") String title,
                              @Query("page") Integer page);
+
+    @GET("events")
+    Call<EventResponse> getEvent(@Header("Authorization") String token,
+                                 //@Query("title") String title,
+                                 @Query("page") Integer page);
 }
