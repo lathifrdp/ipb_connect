@@ -38,4 +38,115 @@ public class Event {
 
     @SerializedName("picture")
     private String picture;
+
+    public Event(String id, String contact, String created, String description, String endDate, String endTime, String place, String price, String startDate, String startTime, String title,String picture){
+        this.id = id;
+        this.contact = contact;
+        this.created = created;
+        this.description = description;
+        this.endDate = endDate;
+        this.endTime = endTime;
+        this.place = place;
+        this.price = price;
+        this.startDate = startDate;
+        this.startTime = startTime;
+        this.title = title;
+        this.picture = picture;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public String getContact() {
+        return contact;
+    }
+
+    public void setContact(String contact) {
+        this.contact = contact;
+    }
+
+    public String getCreated() {
+        return created;
+    }
+
+    public void setCreated(String created) {
+        this.created = created;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getEndDate() {
+        return endDate;
+    }
+
+    public void setEndDate(String endDate) {
+        this.endDate = endDate;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public void setPlace(String place) {
+        this.place = place;
+    }
+
+    public String getPicture() {
+        return picture;
+    }
+
+    public void setPicture(String picture) {
+        this.picture = picture;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
+    public String getStartDate() {
+        return startDate;
+    }
+
+    public String getStartTime() {
+        return startTime;
+    }
+
+    public void setStartDate(String startDate) {
+        this.startDate = startDate;
+    }
+
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
 }
