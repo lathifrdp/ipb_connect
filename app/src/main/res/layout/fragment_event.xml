@@ -7,6 +7,16 @@
         android:id="@+id/eventFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Event Fragment"/>
+        />
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeToRefresh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ListView
+            android:id="@+id/listEvent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            />
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>
