@@ -2,12 +2,14 @@ package com.example.lathifrdp.demoapp.fragment.explore;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -98,6 +100,24 @@ public class UserFragment extends Fragment{
             }
         });
 
+//        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                //User user = (User) listView.getItemAtPosition(i);
+//                final String item = (String) adapterView.getItemAtPosition(i);
+//                //studyProgramId = studyProgram.getFacultyId();
+//                //Toast.makeText(RegisterActivity.this, studyProgram.getFacultyId(), Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
+////                            Snackbar.make(getView(), "Nama " +user.getFullName(), Snackbar.LENGTH_LONG)
+////                                    .setAction("No action", null).show();
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//            }
+//        });
+
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -150,6 +170,8 @@ public class UserFragment extends Fragment{
 
 
                     page++;
+
+
 //                    for (int i=0;i<usr.size();i++)
 //                    {
 //                        Toast.makeText(getActivity(), usr.get(i).getFullName(), Toast.LENGTH_SHORT).show();

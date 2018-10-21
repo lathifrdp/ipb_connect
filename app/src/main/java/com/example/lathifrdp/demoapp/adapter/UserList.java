@@ -11,6 +11,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.model.User;
@@ -62,7 +63,7 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
         switch (v.getId())
         {
             case R.id.item_info:
-                Snackbar.make(v, "Email " +dataModel.getEmail(), Snackbar.LENGTH_LONG)
+                Snackbar.make(v, "Email : " +dataModel.getEmail(), Snackbar.LENGTH_LONG)
                         .setAction("No action", null).show();
                 break;
         }
