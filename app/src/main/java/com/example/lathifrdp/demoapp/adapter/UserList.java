@@ -10,6 +10,8 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -39,6 +41,7 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
         TextView txtType;
         TextView txtVersion;
         ImageView info;
+        //ListView tes;
     }
 
     public UserList(List<User> data, Context context) {
@@ -66,6 +69,10 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
                 Snackbar.make(v, "Email : " +dataModel.getEmail(), Snackbar.LENGTH_LONG)
                         .setAction("No action", null).show();
                 break;
+//            case R.id.idnya:
+//                Snackbar.make(v, "Nama : " +dataModel.getFullName(), Snackbar.LENGTH_LONG)
+//                        .setAction("No action", null).show();
+//                break;
         }
     }
 
@@ -89,6 +96,7 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
             viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
             viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.version_number);
             viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+            //viewHolder.tes = (ListView) convertView.findViewById(R.id.idnya);
 
             result=convertView;
 
@@ -107,6 +115,8 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
         viewHolder.txtVersion.setText(dataModel.getBatch().toString());
         viewHolder.info.setOnClickListener(this);
         viewHolder.info.setTag(position);
+//        viewHolder.tes.setOnClickListener(this);
+//        viewHolder.tes.setTag(position);
         // Return the completed view to render on screen
         return convertView;
     }

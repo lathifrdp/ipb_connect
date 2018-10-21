@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
@@ -57,7 +58,7 @@ public class UserFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        listView=(ListView)getView().findViewById(R.id.list);
+        listView=(ListView) getView().findViewById(R.id.list);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
@@ -100,24 +101,6 @@ public class UserFragment extends Fragment{
             }
         });
 
-//        listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//            @Override
-//            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-//                //User user = (User) listView.getItemAtPosition(i);
-//                final String item = (String) adapterView.getItemAtPosition(i);
-//                //studyProgramId = studyProgram.getFacultyId();
-//                //Toast.makeText(RegisterActivity.this, studyProgram.getFacultyId(), Toast.LENGTH_SHORT).show();
-//                Toast.makeText(getActivity(), item, Toast.LENGTH_SHORT).show();
-////                            Snackbar.make(getView(), "Nama " +user.getFullName(), Snackbar.LENGTH_LONG)
-////                                    .setAction("No action", null).show();
-//            }
-//
-//            @Override
-//            public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//            }
-//        });
-
         listView.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -149,7 +132,7 @@ public class UserFragment extends Fragment{
         Call<UserResponse> call = apiService.getUser("JWT "+ sessionManager.getKeyToken(),fullName,page,isVerified);
         call.enqueue(new Callback<UserResponse>() {
             @Override
-            public void onResponse(Call<UserResponse> call, Response<UserResponse> response) {
+            public void onResponse(Call<UserResponse> call, final Response<UserResponse> response) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
 
@@ -170,6 +153,35 @@ public class UserFragment extends Fragment{
 
 
                     page++;
+
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                            final String str= listUser.get(i).getFullName();
+                            Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+//                    listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                        @Override
+//                        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
+//                            User user = (User) listView.getSelectedItem();
+//                            //List<User> uus = response.body().getUser();
+//
+//                            //final String item = (String) adapterView.getItemAtPosition(i);
+//                            //studyProgramId = studyProgram.getFacultyId();
+//                            //Toast.makeText(RegisterActivity.this, studyProgram.getFacultyId(), Toast.LENGTH_SHORT).show();
+//                            //final String str= listUser.get(i).getFullName();
+//                            Toast.makeText(getActivity(), user.getFullName(), Toast.LENGTH_SHORT).show();
+////                            Snackbar.make(getView(), "Nama " +user.getFullName(), Snackbar.LENGTH_LONG)
+////                                    .setAction("No action", null).show();
+//                        }
+//
+//                        @Override
+//                        public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                        }
+//                    });
 
 
 //                    for (int i=0;i<usr.size();i++)
