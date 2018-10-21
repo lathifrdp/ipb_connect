@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity
         String a = sessionManager.getKeyPhoto();
         //a = null;
         if(a == null) {
-            URL = "http://192.168.43.31:3501/uploads/profile/person.png";
+            URL = "http://192.168.1.8:3501/uploads/profile/person.png";
         }
         else{
-            URL = "http://192.168.43.31:3501/uploads/profile/"+sessionManager.getKeyPhoto();
+            URL = "http://192.168.1.8:3501/uploads/profile/"+sessionManager.getKeyPhoto();
         }
         GetXMLTask task = new GetXMLTask();
         // Execute the task
