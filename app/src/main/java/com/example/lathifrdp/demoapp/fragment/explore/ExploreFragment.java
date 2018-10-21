@@ -88,10 +88,10 @@ public class ExploreFragment extends Fragment{
             @Override
             public void onClick(View view) {
 
-                if (TextUtils.isEmpty(studyProgramId) || studyProgramId.equals("0")){
-                    Toast.makeText(getActivity(), "Silahkan pilih program studi", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (TextUtils.isEmpty(studyProgramId) || studyProgramId.equals("0")){
+//                    Toast.makeText(getActivity(), "Silahkan pilih program studi", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
 
 
                 fullName = fullName2.getText().toString();

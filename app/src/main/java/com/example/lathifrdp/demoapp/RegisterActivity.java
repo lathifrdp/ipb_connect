@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -80,6 +81,11 @@ public class RegisterActivity extends AppCompatActivity {
         butRegis.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if (TextUtils.isEmpty(studyProgramId) || studyProgramId.equals("0")){
+                    Toast.makeText(RegisterActivity.this, "Silahkan pilih program studi", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 cek();
             }
         });
@@ -227,6 +233,7 @@ public class RegisterActivity extends AppCompatActivity {
 //                    }
 
                     //ArrayAdapter<StudyProgram> aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listSpinner);
+                    allprodi.add(0, new StudyProgram("0","Pilih Program Studi"));
                     adapterProdik = new StudyProgramSpinner(RegisterActivity.this,android.R.layout.simple_spinner_dropdown_item, R.id.prodi_sp,allprodi);
                     spinner.setAdapter(adapterProdik);
 
