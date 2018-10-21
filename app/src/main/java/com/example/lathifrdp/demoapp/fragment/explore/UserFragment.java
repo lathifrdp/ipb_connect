@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -96,8 +97,35 @@ public class UserFragment extends Fragment{
             @Override
             public void onRefresh() {
                 isRefresh = true;
-                //page=1;
+                page=1;
                 loadDataUser();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final String str= listUser.get(i).getFullName();
+
+                Fragment newFragment = null;
+                newFragment = new ProfileFragment();
+
+                bundle.putString("fullname",listUser.get(i).getFullName()); // Put anything what you want
+                bundle.putString("id",listUser.get(i).getId()); // Put anything what you want
+
+                newFragment.setArguments(bundle);
+                Toast.makeText(getActivity(), str + " "+listUser.get(i).getId(), Toast.LENGTH_SHORT).show();
+
+                // consider using Java coding conventions (upper first char class names!!!)
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                transaction.replace(R.id.screen_area, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+
             }
         });
 
@@ -153,14 +181,6 @@ public class UserFragment extends Fragment{
 
 
                     page++;
-
-                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            final String str= listUser.get(i).getFullName();
-                            Toast.makeText(getActivity(), str, Toast.LENGTH_SHORT).show();
-                        }
-                    });
 
 //                    listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //                        @Override

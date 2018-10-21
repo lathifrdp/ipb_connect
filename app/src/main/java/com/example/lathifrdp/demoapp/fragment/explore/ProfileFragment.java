@@ -11,6 +11,10 @@ import android.widget.Toast;
 import com.example.lathifrdp.demoapp.R;
 
 public class ProfileFragment extends Fragment {
+
+    Bundle bundle;
+    private String x3,full,batch;
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -21,11 +25,22 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.profileFragment).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(getActivity(),"Profile Fragment",Toast.LENGTH_SHORT).show();
-            }
-        });
+        bundle = this.getArguments();
+
+        if(bundle != null){
+            // handle your code here.
+            //String x = bundle.getString("limit");
+            //String x2 = bundle.getString("limit2");
+            x3 = bundle.getString("id");
+            full = bundle.getString("fullname");
+            //batch = bundle.getString("batch");
+            Toast.makeText(getActivity(), full, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getActivity(), batch, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), x3, Toast.LENGTH_SHORT).show();
+            //loadDataUser();
+        }
+        else {
+            Toast.makeText(getActivity(), "gagal bos", Toast.LENGTH_SHORT).show();
+        }
     }
 }
