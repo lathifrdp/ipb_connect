@@ -17,6 +17,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -58,6 +59,10 @@ public interface ApiInterface {
                                //@Query("batch") String batch);
                        //@Query("studyProgramId") String studyProgramId,
                        @Query("isVerified") String isVerified);
+
+    @GET("users/profiles/{id}")
+    Call<User> getProfile(@Header("Authorization") String token,
+                               @Path("id") String id);
 
     @GET("vacancies")
     Call<JobResponse> getJob(@Header("Authorization") String token,
