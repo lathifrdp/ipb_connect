@@ -2,6 +2,7 @@ package com.example.lathifrdp.demoapp.api;
 
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.User;
+import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.CountResponse;
 import com.example.lathifrdp.demoapp.response.EventResponse;
 import com.example.lathifrdp.demoapp.response.JobResponse;
@@ -61,8 +62,8 @@ public interface ApiInterface {
                        @Query("isVerified") String isVerified);
 
     @GET("users/profiles/{id}")
-    Call<User> getProfile(@Header("Authorization") String token,
-                               @Path("id") String id);
+    Call<UserProfile> getProfile(@Header("Authorization") String token,
+                                 @Path("id") String id);
 
     @GET("vacancies")
     Call<JobResponse> getJob(@Header("Authorization") String token,
