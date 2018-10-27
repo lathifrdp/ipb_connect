@@ -2,6 +2,8 @@ package com.example.lathifrdp.demoapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class User {
     @SerializedName("_id")
     private String id;
@@ -39,8 +41,10 @@ public class User {
     @SerializedName("studyProgramId")
     private StudyProgram studyProgram;
 
+    @SerializedName("dateOfBirth")
+    private String dateOfBirth;
 
-    public User(String id, String fullName, String nim, String email, String password, String gender, boolean isVerified, Integer batch, boolean isAdmin, String userType) {
+    public User(String id, String fullName, String nim, String email, String password, String gender, boolean isVerified, Integer batch, boolean isAdmin, String userType, String dateOfBirth) {
         this.id = id;
         this.fullName = fullName;
         this.nim = nim;
@@ -51,6 +55,7 @@ public class User {
         this.batch = batch;
         this.isAdmin = isAdmin;
         this.userType = userType;
+        this.dateOfBirth = dateOfBirth;
     }
 
 
@@ -136,5 +141,13 @@ public class User {
 
     public void setStudyProgram(StudyProgram studyProgram) {
         this.studyProgram = studyProgram;
+    }
+
+    public String getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(String dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
     }
 }
