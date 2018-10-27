@@ -2,6 +2,8 @@ package com.example.lathifrdp.demoapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.Date;
+
 public class Event {
     @SerializedName("_id")
     private String id;
@@ -39,7 +41,13 @@ public class Event {
     @SerializedName("picture")
     private String picture;
 
-    public Event(String id, String contact, String created, String description, String endDate, String endTime, String place, String price, String startDate, String startTime, String title,String picture){
+    @SerializedName("latitude")
+    private String latitude;
+
+    @SerializedName("longitude")
+    private String longitude;
+
+    public Event(String id, String contact, String created, String description, String endDate, String endTime, String place, String price, String startDate, String startTime, String title, String picture, String latitude, String longitude){
         this.id = id;
         this.contact = contact;
         this.created = created;
@@ -52,6 +60,8 @@ public class Event {
         this.startTime = startTime;
         this.title = title;
         this.picture = picture;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
     public void setId(String id) {
