@@ -6,8 +6,8 @@ public class Job {
     @SerializedName("_id")
     private String id;
 
-    @SerializedName("profile")
-    private UserProfile userProfile;
+//    @SerializedName("profile")
+//    private UserProfile userProfile;
 
     @SerializedName("address")
     private String address;
@@ -31,12 +31,12 @@ public class Job {
     private String jobDescription;
 
     @SerializedName("salaryMax")
-    private Integer salaryMax;
+    private String salaryMax;
 
     @SerializedName("salaryMin")
-    private Integer salaryMin;
+    private String salaryMin;
 
-    public Job(String id, String address, String company, String companyProfile, String email, String subject, String title, String jobDescription, Integer salaryMax, Integer salaryMin){
+    public Job(String id, String address, String company, String companyProfile, String email, String subject, String title, String jobDescription, String salaryMax, String salaryMin){
         this.id = id;
         this.address = address;
         this.company = company;
@@ -45,7 +45,7 @@ public class Job {
         this.subject = subject;
         this.title = title;
         this.jobDescription = jobDescription;
-        this. salaryMax = salaryMax;
+        this.salaryMax = salaryMax;
         this.salaryMin = salaryMin;
     }
 
@@ -65,13 +65,13 @@ public class Job {
         this.address = address;
     }
 
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
+//    public UserProfile getUserProfile() {
+//        return userProfile;
+//    }
+//
+//    public void setUserProfile(UserProfile userProfile) {
+//        this.userProfile = userProfile;
+//    }
 
     public String getEmail() {
         return email;
@@ -121,19 +121,19 @@ public class Job {
         this.jobDescription = jobDescription;
     }
 
-    public Integer getSalaryMax() {
+    public String getSalaryMax() {
         return salaryMax;
     }
 
-    public void setSalaryMax(Integer salaryMax) {
+    public void setSalaryMax(String salaryMax) {
         this.salaryMax = salaryMax;
     }
 
-    public Integer getSalaryMin() {
+    public String getSalaryMin() {
         return salaryMin;
     }
 
-    public void setSalaryMin(Integer salaryMin) {
+    public void setSalaryMin(String salaryMin) {
         this.salaryMin = salaryMin;
     }
 }
