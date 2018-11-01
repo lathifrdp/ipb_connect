@@ -27,10 +27,10 @@ public class SharingFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Toolbar toolbar = getView().findViewById(R.id.toolbar);
-        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
-
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        Toolbar toolbar = getView().findViewById(R.id.toolbar);
+//        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+//
+//        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ViewPager viewPager = getView().findViewById(R.id.viewpager);
         setupViewPager(viewPager);
@@ -40,9 +40,13 @@ public class SharingFragment extends Fragment {
     }
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
-        adapter.addFragment(PageFragment.newInstance("Satu"), "Satu");
-        adapter.addFragment(PageFragment.newInstance("Dua"), "Dua");
-        adapter.addFragment(PageFragment.newInstance("Tiga"), "Tiga");
+        adapter.addFragment(TerbaruFragment.newInstance(), "Terbaru");
+        adapter.addFragment(PopularFragment.newInstance(), "Popular");
+        adapter.addFragment(TeknologiFragment.newInstance(), "Teknologi");
+        adapter.addFragment(DesainFragment.newInstance(), "Desain");
+        adapter.addFragment(BisnisFragment.newInstance(), "Bisnis");
+        adapter.addFragment(KesehatanFragment.newInstance(), "Kesehatan");
+        adapter.addFragment(UmumFragment.newInstance(), "Umum");
         viewPager.setAdapter(adapter);
     }
 }
