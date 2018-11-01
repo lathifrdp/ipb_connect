@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
-import com.example.lathifrdp.demoapp.adapter.MoviesAdapter;
+import com.example.lathifrdp.demoapp.adapter.SharingAdapter;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
@@ -31,7 +31,7 @@ import retrofit2.Response;
 public class TerbaruFragment extends Fragment{
 
     private RecyclerView recyclerView;
-    private List<KnowledgeSharing> movieArrayList;
+    private List<KnowledgeSharing> sharingArrayList;
     TextView Disconnected;
     private KnowledgeSharing mov;
     ProgressDialog pd;
@@ -68,24 +68,24 @@ public class TerbaruFragment extends Fragment{
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                loadJSON();
-                Toast.makeText(getActivity(),"Movie List Refreshed.", Toast.LENGTH_SHORT).show();
+                loadTerbaru();
+                Toast.makeText(getActivity(),"Terbaru List Refreshed.", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void initViews(){
         pd = new ProgressDialog(getActivity());
-        pd.setMessage("Fetching Movies...");
+        pd.setMessage("Fetching Data...");
         pd.setCancelable(false);
         pd.show();
         recyclerView=(RecyclerView) getView().findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.smoothScrollToPosition(0);
-        loadJSON();
+        loadTerbaru();
     }
 
-    private void loadJSON() {
+    private void loadTerbaru() {
         Disconnected = (TextView) getView().findViewById(R.id.disconnected);
         try {
             apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -97,8 +97,8 @@ public class TerbaruFragment extends Fragment{
                 public void onResponse(Call<SharingResponse> call, final Response<SharingResponse> response) {
                     if (response.isSuccessful()) {
 
-                        movieArrayList = response.body().getKnowledgeSharings();
-                        recyclerView.setAdapter(new MoviesAdapter(getActivity(), movieArrayList));
+                        sharingArrayList = response.body().getKnowledgeSharings();
+                        recyclerView.setAdapter(new SharingAdapter(getActivity(), sharingArrayList));
                         recyclerView.smoothScrollToPosition(0);
                         //Toast.makeText(getActivity(), movieArrayList.toString(), Toast.LENGTH_SHORT).show();
                         swipeContainer.setRefreshing(false);
