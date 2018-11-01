@@ -1,13 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <TextView
-        android:id="@+id/terbaruFragment"
+
+    <android.support.v4.widget.SwipeRefreshLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Terbaru Fragment"/>
+        android:layout_marginTop="50dp"
+        android:id="@+id/swipeContainer">
+
+        <android.support.v7.widget.RecyclerView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/recyclerView">
+        </android.support.v7.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/terbaruFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                tools:text="Terbaru Fragment"/>
+
+            <TextView
+                android:id="@+id/disconnected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" :-( No Internet Connection, Please Make Sure Your Device Is Connected To The Internet And Try Again!"
+                android:textStyle="bold"
+                android:textSize="30dp" />
+
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </android.support.constraint.ConstraintLayout>
