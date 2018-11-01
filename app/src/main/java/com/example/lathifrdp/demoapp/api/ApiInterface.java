@@ -80,4 +80,24 @@ public interface ApiInterface {
 
     @GET("knowledgesharings/popular")
     Call<SharingResponse> getPopular(@Header("Authorization") String token);
+
+    @GET("knowledgesharings/category/{categoryID}")
+    Call<SharingResponse> getTeknologi(@Header("Authorization") String token,
+                                       @Path("categoryID") String categoryID);
+
+    @GET("knowledgesharings/category/{categoryID}")
+    Call<SharingResponse> getDesain(@Header("Authorization") String token,
+                                       @Path("categoryID") String categoryID);
+
+    @GET("knowledgesharings/category/{categoryID}")
+    Call<SharingResponse> getBisnis(@Header("Authorization") String token,
+                                       @Path("categoryID") String categoryID);
+
+    @GET("knowledgesharings/category/{categoryID}")
+    Call<SharingResponse> getKesehatan(@Header("Authorization") String token,
+                                       @Path("categoryID") String categoryID);
+
+    @GET("knowledgesharings/category/{categoryID}")
+    Call<SharingResponse> getUmum(@Header("Authorization") String token,
+                                       @Path("categoryID") String categoryID);
 }
