@@ -8,6 +8,7 @@ import com.example.lathifrdp.demoapp.response.EventResponse;
 import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
+import com.example.lathifrdp.demoapp.response.SharingResponse;
 import com.example.lathifrdp.demoapp.response.UserResponse;
 
 import java.util.List;
@@ -74,4 +75,9 @@ public interface ApiInterface {
     Call<EventResponse> getEvent(@Header("Authorization") String token,
                                  //@Query("title") String title,
                                  @Query("page") Integer page);
+    @GET("knowledgesharings")
+    Call<SharingResponse> getTerbaru(@Header("Authorization") String token);
+
+    @GET("knowledgesharings/popular")
+    Call<SharingResponse> getPopular(@Header("Authorization") String token);
 }
