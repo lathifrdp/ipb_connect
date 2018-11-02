@@ -58,7 +58,7 @@ public class TeknologiFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = new SessionManager(getActivity());
-        initViews();
+        initViewsTeknologi();
         //https://guides.codepath.com/android/Implementing-Pull-to-Refresh-Guide
         swipeContainer = (SwipeRefreshLayout) getView().findViewById(R.id.swipeContainer);
 
@@ -74,7 +74,7 @@ public class TeknologiFragment extends Fragment {
         });
     }
 
-    private void initViews(){
+    private void initViewsTeknologi(){
         pd = new ProgressDialog(getActivity());
         pd.setMessage("Fetching Data...");
         pd.setCancelable(false);
@@ -89,8 +89,9 @@ public class TeknologiFragment extends Fragment {
         Disconnected = (TextView) getView().findViewById(R.id.disconnected);
         try {
             apiService = ApiClient.getClient().create(ApiInterface.class);
+            String id_teknologi = "59f1ecf6fd6c74ba2a8bfb4a";
 
-            Call<SharingResponse> call = apiService.getTeknologi("JWT "+ sessionManager.getKeyToken(),"59f1ecf6fd6c74ba2a8bfb4a");
+            Call<SharingResponse> call = apiService.getTeknologi("JWT "+ sessionManager.getKeyToken(),id_teknologi);
             call.enqueue(new Callback<SharingResponse>() {
 
                 @Override

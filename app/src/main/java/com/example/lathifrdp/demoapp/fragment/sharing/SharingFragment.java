@@ -48,5 +48,6 @@ public class SharingFragment extends Fragment {
         adapter.addFragment(KesehatanFragment.newInstance(), "Kesehatan");
         adapter.addFragment(UmumFragment.newInstance(), "Umum");
         viewPager.setAdapter(adapter);
+        //viewPager.setOffscreenPageLimit(2);
     }
 }

@@ -58,7 +58,7 @@ public class KesehatanFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = new SessionManager(getActivity());
-        initViews();
+        initViewsKesehatan();
         //https://guides.codepath.com/android/Implementing-Pull-to-Refresh-Guide
         swipeContainer = (SwipeRefreshLayout) getView().findViewById(R.id.swipeContainer);
 
@@ -74,7 +74,7 @@ public class KesehatanFragment extends Fragment {
         });
     }
 
-    private void initViews(){
+    private void initViewsKesehatan(){
         pd = new ProgressDialog(getActivity());
         pd.setMessage("Fetching Data...");
         pd.setCancelable(false);
@@ -89,8 +89,9 @@ public class KesehatanFragment extends Fragment {
         Disconnected = (TextView) getView().findViewById(R.id.disconnected);
         try {
             apiService = ApiClient.getClient().create(ApiInterface.class);
+            String id_kesehatan = "5a2e81083a30e04e33c5d763";
 
-            Call<SharingResponse> call = apiService.getKesehatan("JWT "+ sessionManager.getKeyToken(),"5a2e81083a30e04e33c5d763");
+            Call<SharingResponse> call = apiService.getKesehatan("JWT "+ sessionManager.getKeyToken(),id_kesehatan);
             call.enqueue(new Callback<SharingResponse>() {
 
                 @Override

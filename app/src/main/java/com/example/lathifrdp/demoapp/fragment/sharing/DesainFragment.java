@@ -58,7 +58,7 @@ public class DesainFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = new SessionManager(getActivity());
-        initViews();
+        initViewsDesain();
         //https://guides.codepath.com/android/Implementing-Pull-to-Refresh-Guide
         swipeContainer = (SwipeRefreshLayout) getView().findViewById(R.id.swipeContainer);
 
@@ -73,7 +73,7 @@ public class DesainFragment extends Fragment {
             }
         });
     }
-    private void initViews(){
+    private void initViewsDesain(){
         pd = new ProgressDialog(getActivity());
         pd.setMessage("Fetching Data...");
         pd.setCancelable(false);
@@ -88,8 +88,9 @@ public class DesainFragment extends Fragment {
         Disconnected = (TextView) getView().findViewById(R.id.disconnected);
         try {
             apiService = ApiClient.getClient().create(ApiInterface.class);
+            String id_desain = "5a2e80e63a30e04e33c5d761";
 
-            Call<SharingResponse> call = apiService.getDesain("JWT "+ sessionManager.getKeyToken(),"5a2e80e63a30e04e33c5d761");
+            Call<SharingResponse> call = apiService.getDesain("JWT "+ sessionManager.getKeyToken(),id_desain);
             call.enqueue(new Callback<SharingResponse>() {
 
                 @Override

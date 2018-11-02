@@ -58,7 +58,7 @@ public class TerbaruFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = new SessionManager(getActivity());
-        initViews();
+        initViewsTerbaru();
         //https://guides.codepath.com/android/Implementing-Pull-to-Refresh-Guide
         swipeContainer = (SwipeRefreshLayout) getView().findViewById(R.id.swipeContainer);
 
@@ -74,7 +74,7 @@ public class TerbaruFragment extends Fragment{
         });
     }
 
-    private void initViews(){
+    private void initViewsTerbaru(){
         pd = new ProgressDialog(getActivity());
         pd.setMessage("Fetching Data...");
         pd.setCancelable(false);

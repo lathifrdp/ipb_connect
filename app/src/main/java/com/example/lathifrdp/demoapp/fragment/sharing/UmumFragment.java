@@ -58,7 +58,7 @@ public class UmumFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = new SessionManager(getActivity());
-        initViews();
+        initViewsUmum();
         //https://guides.codepath.com/android/Implementing-Pull-to-Refresh-Guide
         swipeContainer = (SwipeRefreshLayout) getView().findViewById(R.id.swipeContainer);
 
@@ -73,7 +73,7 @@ public class UmumFragment extends Fragment {
             }
         });
     }
-    private void initViews(){
+    private void initViewsUmum(){
         pd = new ProgressDialog(getActivity());
         pd.setMessage("Fetching Data...");
         pd.setCancelable(false);
@@ -88,8 +88,9 @@ public class UmumFragment extends Fragment {
         Disconnected = (TextView) getView().findViewById(R.id.disconnected);
         try {
             apiService = ApiClient.getClient().create(ApiInterface.class);
+            String id_umum = "5abb22284ddf5be550538709";
 
-            Call<SharingResponse> call = apiService.getUmum("JWT "+ sessionManager.getKeyToken(),"5abb22284ddf5be550538709");
+            Call<SharingResponse> call = apiService.getUmum("JWT "+ sessionManager.getKeyToken(),id_umum);
             call.enqueue(new Callback<SharingResponse>() {
 
                 @Override

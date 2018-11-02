@@ -58,7 +58,7 @@ public class BisnisFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         sessionManager = new SessionManager(getActivity());
-        initViews();
+        initViewsBisnis();
         //https://guides.codepath.com/android/Implementing-Pull-to-Refresh-Guide
         swipeContainer = (SwipeRefreshLayout) getView().findViewById(R.id.swipeContainer);
 
@@ -73,7 +73,7 @@ public class BisnisFragment extends Fragment{
             }
         });
     }
-    private void initViews(){
+    private void initViewsBisnis(){
         pd = new ProgressDialog(getActivity());
         pd.setMessage("Fetching Data...");
         pd.setCancelable(false);
@@ -88,8 +88,9 @@ public class BisnisFragment extends Fragment{
         Disconnected = (TextView) getView().findViewById(R.id.disconnected);
         try {
             apiService = ApiClient.getClient().create(ApiInterface.class);
+            String id_bisnis = "5a2e81033a30e04e33c5d762";
 
-            Call<SharingResponse> call = apiService.getBisnis("JWT "+ sessionManager.getKeyToken(),"5a2e81033a30e04e33c5d762");
+            Call<SharingResponse> call = apiService.getBisnis("JWT "+ sessionManager.getKeyToken(),id_bisnis);
             call.enqueue(new Callback<SharingResponse>() {
 
                 @Override
