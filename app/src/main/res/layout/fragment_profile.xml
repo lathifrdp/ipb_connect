@@ -10,12 +10,12 @@
         android:id="@+id/profileFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Profile Fragment"/>
+        tools:text="Profile Fragment"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:text="nsms"
+        tools:text="nama"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:id="@+id/profil_nama"/>
 
