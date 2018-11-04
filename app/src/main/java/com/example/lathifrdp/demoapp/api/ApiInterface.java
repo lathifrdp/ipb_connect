@@ -5,6 +5,7 @@ import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.CountResponse;
 import com.example.lathifrdp.demoapp.response.EventResponse;
+import com.example.lathifrdp.demoapp.response.GroupResponse;
 import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
@@ -100,4 +101,7 @@ public interface ApiInterface {
     @GET("knowledgesharings/category/{categoryID}")
     Call<SharingResponse> getUmum(@Header("Authorization") String token,
                                        @Path("categoryID") String categoryID);
+
+    @GET("groupdiscussions")
+    Call<GroupResponse> getGroup(@Header("Authorization") String token);
 }
