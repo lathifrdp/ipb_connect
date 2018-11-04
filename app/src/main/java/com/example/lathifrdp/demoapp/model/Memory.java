@@ -13,26 +13,26 @@ public class Memory {
     private String photo;
 
     @SerializedName("totalLike")
-    private int totalLike;
+    private String totalLike;
 
-    @SerializedName("likers")
-    private Liker liker;
+//    @SerializedName("likers")
+//    private Liker liker;
 
-    @SerializedName("comments")
-    private Comment comment;
+//    @SerializedName("comments")
+//    private Comment comment;
 
-    @SerializedName("createdBy")
-    private String createdBy;
+//    @SerializedName("createdBy")
+//    private User createdBy;
 
     @SerializedName("created")
     private String created;
 
-    public Memory(String id, String caption, String photo, int totalLike, String createdBy, String created){
+    public Memory(String id, String caption, String photo, String totalLike, User createdBy, String created){
         this.id = id;
         this.caption = caption;
         this.photo = photo;
         this.totalLike = totalLike;
-        this.createdBy = createdBy;
+        //this.createdBy = createdBy;
         this.created = created;
     }
 
@@ -60,37 +60,37 @@ public class Memory {
         this.photo = photo;
     }
 
-    public int getTotalLike() {
+    public String getTotalLike() {
         return totalLike;
     }
 
-    public void setTotalLike(int totalLike) {
+    public void setTotalLike(String totalLike) {
         this.totalLike = totalLike;
     }
 
-    public Liker getLiker() {
-        return liker;
-    }
+//    public Liker getLiker() {
+//        return liker;
+//    }
+//
+//    public void setLiker(Liker liker) {
+//        this.liker = liker;
+//    }
+//
+//    public Comment getComment() {
+//        return comment;
+//    }
+//
+//    public void setComment(Comment comment) {
+//        this.comment = comment;
+//    }
 
-    public void setLiker(Liker liker) {
-        this.liker = liker;
-    }
-
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
+//    public User getCreatedBy() {
+//        return createdBy;
+//    }
+//
+//    public void setCreatedBy(User createdBy) {
+//        this.createdBy = createdBy;
+//    }
 
     public String getCreated() {
         return created;
