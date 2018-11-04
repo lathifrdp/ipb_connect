@@ -29,6 +29,7 @@ import com.example.lathifrdp.demoapp.fragment.memories.MemoriesFragment;
 import com.example.lathifrdp.demoapp.fragment.post.PostFragment;
 import com.example.lathifrdp.demoapp.fragment.sharing.SharingFragment;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
+import com.squareup.picasso.Picasso;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -65,9 +66,6 @@ public class MainActivity extends AppCompatActivity
 
 
         sessionManager = new SessionManager(MainActivity.this);
-        //Toast.makeText(MainActivity.this,sessionManager.getKeyProdi(),Toast.LENGTH_SHORT).show();
-        //Toast.makeText(MainActivity.this,sessionManager.getKeyUsertype(),Toast.LENGTH_SHORT).show();
-        //Toast.makeText(MainActivity.this,sessionManager.getKeyToken(),Toast.LENGTH_SHORT).show();
 
         NavigationView naview = (NavigationView) findViewById(R.id.nav_view);
         View hView =  naview.getHeaderView(0);
@@ -78,95 +76,12 @@ public class MainActivity extends AppCompatActivity
         nav_email.setText(sessionManager.getKeyEmail());
         nav_fullname.setText(sessionManager.getKeyFullname());
 
-
-        // Loader image - will be shown before loading image
-        int loader = R.drawable.ic_menu_share;
-
-        // Imageview to show
-        //ImageView image = (ImageView) findViewById(R.id.image);
-
-        // Image url
-        //String URL = "http://182.23.70.28:3501/uploads/profile/"+sessionManager.getKeyPhoto();
-        String a = sessionManager.getKeyPhoto();
-        //a = null;
-        if(a == null) {
-            URL = "http://182.23.70.28:3501/uploads/profile/person.png";
-        }
-        else{
-            URL = "http://182.23.70.28:3501/uploads/profile/"+sessionManager.getKeyPhoto();
-        }
-        GetXMLTask task = new GetXMLTask();
-        // Execute the task
-        task.execute(new String[] { URL });
-
-        // ImageLoader class instance
-        //ImageLoader imgLoader = new ImageLoader(getApplicationContext());
-
-        // whenever you want to load an image from url
-        // call DisplayImage function
-        // url - image url to load
-        // loader - loader image, will be displayed before getting image
-        // image - ImageView
-        //imgLoader.DisplayImage(image_url, loader, nav_photo);
-
-        //encode image to base64 string
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),sessionManager.getKeyPhoto());
-//        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-//        byte[] imageBytes = baos.toByteArray();
-//        String imageString = Base64.encodeToString(imageBytes, Base64.DEFAULT);
-
-        //decode base64 string to image
-//        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-//        byte[] imageBytes = baos.toByteArray();
-//        imageBytes = Base64.decode(sessionManager.getKeyPhoto(), Base64.DEFAULT);
-//        Bitmap decodedImage = BitmapFactory.decodeByteArray(imageBytes, 0, imageBytes.length);
-
-        //tes
-//        byte[] photo = getIntent().getByteArrayExtra("photoS");
-//        ByteArrayInputStream imageStream = new ByteArrayInputStream(photo);
-        //byte[] decodedString = Base64.decode(sessionManager.getKeyPhoto(), Base64.DEFAULT);
-        //Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//        Bitmap theImage= BitmapFactory.decodeStream(imageStream);
-//        nav_photo.setImageBitmap(theImage);
-        //tes
-
-        //Resources resources = getResources();
-        //RoundedBitmapDrawable dr = RoundedBitmapDrawableFactory.create(resources, decodedByte);
-        //dr.setCircular(true);
-//        byte[] decodedString = Base64.decode(sessionManager.getKeyPhoto(), Base64.DEFAULT);
-//        //Bitmap imgBitMap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-//        ByteArrayInputStream imageStream = new ByteArrayInputStream(decodedString);
-//        Bitmap theImage= BitmapFactory.decodeStream(imageStream);
-        //nav_photo.setImageDrawable(dr);
-
-
-        //Bitmap bm = BitmapFactory.decodeByteArray(decodedString, 0 ,decodedString.length);
-
-
-        //Toast.makeText(MainActivity.this,theImage.toString(),Toast.LENGTH_SHORT).show();
-        //Toast.makeText(MainActivity.this,sessionManager.getKeyPhoto(),Toast.LENGTH_SHORT).show();
-        //Log.d("OnFailure", decodedString.toString());
-
-        //String imgString = Base64.encodeToString(sessionManager.getKeyPhoto().getBytes(),Base64.NO_WRAP);
-        //byte[] decodedString = Base64.decode(sessionManager.getKeyPhoto(), Base64.DEFAULT);
-        //ByteArrayInputStream imageStream = new ByteArrayInputStream(decodedString);
-        //Bitmap imgBitMap = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-       // Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-        //nav_photo.setImageBitmap(imgBitMap);
-//        Toast.makeText(MainActivity.this,theImage.toString(),Toast.LENGTH_SHORT).show();
-//        Log.d("OnFailure", theImage.toString());
-        //Bitmap bm = BitmapFactory.decodeByteArray(byteArray, 0 ,byteArray.length);
-
-//        mEmail = (TextView) findViewById(R.id.textView);
-//        mFullname = (TextView) findViewById(R.id.fullname);
-//        mPhoto = (ImageView) findViewById(R.id.imageView);
-//
-//        TextView email = mEmail;
-//        email.setText(sessionManager.getKeyEmail());
-        //mEmail.setText(sessionManager.getKeyEmail());
-        //mFullname.setText(sessionManager.getKeyFullname());
-        //mPhoto.setImageBitmap(sessionManager.getKeyPhoto());
+        String url = "http://182.23.70.28:3501/uploads/profile/"+sessionManager.getKeyPhoto();
+        Picasso.get()
+                .load(url)
+                .placeholder(R.drawable.alumni2)
+                .error(R.drawable.logoipb)
+                .into(nav_photo);
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -177,75 +92,9 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-//        Fragment fragmentx = null;
-//        fragmentx = new HomeFragment();
-
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction ft = fragmentManager.beginTransaction();
-//        ft.replace(R.id.screen_area, fragmentx);
-//        ft.commit();
-        //HomeFragment hf = (HomeFragment)
         navigationView.getMenu().getItem(0).setChecked(true);
         getSupportFragmentManager().findFragmentById(R.id.homeFragment);
         setFragment(new HomeFragment());
-//        HomeFragment fragmenthome = (HomeFragment)
-//                getSupportFragmentManager().findFragmentById(R.id.homeFragment);
-    }
-
-    private class GetXMLTask extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            Bitmap map = null;
-            for (String url : urls) {
-                map = downloadImage(url);
-            }
-            return map;
-        }
-
-        // Sets the Bitmap returned by doInBackground
-        @Override
-        protected void onPostExecute(Bitmap result) {
-            nav_photo.setImageBitmap(result);
-        }
-
-        // Creates Bitmap from InputStream and returns it
-        private Bitmap downloadImage(String url) {
-            Bitmap bitmap = null;
-            InputStream stream = null;
-            BitmapFactory.Options bmOptions = new BitmapFactory.Options();
-            bmOptions.inSampleSize = 1;
-
-            try {
-                stream = getHttpConnection(url);
-                bitmap = BitmapFactory.
-                        decodeStream(stream, null, bmOptions);
-                stream.close();
-            } catch (IOException e1) {
-                e1.printStackTrace();
-            }
-            return bitmap;
-        }
-
-        // Makes HttpURLConnection and returns InputStream
-        private InputStream getHttpConnection(String urlString)
-                throws IOException {
-            InputStream stream = null;
-            URL url = new URL(urlString);
-            URLConnection connection = url.openConnection();
-
-            try {
-                HttpURLConnection httpConnection = (HttpURLConnection) connection;
-                httpConnection.setRequestMethod("GET");
-                httpConnection.connect();
-
-                if (httpConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
-                    stream = httpConnection.getInputStream();
-                }
-            } catch (Exception ex) {
-                ex.printStackTrace();
-            }
-            return stream;
-        }
     }
 
     protected void setFragment(Fragment fragment) {
