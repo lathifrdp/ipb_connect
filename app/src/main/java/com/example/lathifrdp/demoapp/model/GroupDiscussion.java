@@ -14,19 +14,19 @@ public class GroupDiscussion {
     private String description;
 
     @SerializedName("totalLike")
-    private int totalLike;
+    private String totalLike;
 
 //    @SerializedName("totalComment")
 //    private int totalComment;
 
-    @SerializedName("likers")
-    private Liker liker;
+//    @SerializedName("likers")
+//    private Liker liker;
 
 //    @SerializedName("comments")
 //    private Comment comment;
 
-    @SerializedName("bookmarks")
-    private Bookmark bookmark;
+//    @SerializedName("bookmarks")
+//    private Bookmark bookmark;
 
     @SerializedName("createdBy")
     private User createdBy;
@@ -34,7 +34,7 @@ public class GroupDiscussion {
     @SerializedName("created")
     private String created;
 
-    public GroupDiscussion(String id, String title, String description, int totalLike, int totalComment, User createdBy, String created){
+    public GroupDiscussion(String id, String title, String description, String totalLike, int totalComment, User createdBy, String created){
         this.id = id;
         this.title = title;
         this.description = description;
@@ -76,21 +76,21 @@ public class GroupDiscussion {
 //        this.totalComment = totalComment;
 //    }
 
-    public int getTotalLike() {
+    public String getTotalLike() {
         return totalLike;
     }
 
-    public void setTotalLike(int totalLike) {
+    public void setTotalLike(String totalLike) {
         this.totalLike = totalLike;
     }
 
-    public Bookmark getBookmark() {
-        return bookmark;
-    }
-
-    public void setBookmark(Bookmark bookmark) {
-        this.bookmark = bookmark;
-    }
+//    public Bookmark getBookmark() {
+//        return bookmark;
+//    }
+//
+//    public void setBookmark(Bookmark bookmark) {
+//        this.bookmark = bookmark;
+//    }
 
 //    public Comment getComment() {
 //        return comment;
@@ -100,13 +100,13 @@ public class GroupDiscussion {
 //        this.comment = comment;
 //    }
 
-    public Liker getLiker() {
-        return liker;
-    }
-
-    public void setLiker(Liker liker) {
-        this.liker = liker;
-    }
+//    public Liker getLiker() {
+//        return liker;
+//    }
+//
+//    public void setLiker(Liker liker) {
+//        this.liker = liker;
+//    }
 
     public User getCreatedBy() {
         return createdBy;
