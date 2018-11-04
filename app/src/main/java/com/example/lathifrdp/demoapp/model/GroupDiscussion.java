@@ -16,30 +16,30 @@ public class GroupDiscussion {
     @SerializedName("totalLike")
     private int totalLike;
 
-    @SerializedName("totalComment")
-    private int totalComment;
+//    @SerializedName("totalComment")
+//    private int totalComment;
 
     @SerializedName("likers")
     private Liker liker;
 
-    @SerializedName("comments")
-    private Comment comment;
+//    @SerializedName("comments")
+//    private Comment comment;
 
     @SerializedName("bookmarks")
     private Bookmark bookmark;
 
     @SerializedName("createdBy")
-    private String createdBy;
+    private User createdBy;
 
     @SerializedName("created")
     private String created;
 
-    public GroupDiscussion(String id, String title, String description, int totalLike, int totalComment, String createdBy, String created){
+    public GroupDiscussion(String id, String title, String description, int totalLike, int totalComment, User createdBy, String created){
         this.id = id;
         this.title = title;
         this.description = description;
         this.totalLike = totalLike;
-        this.totalComment = totalComment;
+        //this.totalComment = totalComment;
         this.createdBy = createdBy;
         this.created = created;
     }
@@ -68,13 +68,13 @@ public class GroupDiscussion {
         this.description = description;
     }
 
-    public int getTotalComment() {
-        return totalComment;
-    }
-
-    public void setTotalComment(int totalComment) {
-        this.totalComment = totalComment;
-    }
+//    public int getTotalComment() {
+//        return totalComment;
+//    }
+//
+//    public void setTotalComment(int totalComment) {
+//        this.totalComment = totalComment;
+//    }
 
     public int getTotalLike() {
         return totalLike;
@@ -92,13 +92,13 @@ public class GroupDiscussion {
         this.bookmark = bookmark;
     }
 
-    public Comment getComment() {
-        return comment;
-    }
-
-    public void setComment(Comment comment) {
-        this.comment = comment;
-    }
+//    public Comment getComment() {
+//        return comment;
+//    }
+//
+//    public void setComment(Comment comment) {
+//        this.comment = comment;
+//    }
 
     public Liker getLiker() {
         return liker;
@@ -108,11 +108,11 @@ public class GroupDiscussion {
         this.liker = liker;
     }
 
-    public String getCreatedBy() {
+    public User getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(String createdBy) {
+    public void setCreatedBy(User createdBy) {
         this.createdBy = createdBy;
     }
 
