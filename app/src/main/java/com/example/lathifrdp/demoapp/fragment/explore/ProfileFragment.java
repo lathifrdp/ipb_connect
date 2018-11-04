@@ -16,7 +16,9 @@ import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.model.UserProfile;
+import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -25,9 +27,10 @@ public class ProfileFragment extends Fragment {
 
     Bundle bundle;
     private String id_user,full;
-    TextView nama_profil, alamat_profil, nomor_profil;
+    TextView nama_profil, alamat_profil, nomor_profil, email_profil, interest_profil, hobby_profil, job_profil, marital_profil;
     ApiInterface apiService;
     SessionManager sessionManager;
+    CircleImageView foto_profil;
 
     @Nullable
     @Override
@@ -41,9 +44,15 @@ public class ProfileFragment extends Fragment {
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Profile");
         sessionManager = new SessionManager(getActivity());
-        nama_profil = (TextView) getView().findViewById(R.id.profil_nama);
-        alamat_profil = (TextView) getView().findViewById(R.id.profil_alamat);
-        nomor_profil = (TextView) getView().findViewById(R.id.profil_mobilenumber);
+        foto_profil = (CircleImageView) getView().findViewById(R.id.user_profile_photo);
+        nama_profil = (TextView) getView().findViewById(R.id.user_profile_name);
+        alamat_profil = (TextView) getView().findViewById(R.id.address);
+        nomor_profil = (TextView) getView().findViewById(R.id.user_profile_short_bio);
+        //email_profil = (TextView) getView().findViewById(R.id.user_profile_short_bio);
+        interest_profil = (TextView) getView().findViewById(R.id.interest);
+        hobby_profil = (TextView) getView().findViewById(R.id.hobby);
+        job_profil = (TextView) getView().findViewById(R.id.current_job);
+        marital_profil = (TextView) getView().findViewById(R.id.marital_status);
         bundle = this.getArguments();
 
         if(bundle != null){
@@ -85,8 +94,20 @@ public class ProfileFragment extends Fragment {
 
 
                     nama_profil.setText(full);
-                    alamat_profil.setText(userProfile.getAddress());
+                    alamat_profil.setText("Alamat: "+userProfile.getAddress());
                     nomor_profil.setText(userProfile.getMobileNumber());
+                    interest_profil.setText("Ketertarikan: "+userProfile.getInterest());
+                    hobby_profil.setText("Hobi: "+userProfile.getHobby());
+                    job_profil.setText("Pekerjaan saat ini: "+userProfile.getCurrentJob());
+                    marital_profil.setText("Status: "+userProfile.getMaritalStatus());
+
+                    String url = "http://182.23.70.28:3501/uploads/profile/"+userProfile.getPhoto();
+                    Picasso.get()
+                            .load(url)
+                            .placeholder(R.drawable.alumni2)
+                            .error(R.drawable.logoipb)
+                            .into(foto_profil);
+
                     //Toast.makeText(getActivity(), userProfile.getAddress(), Toast.LENGTH_SHORT).show();
                     //Toast.makeText(getActivity(), userProfile.getMobileNumber(), Toast.LENGTH_SHORT).show();
                     //if(isRefresh) adapter.setList(response.body().getUser());
