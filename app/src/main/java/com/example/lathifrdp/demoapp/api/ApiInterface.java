@@ -8,6 +8,7 @@ import com.example.lathifrdp.demoapp.response.EventResponse;
 import com.example.lathifrdp.demoapp.response.GroupResponse;
 import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
+import com.example.lathifrdp.demoapp.response.MemoriesResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
 import com.example.lathifrdp.demoapp.response.SharingResponse;
 import com.example.lathifrdp.demoapp.response.UserResponse;
@@ -104,4 +105,8 @@ public interface ApiInterface {
 
     @GET("groupdiscussions")
     Call<GroupResponse> getGroup(@Header("Authorization") String token);
+
+    @GET("memories")
+    Call<MemoriesResponse> getMemories(@Header("Authorization") String token,
+                                       @Query("page") Integer page);
 }
