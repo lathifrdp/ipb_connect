@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -63,6 +64,8 @@ public class ExploreFragment extends Fragment{
 //                Toast.makeText(getActivity(),"Explore Fragment",Toast.LENGTH_SHORT).show();
 //            }
 //        });
+
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Explore Alumni");
 
         loadDataProdi();
 

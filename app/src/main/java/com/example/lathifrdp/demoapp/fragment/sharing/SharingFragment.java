@@ -31,6 +31,7 @@ public class SharingFragment extends Fragment {
 //        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 //
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Knowledge Sharing");
 
         ViewPager viewPager = getView().findViewById(R.id.viewpager);
         setupViewPager(viewPager);

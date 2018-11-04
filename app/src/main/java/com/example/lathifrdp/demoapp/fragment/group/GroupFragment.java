@@ -3,6 +3,7 @@ package com.example.lathifrdp.demoapp.fragment.group;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ public class GroupFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Group Discussion");
         view.findViewById(R.id.groupFragment).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
