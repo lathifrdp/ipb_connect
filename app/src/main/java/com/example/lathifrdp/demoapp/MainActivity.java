@@ -18,10 +18,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.fragment.bookmark.BookmarkFragment;
 import com.example.lathifrdp.demoapp.fragment.event.EventFragment;
 import com.example.lathifrdp.demoapp.fragment.explore.ExploreFragment;
+import com.example.lathifrdp.demoapp.fragment.explore.ProfileFragment;
+import com.example.lathifrdp.demoapp.fragment.explore.UserFragment;
 import com.example.lathifrdp.demoapp.fragment.group.GroupFragment;
 import com.example.lathifrdp.demoapp.fragment.home.HomeFragment;
 import com.example.lathifrdp.demoapp.fragment.job.JobFragment;
@@ -48,6 +51,7 @@ public class MainActivity extends AppCompatActivity
     //ImageView nav_photo;
     CircleImageView nav_photo;
     public String URL;
+    Bundle bundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +86,26 @@ public class MainActivity extends AppCompatActivity
                 .placeholder(R.drawable.alumni2)
                 .error(R.drawable.logoipb)
                 .into(nav_photo);
+
+        nav_photo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(MainActivity.this, "profil", Toast.LENGTH_SHORT).show();
+                bundle = new Bundle();
+                bundle.putString("fullname",sessionManager.getKeyFullname());
+                bundle.putString("id",sessionManager.getKeyId());
+                Fragment fragment = null;
+                fragment = new ProfileFragment();
+                fragment.setArguments(bundle);
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.screen_area, fragment);
+                //ft.addToBackStack(null);
+                ft.commit();
+                DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+                drawer.closeDrawer(GravityCompat.START);
+            }
+        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
