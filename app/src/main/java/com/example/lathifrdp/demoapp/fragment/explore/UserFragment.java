@@ -86,7 +86,8 @@ public class UserFragment extends Fragment{
             if(full.isEmpty())full = null;
             if(bat.isEmpty())bat = null;
             if(stud == "0") stud = null;
-            if(full == null && bat == null && stud == null) page = 1;
+            if(full == null || bat == null || stud == null) page = 1;
+            if(full != null || bat != null || stud != null) page = 1;
             loadDataUser();
         }
         else {
