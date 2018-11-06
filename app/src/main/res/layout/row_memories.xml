@@ -9,7 +9,8 @@
         android:id="@+id/imageViewThumbnail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        />
     <!--Textview for image name-->
     <TextView
         android:id="@+id/textViewImageName"
@@ -17,6 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_alignBottom="@+id/imageViewThumbnail"
         android:background="#89000000"
+        android:textColor="@color/putih"
         android:ellipsize="end"
         android:lines="1"
         android:padding="4dp"
