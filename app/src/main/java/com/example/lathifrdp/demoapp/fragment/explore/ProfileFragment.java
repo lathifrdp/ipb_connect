@@ -26,7 +26,7 @@ import retrofit2.Response;
 public class ProfileFragment extends Fragment {
 
     Bundle bundle;
-    private String id_user,full;
+    private String id_user,full,mail;
     TextView nama_profil, alamat_profil, nomor_profil, email_profil, interest_profil, hobby_profil, job_profil, marital_profil;
     ApiInterface apiService;
     SessionManager sessionManager;
@@ -47,8 +47,8 @@ public class ProfileFragment extends Fragment {
         foto_profil = (CircleImageView) getView().findViewById(R.id.user_profile_photo);
         nama_profil = (TextView) getView().findViewById(R.id.user_profile_name);
         alamat_profil = (TextView) getView().findViewById(R.id.address);
-        nomor_profil = (TextView) getView().findViewById(R.id.user_profile_short_bio);
-        //email_profil = (TextView) getView().findViewById(R.id.user_profile_short_bio);
+        nomor_profil = (TextView) getView().findViewById(R.id.nomor_hp);
+        email_profil = (TextView) getView().findViewById(R.id.user_profile_short_bio);
         interest_profil = (TextView) getView().findViewById(R.id.interest);
         hobby_profil = (TextView) getView().findViewById(R.id.hobby);
         job_profil = (TextView) getView().findViewById(R.id.current_job);
@@ -61,6 +61,7 @@ public class ProfileFragment extends Fragment {
             //String x2 = bundle.getString("limit2");
             id_user = bundle.getString("id");
             full = bundle.getString("fullname");
+            mail = bundle.getString("email");
 
             loadDataProfile();
             //batch = bundle.getString("batch");
@@ -94,8 +95,9 @@ public class ProfileFragment extends Fragment {
 
 
                     nama_profil.setText(full);
+                    email_profil.setText(mail);
                     alamat_profil.setText("Alamat: "+userProfile.getAddress());
-                    nomor_profil.setText(userProfile.getMobileNumber());
+                    nomor_profil.setText("Nomor Handphone: "+userProfile.getMobileNumber());
                     interest_profil.setText("Ketertarikan: "+userProfile.getInterest());
                     hobby_profil.setText("Hobi: "+userProfile.getHobby());
                     job_profil.setText("Pekerjaan saat ini: "+userProfile.getCurrentJob());
