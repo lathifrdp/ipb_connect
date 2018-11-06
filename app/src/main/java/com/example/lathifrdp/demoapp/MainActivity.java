@@ -1,9 +1,11 @@
 package com.example.lathifrdp.demoapp;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -94,6 +96,7 @@ public class MainActivity extends AppCompatActivity
                 bundle = new Bundle();
                 bundle.putString("fullname",sessionManager.getKeyFullname());
                 bundle.putString("id",sessionManager.getKeyId());
+                bundle.putString("email",sessionManager.getKeyEmail());
                 Fragment fragment = null;
                 fragment = new ProfileFragment();
                 fragment.setArguments(bundle);
@@ -136,7 +139,11 @@ public class MainActivity extends AppCompatActivity
             drawer.closeDrawer(GravityCompat.START);
         } else {
             //super.onBackPressed();
-            finish();
+            //finish();
+            Intent b = new Intent(Intent.ACTION_MAIN);
+            b.addCategory(Intent.CATEGORY_HOME);
+            b.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(b);
         }
     }
 
@@ -157,6 +164,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Toast.makeText(MainActivity.this, "Settings Coming Soon", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_logout) {
