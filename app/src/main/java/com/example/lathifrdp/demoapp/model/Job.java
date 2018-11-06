@@ -36,7 +36,10 @@ public class Job {
     @SerializedName("salaryMin")
     private String salaryMin;
 
-    public Job(String id, String address, String company, String companyProfile, String email, String subject, String title, String jobDescription, String salaryMax, String salaryMin){
+    @SerializedName("jobLocationId")
+    private JobLocation jobLocation;
+
+    public Job(String id, String address, String company, String companyProfile, String email, String subject, String title, String jobDescription, String salaryMax, String salaryMin, JobLocation jobLocation){
         this.id = id;
         this.address = address;
         this.company = company;
@@ -47,6 +50,7 @@ public class Job {
         this.jobDescription = jobDescription;
         this.salaryMax = salaryMax;
         this.salaryMin = salaryMin;
+        this.jobLocation = jobLocation;
     }
 
     public String getId() {
@@ -135,5 +139,13 @@ public class Job {
 
     public void setSalaryMin(String salaryMin) {
         this.salaryMin = salaryMin;
+    }
+
+    public JobLocation getJobLocation() {
+        return jobLocation;
+    }
+
+    public void setJobLocation(JobLocation jobLocation) {
+        this.jobLocation = jobLocation;
     }
 }
