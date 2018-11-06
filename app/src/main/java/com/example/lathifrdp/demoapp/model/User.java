@@ -30,7 +30,7 @@ public class User {
     private boolean isVerified;
 
     @SerializedName("batch")
-    private Integer batch;
+    private String batch;
 
     @SerializedName("isAdmin")
     private boolean isAdmin;
@@ -44,7 +44,7 @@ public class User {
     @SerializedName("dateOfBirth")
     private String dateOfBirth;
 
-    public User(String id, String fullName, String nim, String email, String password, String gender, boolean isVerified, Integer batch, boolean isAdmin, String userType, String dateOfBirth) {
+    public User(String id, String fullName, String nim, String email, String password, String gender, boolean isVerified, String batch, boolean isAdmin, String userType, String dateOfBirth) {
         this.id = id;
         this.fullName = fullName;
         this.nim = nim;
@@ -123,9 +123,9 @@ public class User {
         isVerified = verified;
     }
 
-    public Integer getBatch() { return batch; }
+    public String getBatch() { return batch; }
 
-    public void setBatch(Integer batch) { this.batch = batch; }
+    public void setBatch(String batch) { this.batch = batch; }
 
     public boolean isAdmin() { return isAdmin; }
 
