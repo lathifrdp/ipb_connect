@@ -43,7 +43,7 @@ public class UserFragment extends Fragment{
     ApiInterface apiService;
     SessionManager sessionManager;
     Bundle bundle;
-    private String x3,full,batch;
+    private String x3,full,bat,stud;
     SwipeRefreshLayout mSwipeRefreshLayout;
     private int page = 1;
     private boolean isRefresh = false;
@@ -80,7 +80,9 @@ public class UserFragment extends Fragment{
             //String x2 = bundle.getString("limit2");
             x3 = bundle.getString("isVerified");
             full = bundle.getString("fullname");
-            batch = bundle.getString("batch");
+            bat = bundle.getString("batch");
+            stud = bundle.getString("study");
+            if(stud == "0") stud = null;
             //Toast.makeText(getActivity(), full, Toast.LENGTH_SHORT).show();
             //Toast.makeText(getActivity(), batch, Toast.LENGTH_SHORT).show();
             //Toast.makeText(getActivity(), x3, Toast.LENGTH_SHORT).show();
@@ -114,6 +116,7 @@ public class UserFragment extends Fragment{
 
                 bundle.putString("fullname",listUser.get(i).getFullName()); // Put anything what you want
                 bundle.putString("id",listUser.get(i).getId()); // Put anything what you want
+                bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
 
                 newFragment.setArguments(bundle);
                 Toast.makeText(getActivity(), str + " "+listUser.get(i).getId(), Toast.LENGTH_SHORT).show();
@@ -158,8 +161,11 @@ public class UserFragment extends Fragment{
 
         final String fullName = full;
         final String isVerified = x3;
+        final String batch = bat;
+        final String studyId = stud;
+        //final String studyProgramId = stud;
 
-        Call<UserResponse> call = apiService.getUser("JWT "+ sessionManager.getKeyToken(),fullName,page,isVerified);
+        Call<UserResponse> call = apiService.getUser("JWT "+ sessionManager.getKeyToken(),fullName,page,batch,studyId,isVerified);
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, final Response<UserResponse> response) {
