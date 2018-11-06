@@ -7,6 +7,7 @@
         android:id="@+id/postFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Post Fragment"/>
+        android:gravity="center"
+        android:text="Post Activity Coming Soon"/>
 
 </android.support.constraint.ConstraintLayout>
