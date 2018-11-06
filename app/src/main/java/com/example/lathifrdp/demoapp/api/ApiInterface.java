@@ -60,8 +60,8 @@ public interface ApiInterface {
     Call<UserResponse> getUser(@Header("Authorization") String token,
                                @Query("fullName") String fullName,
                                @Query("page") Integer page,
-                               //@Query("batch") String batch);
-                       //@Query("studyProgramId") String studyProgramId,
+                               @Query("batch") String batch,
+                       @Query("studyProgramId") String studyId,
                        @Query("isVerified") String isVerified);
 
     @GET("users/profiles/{id}")
