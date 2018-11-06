@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction ft = fragmentManager.beginTransaction();
                 ft.replace(R.id.screen_area, fragment);
-                //ft.addToBackStack(null);
+                ft.addToBackStack(null);
                 ft.commit();
                 DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
                 drawer.closeDrawer(GravityCompat.START);
