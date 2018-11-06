@@ -383,6 +383,16 @@ public class LoginActivity extends AppCompatActivity {
         //TODO: Replace this with your own logic
         return password.length() > 4;
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        //finish();
+        Intent a = new Intent(Intent.ACTION_MAIN);
+        a.addCategory(Intent.CATEGORY_HOME);
+        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(a);
+    }
 }
 
 
