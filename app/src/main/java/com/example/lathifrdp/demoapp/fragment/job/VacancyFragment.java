@@ -31,7 +31,7 @@ import retrofit2.Response;
 public class VacancyFragment extends Fragment {
 
     Bundle bundle;
-    private String title;
+    private String title, lokasi;
     TextView tv;
     SwipeRefreshLayout mSwipeRefreshLayout;
     ListView listView;
@@ -64,6 +64,8 @@ public class VacancyFragment extends Fragment {
 
         if(bundle != null){
             title = bundle.getString("title");
+            lokasi = bundle.getString("id_lokasi");
+            if(lokasi == "0") lokasi = null;
             if(title.isEmpty()) page =1;
             //tv.setText(title);
             loadDataVacancy();
@@ -111,7 +113,7 @@ public class VacancyFragment extends Fragment {
         apiService = ApiClient.getClient().create(ApiInterface.class);
         //ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        Call<JobResponse> call = apiService.getJob("JWT "+ sessionManager.getKeyToken(),title,page);
+        Call<JobResponse> call = apiService.getJob("JWT "+ sessionManager.getKeyToken(),title,lokasi,page);
         call.enqueue(new Callback<JobResponse>() {
             @Override
             public void onResponse(Call<JobResponse> call, Response<JobResponse> response) {
