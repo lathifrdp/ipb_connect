@@ -1,5 +1,6 @@
 package com.example.lathifrdp.demoapp.api;
 
+import com.example.lathifrdp.demoapp.model.JobLocation;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.model.UserProfile;
@@ -71,7 +72,11 @@ public interface ApiInterface {
     @GET("vacancies")
     Call<JobResponse> getJob(@Header("Authorization") String token,
                              @Query("title") String title,
+                             @Query("jobLocationId") String jobLocationId,
                              @Query("page") Integer page);
+
+    @GET("joblocations/getlist")
+    Call<List<JobLocation>> getLocation(@Header("Authorization") String token);
 
     @GET("events")
     Call<EventResponse> getEvent(@Header("Authorization") String token,
