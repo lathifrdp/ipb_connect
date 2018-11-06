@@ -94,7 +94,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View view) {
                 Toast.makeText(MainActivity.this, "profil", Toast.LENGTH_SHORT).show();
                 bundle = new Bundle();
-                bundle.putString("fullname",sessionManager.getKeyFullname());
+                bundle.putString("nama",sessionManager.getKeyFullname());
                 bundle.putString("id",sessionManager.getKeyId());
                 bundle.putString("email",sessionManager.getKeyEmail());
                 Fragment fragment = null;
@@ -137,13 +137,17 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
-            //super.onBackPressed();
+        }
+        else if (getFragmentManager().getBackStackEntryCount() > 0) {
+            getFragmentManager().popBackStack();
+        }
+        else {
+            super.onBackPressed();
             //finish();
-            Intent b = new Intent(Intent.ACTION_MAIN);
-            b.addCategory(Intent.CATEGORY_HOME);
-            b.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(b);
+//            Intent b = new Intent(Intent.ACTION_MAIN);
+//            b.addCategory(Intent.CATEGORY_HOME);
+//            b.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//            startActivity(b);
         }
     }
 
@@ -181,6 +185,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
 
         Fragment fragment = null;
+        bundle = new Bundle();
 
         int id = item.getItemId();
 
@@ -192,6 +197,8 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.event) {
             fragment = new EventFragment();
+            //bundle.putString("event_stat","1");
+            //fragment.setArguments(bundle);
         }
         else if (id == R.id.explore) {
             fragment = new ExploreFragment();
@@ -216,6 +223,7 @@ public class MainActivity extends AppCompatActivity
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
             ft.commit();
         }
 

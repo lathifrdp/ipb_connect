@@ -111,8 +111,8 @@ public class ExploreFragment extends Fragment{
 
                 newFragment.setArguments(bundle);
 
-                Toast.makeText(getActivity(), "nama: "+fullName, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), "batch: "+batch, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "nama: "+fullName, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(getActivity(), "batch: "+batch, Toast.LENGTH_SHORT).show();
                 //Toast.makeText(getActivity(), "idprodi: "+studyProgramId, Toast.LENGTH_SHORT).show();
                 // consider using Java coding conventions (upper first char class names!!!)
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -162,8 +162,8 @@ public class ExploreFragment extends Fragment{
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             StudyProgram studyProgram = (StudyProgram) spinner.getSelectedItem();
                             studyProgramId = studyProgram.getFacultyId();
-                            Toast.makeText(getActivity(), studyProgramId, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(getActivity(), studyProgram.getName(), Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), studyProgramId, Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(getActivity(), studyProgram.getName(), Toast.LENGTH_SHORT).show();
                         }
 
                         @Override

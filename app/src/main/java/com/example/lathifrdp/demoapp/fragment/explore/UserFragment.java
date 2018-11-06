@@ -82,15 +82,20 @@ public class UserFragment extends Fragment{
             full = bundle.getString("fullname");
             bat = bundle.getString("batch");
             stud = bundle.getString("study");
+
+            if(full.isEmpty())full = null;
+            if(bat.isEmpty())bat = null;
             if(stud == "0") stud = null;
-            //Toast.makeText(getActivity(), full, Toast.LENGTH_SHORT).show();
-            //Toast.makeText(getActivity(), batch, Toast.LENGTH_SHORT).show();
-            //Toast.makeText(getActivity(), x3, Toast.LENGTH_SHORT).show();
+            if(full == null && bat == null && stud == null) page = 1;
             loadDataUser();
         }
         else {
             Toast.makeText(getActivity(), "gagal bos", Toast.LENGTH_SHORT).show();
         }
+//        Toast.makeText(getActivity(), "1 = "+x3, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "2 = "+full, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "3 = "+bat, Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getActivity(), "4 = "+stud, Toast.LENGTH_SHORT).show();
 
         listUser = new ArrayList<>();
         adapter= new UserList(listUser,getActivity());
@@ -114,7 +119,7 @@ public class UserFragment extends Fragment{
                 Fragment newFragment = null;
                 newFragment = new ProfileFragment();
 
-                bundle.putString("fullname",listUser.get(i).getFullName()); // Put anything what you want
+                bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
                 bundle.putString("id",listUser.get(i).getId()); // Put anything what you want
                 bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
 
@@ -141,7 +146,7 @@ public class UserFragment extends Fragment{
                         adapter.getSize() - 1){
                     if(page<limitpage+1) {
                         loadDataUser();
-                        Toast.makeText(getActivity(), "lanjut " + page, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "lanjut " + page, Toast.LENGTH_SHORT).show();
                     }
                 }
             }
@@ -186,8 +191,6 @@ public class UserFragment extends Fragment{
                     limitpage = (int)Math.ceil((double)total/limit);
 
                     //Log.e("limitpage: ",String.valueOf(limitpage));
-
-
                     page++;
 
 //                    listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

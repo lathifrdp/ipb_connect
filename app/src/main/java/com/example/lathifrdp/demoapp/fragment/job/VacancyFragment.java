@@ -64,6 +64,7 @@ public class VacancyFragment extends Fragment {
 
         if(bundle != null){
             title = bundle.getString("title");
+            if(title.isEmpty()) page =1;
             //tv.setText(title);
             loadDataVacancy();
         }

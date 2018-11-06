@@ -41,6 +41,8 @@ public class EventFragment extends Fragment{
     private boolean isRefresh = false;
     private List<Event> listEvent;
     private int limitpage=0;
+    Bundle bundle;
+    String stat;
 
     @Nullable
     @Override
@@ -59,6 +61,13 @@ public class EventFragment extends Fragment{
 
         sessionManager = new SessionManager(getActivity());
 
+        if(bundle != null){
+        }
+        else {
+            page=1;
+        }
+        //Toast.makeText(getActivity(), "stat " + stat, Toast.LENGTH_SHORT).show();
+        Toast.makeText(getActivity(), "page " + page, Toast.LENGTH_SHORT).show();
         loadDataEvent();
 
         listEvent = new ArrayList<>();
@@ -69,7 +78,7 @@ public class EventFragment extends Fragment{
             @Override
             public void onRefresh() {
                 isRefresh = true;
-                //page=1;
+                page=1;
                 loadDataEvent();
             }
         });

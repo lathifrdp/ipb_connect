@@ -60,7 +60,7 @@ public class ProfileFragment extends Fragment {
             //String x = bundle.getString("limit");
             //String x2 = bundle.getString("limit2");
             id_user = bundle.getString("id");
-            full = bundle.getString("fullname");
+            full = bundle.getString("nama");
             mail = bundle.getString("email");
 
             loadDataProfile();
