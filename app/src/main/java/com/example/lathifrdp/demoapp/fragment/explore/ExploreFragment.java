@@ -2,6 +2,8 @@ package com.example.lathifrdp.demoapp.fragment.explore;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -68,9 +70,17 @@ public class ExploreFragment extends Fragment{
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Explore Alumni");
 
         loadDataProdi();
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.faba);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Kirim email", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
 
         bundle = new Bundle();
-        tv = (TextView) getView().findViewById(R.id.testext);
+        //tv = (TextView) getView().findViewById(R.id.testext);
 
         fullName2 = (EditText) getView().findViewById(R.id.tesfullNameFragment);
         batch2 = (EditText) getView().findViewById(R.id.tesbatchFragment);
@@ -83,7 +93,7 @@ public class ExploreFragment extends Fragment{
 
 
 
-        tv.setText(fullName);
+        //tv.setText(fullName);
 
         //loadDataUser();
 
