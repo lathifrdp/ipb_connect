@@ -374,4 +374,13 @@ public class RegisterActivity extends AppCompatActivity {
         //TODO: Replace this with your own logic
         return email.contains("@");
     }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        Intent c = new Intent(Intent.ACTION_MAIN);
+        c.addCategory(Intent.CATEGORY_HOME);
+        c.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(c);
+    }
 }
