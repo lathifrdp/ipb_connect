@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.adapter.MemoriesAdapter;
+import com.example.lathifrdp.demoapp.adapter.MemoriesList;
 import com.example.lathifrdp.demoapp.adapter.MyRecyclerAdapter;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
@@ -37,7 +38,7 @@ public class MemoriesFragment extends Fragment{
     //Read storage permission request code
     //private static final int RC_READ_STORAGE = 5;
     //MemoriesAdapter mGalleryAdapter;
-    MyRecyclerAdapter mGalleryAdapter;
+    MemoriesList mGalleryAdapter;
     ApiInterface apiService;
     SessionManager sessionManager;
     //ProgressDialog pd;
@@ -79,7 +80,7 @@ public class MemoriesFragment extends Fragment{
                     if (response.isSuccessful()) {
 
                         galleryItems = response.body().getMemories();
-                        mGalleryAdapter = new MyRecyclerAdapter(galleryItems,R.layout.row_memories);
+                        mGalleryAdapter = new MemoriesList(galleryItems);
                         //mGalleryAdapter.addGalleryItems(galleryItems);
                         recyclerViewGallery.setAdapter(mGalleryAdapter);
                         //recyclerView.setAdapter(new SharingAdapter(getActivity(), sharingArrayList));
