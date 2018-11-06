@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,11 +13,8 @@
         android:id="@+id/jobFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginBottom="5dp"
         android:textStyle="bold"
-        android:text="Job Vacancy"/>
+        tools:text="Job Vacancy"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -36,6 +34,33 @@
             android:layout_marginLeft="5dp"
             android:text="*Contoh: admin, programmer, dokter dll"
             android:textColor="@color/merah"/>
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="90dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:textStyle="bold"
+            android:text="Lokasi"/>
+        <Spinner
+            android:id="@+id/lokasiFragment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:spinnerMode="dropdown"
+            android:layout_gravity="right"
+            android:text="Pilih Lokasi">
+        </Spinner>
+
+    </RelativeLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginTop="150dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
