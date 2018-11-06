@@ -36,7 +36,7 @@ public class ExploreFragment extends Fragment{
     ApiInterface apiService;
     private Spinner spinner;
     private StudyProgramSpinner adapterProdik;
-    private String studyProgramId;
+    public String studyProgramId;
     Button btnExplore;
     private EditText fullName2;
     private EditText batch2;
@@ -46,7 +46,7 @@ public class ExploreFragment extends Fragment{
     UserResponse ur;
     Bundle bundle;
     TextView tv;
-    public String fullName, batch;
+    public String fullName, batch, prod;
 
     @Nullable
     @Override
@@ -76,6 +76,7 @@ public class ExploreFragment extends Fragment{
         batch2 = (EditText) getView().findViewById(R.id.tesbatchFragment);
 
         isVerified = "1";
+        //prod = studyProgramId;
 
 
         sessionManager = new SessionManager(getActivity());
@@ -104,13 +105,15 @@ public class ExploreFragment extends Fragment{
                 newFragment = new UserFragment();
 
                 bundle.putString("fullname",fullName); // Put anything what you want
-                bundle.putString("batch",batch); // Put anything what you want
+                bundle.putString("batch",batch.toString()); // Put anything what you want
+                bundle.putString("study",studyProgramId); // Put anything what you want
                 bundle.putString("isVerified",isVerified.toString()); // Put anything what you want
 
                 newFragment.setArguments(bundle);
 
-                Toast.makeText(getActivity(), fullName, Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), batch, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "nama: "+fullName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "batch: "+batch, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "idprodi: "+studyProgramId, Toast.LENGTH_SHORT).show();
                 // consider using Java coding conventions (upper first char class names!!!)
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
 
@@ -159,7 +162,7 @@ public class ExploreFragment extends Fragment{
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             StudyProgram studyProgram = (StudyProgram) spinner.getSelectedItem();
                             studyProgramId = studyProgram.getFacultyId();
-                            //Toast.makeText(RegisterActivity.this, studyProgram.getFacultyId(), Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), studyProgramId, Toast.LENGTH_SHORT).show();
                             Toast.makeText(getActivity(), studyProgram.getName(), Toast.LENGTH_SHORT).show();
                         }
 
