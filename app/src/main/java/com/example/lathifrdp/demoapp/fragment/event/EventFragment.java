@@ -2,13 +2,17 @@ package com.example.lathifrdp.demoapp.fragment.event;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -55,13 +59,30 @@ public class EventFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Event Reunion");
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_event);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Fragment createFragment = null;
+                createFragment = new CreateEventFragment();
+                createFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.screen_area, createFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         listView=(ListView)getView().findViewById(R.id.listEvent);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
 
         sessionManager = new SessionManager(getActivity());
+        //bundle = this.getArguments();
 
         if(bundle != null){
+            page=1;
         }
         else {
             page=1;
@@ -70,6 +91,7 @@ public class EventFragment extends Fragment{
         Toast.makeText(getActivity(), "page " + page, Toast.LENGTH_SHORT).show();
         loadDataEvent();
 
+        bundle = new Bundle();
         listEvent = new ArrayList<>();
         adapter= new EventList(listEvent,getActivity());
         listView.setAdapter(adapter);
@@ -80,6 +102,34 @@ public class EventFragment extends Fragment{
                 isRefresh = true;
                 page=1;
                 loadDataEvent();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //final String str= listEvent.get(i).getFullName();
+
+                Fragment newFragment = null;
+                newFragment = new DetailEventFragment();
+
+                //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
+                bundle.putString("id",listEvent.get(i).getId()); // Put anything what you want
+                //bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
+
+                newFragment.setArguments(bundle);
+                Toast.makeText(getActivity(), listEvent.get(i).getId(), Toast.LENGTH_SHORT).show();
+//
+                // consider using Java coding conventions (upper first char class names!!!)
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                transaction.replace(R.id.screen_area, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+
             }
         });
 
