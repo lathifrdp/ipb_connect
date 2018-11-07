@@ -64,16 +64,6 @@
                 android:layout_gravity="right"
                 android:text="@string/pilihprodi">
             </Spinner>
-        <android.support.design.widget.FloatingActionButton
-            android:id="@+id/faba"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/pluskurus512"
-            android:layout_marginBottom="20dp"
-            android:layout_marginRight="20dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            app:fabSize="normal" />
 
     </RelativeLayout>
     <LinearLayout
