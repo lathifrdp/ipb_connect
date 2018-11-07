@@ -1,5 +1,6 @@
 package com.example.lathifrdp.demoapp.api;
 
+import com.example.lathifrdp.demoapp.model.Event;
 import com.example.lathifrdp.demoapp.model.JobLocation;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.User;
@@ -82,6 +83,11 @@ public interface ApiInterface {
     Call<EventResponse> getEvent(@Header("Authorization") String token,
                                  //@Query("title") String title,
                                  @Query("page") Integer page);
+
+    @GET("events/{id}")
+    Call<Event> getDetailEvent(@Header("Authorization") String token,
+                               @Path("id") String id);
+
     @GET("knowledgesharings")
     Call<SharingResponse> getTerbaru(@Header("Authorization") String token);
 
