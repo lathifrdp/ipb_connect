@@ -14,8 +14,13 @@ import android.widget.TextView;
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.model.Event;
 
+import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class EventList extends ArrayAdapter<Event> implements View.OnClickListener{
     private List<Event> dataSet;
@@ -58,13 +63,13 @@ public class EventList extends ArrayAdapter<Event> implements View.OnClickListen
         Object object= getItem(position);
         Event dataModel=(Event)object;
 
-        switch (v.getId())
-        {
-            case R.id.item_info:
-                Snackbar.make(v, "Place: " +dataModel.getPlace(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                break;
-        }
+//        switch (v.getId())
+//        {
+//            case R.id.item_info:
+//                Snackbar.make(v, "Place: " +dataModel.getPlace(), Snackbar.LENGTH_LONG)
+//                        .setAction("No action", null).show();
+//                break;
+//        }
     }
 
     private int lastPosition = -1;
@@ -100,11 +105,23 @@ public class EventList extends ArrayAdapter<Event> implements View.OnClickListen
         result.startAnimation(animation);
         lastPosition = position;
 
+        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date date = null;
+        try {
+            date = inputFormat.parse(dataModel.getStartDate());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        String formattedDate = outputFormat.format(date);
+
+        int number = Integer.parseInt(dataModel.getPrice());
+        String str = NumberFormat.getNumberInstance(Locale.US).format(number);
         viewHolder.txtTitle.setText(dataModel.getTitle());
-        viewHolder.txtDescription.setText(dataModel.getDescription());
-        viewHolder.txtPrice.setText(dataModel.getPrice());
-        viewHolder.info.setOnClickListener(this);
-        viewHolder.info.setTag(position);
+        viewHolder.txtDescription.setText("Rp "+str);
+        viewHolder.txtPrice.setText(formattedDate);
+        //viewHolder.info.setOnClickListener(this);
+        //viewHolder.info.setTag(position);
         // Return the completed view to render on screen
         return convertView;
     }
