@@ -34,7 +34,7 @@ public class KesehatanFragment extends Fragment {
     private List<KnowledgeSharing> sharingArrayList;
     TextView Disconnected;
     private KnowledgeSharing mov;
-    ProgressDialog pd;
+    //ProgressDialog pd;
     private SwipeRefreshLayout swipeContainer;
     ApiInterface apiService;
     SessionManager sessionManager;
@@ -75,10 +75,10 @@ public class KesehatanFragment extends Fragment {
     }
 
     private void initViewsKesehatan(){
-        pd = new ProgressDialog(getActivity());
-        pd.setMessage("Fetching Data...");
-        pd.setCancelable(false);
-        pd.show();
+//        pd = new ProgressDialog(getActivity());
+//        pd.setMessage("Fetching Data...");
+//        pd.setCancelable(false);
+//        pd.show();
         recyclerView=(RecyclerView) getView().findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerView.smoothScrollToPosition(0);
@@ -103,7 +103,7 @@ public class KesehatanFragment extends Fragment {
                         recyclerView.smoothScrollToPosition(0);
                         //Toast.makeText(getActivity(), movieArrayList.toString(), Toast.LENGTH_SHORT).show();
                         swipeContainer.setRefreshing(false);
-                        pd.hide();
+                        //pd.hide();
                     }
                 }
 
@@ -112,7 +112,7 @@ public class KesehatanFragment extends Fragment {
                     Log.d("Error", t.getMessage());
                     Toast.makeText(getActivity(), "Error Fetching Data!", Toast.LENGTH_SHORT).show();
                     Disconnected.setVisibility(View.VISIBLE);
-                    pd.hide();
+                    //pd.hide();
                 }
 
             });
