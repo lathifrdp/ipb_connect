@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity
         nav_email.setText(sessionManager.getKeyEmail());
         nav_fullname.setText(sessionManager.getKeyFullname());
 
-        String url = "http://182.23.70.28:3501/uploads/profile/"+sessionManager.getKeyPhoto();
+        String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+sessionManager.getKeyPhoto();
         Picasso.get()
                 .load(url)
                 .placeholder(R.drawable.alumni2)
