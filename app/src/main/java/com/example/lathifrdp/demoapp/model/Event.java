@@ -47,6 +47,9 @@ public class Event {
     @SerializedName("longitude")
     private String longitude;
 
+    @SerializedName("createdBy")
+    private User user;
+
     public Event(String id, String contact, String created, String description, String endDate, String endTime, String place, String price, String startDate, String startTime, String title, String picture, String latitude, String longitude){
         this.id = id;
         this.contact = contact;
@@ -158,5 +161,13 @@ public class Event {
 
     public void setStartTime(String startTime) {
         this.startTime = startTime;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
