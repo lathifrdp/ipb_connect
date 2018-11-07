@@ -70,15 +70,6 @@ public class ExploreFragment extends Fragment{
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Explore Alumni");
 
         loadDataProdi();
-        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.faba);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Kirim email", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-
         bundle = new Bundle();
         //tv = (TextView) getView().findViewById(R.id.testext);
 
