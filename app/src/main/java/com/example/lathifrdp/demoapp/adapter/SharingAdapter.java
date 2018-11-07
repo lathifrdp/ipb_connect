@@ -43,7 +43,7 @@ public class SharingAdapter extends RecyclerView.Adapter<SharingAdapter.ViewHold
 //                .load(movies.get(i).getCover())
 //                .placeholder(R.drawable.load)
 //                .into(viewHolder.imageView);
-        String url = "http://182.23.70.28:3501/uploads/knowledgesharing/"+knowledgeSharings.get(i).getCover();
+        String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/knowledgesharing/"+knowledgeSharings.get(i).getCover();
         Picasso.get()
                 .load(url)
                 .placeholder(R.drawable.logoipb)

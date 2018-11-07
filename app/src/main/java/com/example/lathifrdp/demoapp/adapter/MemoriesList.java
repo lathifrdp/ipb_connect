@@ -47,7 +47,7 @@ public class MemoriesList extends RecyclerView.Adapter<MemoriesList.MyViewHolder
         holder.caption.setText(movie.getCaption());
         holder.photo.setImageBitmap(null);
         Picasso.get().cancelRequest(holder.photo);
-        String url = "http://182.23.70.28:3501/uploads/memory/"+movie.getPhoto();
+        String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/memory/"+movie.getPhoto();
         Picasso.get().load(url).placeholder(R.drawable.logoipb).error(R.drawable.alumni2).into(holder.photo);
     }
 

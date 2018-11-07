@@ -103,7 +103,7 @@ public class ProfileFragment extends Fragment {
                     job_profil.setText("Pekerjaan saat ini: "+userProfile.getCurrentJob());
                     marital_profil.setText("Status: "+userProfile.getMaritalStatus());
 
-                    String url = "http://182.23.70.28:3501/uploads/profile/"+userProfile.getPhoto();
+                    String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+userProfile.getPhoto();
                     Picasso.get()
                             .load(url)
                             .placeholder(R.drawable.alumni2)
