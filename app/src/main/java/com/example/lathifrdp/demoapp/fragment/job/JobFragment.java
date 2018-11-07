@@ -2,6 +2,8 @@ package com.example.lathifrdp.demoapp.fragment.job;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -56,6 +58,21 @@ public class JobFragment extends Fragment {
 //            }
 //        });
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Job Vacancy");
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_vacancy);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Fragment createFragment = null;
+                createFragment = new CreateVacancyFragment();
+                createFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.screen_area, createFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         sessionManager = new SessionManager(getActivity());
         loadDataProdi();
         bundle = new Bundle();
