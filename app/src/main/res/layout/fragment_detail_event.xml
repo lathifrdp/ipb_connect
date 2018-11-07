@@ -145,6 +145,58 @@
                 android:id="@+id/kontaknya"
                 android:paddingLeft="10dp"
                 tools:text="isinya"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="20dp"
+                android:id="@+id/posting"
+                android:text="Diposting oleh:"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/fotonya"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:src="@drawable/alumni2"
+                    android:scaleType="fitXY"/>
+                <TextView
+                    android:id="@+id/namanya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama"
+                    android:layout_toRightOf="@id/fotonya"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/studinya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Studi"
+                    android:layout_toRightOf="@id/fotonya"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/namanya" />
+
+                <TextView
+                    android:id="@+id/angkatannya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Angkatan"
+                    android:layout_toRightOf="@id/fotonya"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/studinya" />
+            </RelativeLayout>
             
         </LinearLayout>
     </ScrollView>
