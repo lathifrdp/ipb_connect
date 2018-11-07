@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,10 +16,12 @@ import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Event;
+import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -27,7 +30,8 @@ public class DetailEventFragment extends Fragment {
 
     Bundle bundle;
     private String id_event;
-    TextView judul, alamat, harga, deskripsi, kontak;
+    TextView judul, alamat, harga, deskripsi, kontak, nama, angkatan, prodi;
+    ImageView foto;
     ApiInterface apiService;
     SessionManager sessionManager;
 
@@ -48,6 +52,10 @@ public class DetailEventFragment extends Fragment {
         harga = (TextView) getView().findViewById(R.id.harga);
         deskripsi = (TextView) getView().findViewById(R.id.deskripsinya);
         kontak = (TextView) getView().findViewById(R.id.kontaknya);
+        nama = (TextView) getView().findViewById(R.id.namanya);
+        angkatan = (TextView) getView().findViewById(R.id.angkatannya);
+        prodi = (TextView) getView().findViewById(R.id.studinya);
+        foto = (ImageView) getView().findViewById(R.id.fotonya);
 
         bundle = this.getArguments();
 
@@ -85,6 +93,16 @@ public class DetailEventFragment extends Fragment {
                     harga.setText("Rp "+str);
                     deskripsi.setText(event.getDescription());
                     kontak.setText(event.getContact());
+                    nama.setText(event.getUser().getFullName());
+                    prodi.setText(event.getUser().getStudyProgram().getName());
+                    angkatan.setText("Angkatan "+event.getUser().getBatch());
+
+                    String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+event.getUser().getUserProfile().getPhoto();
+                    Picasso.get()
+                            .load(url)
+                            .placeholder(R.drawable.alumni2)
+                            .error(R.drawable.logoipb)
+                            .into(foto);
                 }
             }
 
