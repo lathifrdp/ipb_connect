@@ -2,6 +2,8 @@ package com.example.lathifrdp.demoapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class Memory {
     @SerializedName("_id")
     private String id;
@@ -15,25 +17,25 @@ public class Memory {
     @SerializedName("totalLike")
     private String totalLike;
 
-//    @SerializedName("likers")
-//    private Liker liker;
+    @SerializedName("likers")
+    private List<Liker> liker;
 
-//    @SerializedName("comments")
-//    private Comment comment;
+    @SerializedName("comments")
+    private List<Comment> comment;
 
 //    @SerializedName("createdBy")
-//    private User createdBy;
+//    private User user;
 
     @SerializedName("created")
     private String created;
 
-    public Memory(String id, String caption, String photo, String totalLike, User createdBy, String created){
+    public Memory(String id, String caption, String photo, String totalLike, String created, List<Comment> comment){
         this.id = id;
         this.caption = caption;
         this.photo = photo;
         this.totalLike = totalLike;
-        //this.createdBy = createdBy;
         this.created = created;
+        this.comment = comment;
     }
 
     public String getId() {
@@ -68,28 +70,28 @@ public class Memory {
         this.totalLike = totalLike;
     }
 
-//    public Liker getLiker() {
-//        return liker;
-//    }
-//
-//    public void setLiker(Liker liker) {
-//        this.liker = liker;
-//    }
-//
-//    public Comment getComment() {
-//        return comment;
-//    }
-//
-//    public void setComment(Comment comment) {
-//        this.comment = comment;
-//    }
+    public List<Comment> getComment() {
+        return comment;
+    }
 
-//    public User getCreatedBy() {
-//        return createdBy;
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
+    }
+
+    public List<Liker> getLiker() {
+        return liker;
+    }
+
+    public void setLiker(List<Liker> liker) {
+        this.liker = liker;
+    }
+
+//    public User getUser() {
+//        return user;
 //    }
 //
-//    public void setCreatedBy(User createdBy) {
-//        this.createdBy = createdBy;
+//    public void setUser(User user) {
+//        this.user = user;
 //    }
 
     public String getCreated() {
