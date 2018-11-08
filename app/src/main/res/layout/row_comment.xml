@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:id="@+id/foto_comment"
+            android:layout_marginLeft="20dp"
+            android:src="@drawable/alumni2"
+            android:scaleType="fitXY"/>
+        <TextView
+            android:id="@+id/nama_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nama"
+            android:layout_toRightOf="@id/foto_comment"
+            android:layout_marginLeft="40dp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/value_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Value"
+            android:layout_toRightOf="@id/foto_comment"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/nama_comment" />
+        <TextView
+            android:id="@+id/tanggal_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tanggal Comment"
+            android:layout_toRightOf="@id/foto_comment"
+            android:layout_marginLeft="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/value_comment" />
+</RelativeLayout>
