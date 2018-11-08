@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:paddingTop="20dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/foto_memories"
+        android:src="@drawable/alumni2"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/caption_memories"
+        android:text="Detail Memories Coming Soon"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:text="comment"
+        android:id="@+id/comment_memories"/>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Like"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="Comments"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:textStyle="bold"
+        android:textSize="20sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        android:scrollbars="vertical"
+        android:id="@+id/recy_comment">
+    </android.support.v7.widget.RecyclerView>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:layout_alignParentBottom="true">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="300dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/tulis_komentar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:hint="Tulis komentar ..."
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:paddingBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_menu_send"/>
+    </LinearLayout>
+
+</RelativeLayout>
