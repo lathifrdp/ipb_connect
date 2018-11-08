@@ -3,7 +3,10 @@ package com.example.lathifrdp.demoapp.fragment.memories;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,6 +47,7 @@ public class MemoriesFragment extends Fragment{
     //ProgressDialog pd;
     private int page = 1;
     private int limitpage=0;
+    Bundle bundle;
 
     @Nullable
     @Override
@@ -56,6 +60,21 @@ public class MemoriesFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Memories");
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_memories);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+                Fragment createFragment = null;
+                createFragment = new CreateMemoriesFragment();
+                createFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.screen_area, createFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         sessionManager = new SessionManager(getActivity());
 
         recyclerViewGallery= (RecyclerView) getView().findViewById(R.id.recc);
