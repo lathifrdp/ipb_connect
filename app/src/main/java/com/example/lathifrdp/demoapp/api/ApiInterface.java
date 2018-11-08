@@ -2,6 +2,7 @@ package com.example.lathifrdp.demoapp.api;
 
 import com.example.lathifrdp.demoapp.model.Event;
 import com.example.lathifrdp.demoapp.model.JobLocation;
+import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.model.UserProfile;
@@ -120,4 +121,8 @@ public interface ApiInterface {
     @GET("memories")
     Call<MemoriesResponse> getMemories(@Header("Authorization") String token,
                                        @Query("page") Integer page);
+
+    @GET("memories/{id}")
+    Call<Memory> getDetailMemory(@Header("Authorization") String token,
+                                 @Path("id") String id);
 }
