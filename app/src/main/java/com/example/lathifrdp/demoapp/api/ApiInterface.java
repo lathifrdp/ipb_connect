@@ -6,6 +6,8 @@ import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.model.UserProfile;
+import com.example.lathifrdp.demoapp.response.CommentGetResponse;
+import com.example.lathifrdp.demoapp.response.CommentResponse;
 import com.example.lathifrdp.demoapp.response.CountResponse;
 import com.example.lathifrdp.demoapp.response.EventResponse;
 import com.example.lathifrdp.demoapp.response.GroupResponse;
@@ -125,4 +127,15 @@ public interface ApiInterface {
     @GET("memories/{id}")
     Call<Memory> getDetailMemory(@Header("Authorization") String token,
                                  @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("memories/comment/{id}")
+    Call<CommentResponse> commentRequest(@Header("Authorization") String token,
+                                         @Field("value") String value,
+                                         @Field("createdBy") String createdBy,
+                                         @Path("id") String id);
+
+    @GET("memories/comment/{id}")
+    Call<CommentGetResponse> getComment(@Header("Authorization") String token,
+                                        @Path("id") String id);
 }
