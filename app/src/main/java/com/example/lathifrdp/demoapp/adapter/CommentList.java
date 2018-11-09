@@ -29,6 +29,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class CommentList extends RecyclerView.Adapter<CommentList.MyViewHolder>{
     private List<Comment> commentList;
 
+    public void setList(List<Comment> list) {
+        if(commentList==null) commentList=new ArrayList<>();
+        this.commentList = list;
+    }
+    public void addList(List<Comment> list) {
+        if(commentList==null) commentList=new ArrayList<>();
+        this.commentList.addAll(list);
+    }
+
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView value,tanggal,nama;
         public CircleImageView photo;
