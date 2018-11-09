@@ -20,22 +20,25 @@ import com.squareup.picasso.Picasso;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class CommentList extends RecyclerView.Adapter<CommentList.MyViewHolder>{
     private List<Comment> commentList;
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView value,tanggal,nama;
-        public ImageView photo;
+        public CircleImageView photo;
 
         public MyViewHolder(View view) {
             super(view);
             value = (TextView) view.findViewById(R.id.value_comment);
             tanggal = (TextView) view.findViewById(R.id.tanggal_comment);
             nama = (TextView) view.findViewById(R.id.nama_comment);
-            photo = (ImageView) view.findViewById(R.id.foto_comment);
+            photo = (CircleImageView) view.findViewById(R.id.foto_comment);
         }
     }
 
@@ -55,25 +58,26 @@ public class CommentList extends RecyclerView.Adapter<CommentList.MyViewHolder>{
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
         final Comment comment = commentList.get(position);
-        holder.nama.setText(comment.getId());
-        holder.value.setText(comment.getValue());
+        holder.nama.setText(comment.getUser().getFullName());
+            holder.value.setText(comment.getValue());
 
-        SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
-        Date date = null;
-        try {
-            date = inputFormat.parse(comment.getCreated());
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        String formattedDate = outputFormat.format(date);
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = null;
+            try {
+                date = inputFormat.parse(comment.getCreated());
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+            String formattedDate = outputFormat.format(date);
 
-        holder.tanggal.setText(formattedDate);
+            holder.tanggal.setText(formattedDate);
 
-//        holder.photo.setImageBitmap(null);
-//        Picasso.get().cancelRequest(holder.photo);
-//        String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/memory/"+memory.getPhoto();
-//        Picasso.get().load(url).placeholder(R.drawable.logoipb).error(R.drawable.alumni2).into(holder.photo);
+            holder.photo.setImageBitmap(null);
+            Picasso.get().cancelRequest(holder.photo);
+            String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/" + comment.getUser().getUserProfile().getPhoto();
+            Picasso.get().load(url).placeholder(R.drawable.logoipb).error(R.drawable.alumni2).into(holder.photo);
+
     }
 
     @Override
