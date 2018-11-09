@@ -88,7 +88,7 @@ public class DetailMemoriesFragment extends Fragment{
             public void onClick(View view) {
                 postComment();
                 //commentAdapter.notifyDataSetChanged();
-                loadComment();
+                //loadComment();
                 //tulis.getText().clear();//clears the text
             }
         });
@@ -154,13 +154,9 @@ public class DetailMemoriesFragment extends Fragment{
                     CommentGetResponse cgr = response.body();
                     commentsList = cgr.getComments();
                     judul_komen.setText("Comments ("+commentsList.size()+") :");
-                    //Log.e("limitpage: ",String.valueOf(commentsList.size()));
-//                    if(commentsList == null) commentsList = new ArrayList<>();
-//                    else {
-                        commentAdapter = new CommentList(commentsList);
-                        recyclerViewCom.setAdapter(commentAdapter);
-                        recyclerViewCom.smoothScrollToPosition(0);
-                    //}
+                    commentAdapter = new CommentList(commentsList);
+                    recyclerViewCom.setAdapter(commentAdapter);
+                    recyclerViewCom.smoothScrollToPosition(0);
                 }
             }
 
@@ -198,6 +194,7 @@ public class DetailMemoriesFragment extends Fragment{
                         Toast.makeText(getActivity(), cr.getMessage(), Toast.LENGTH_SHORT).show();
 
                     }
+                    loadComment();
                 }
             }
 
