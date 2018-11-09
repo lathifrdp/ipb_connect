@@ -20,8 +20,8 @@ public class Memory {
     @SerializedName("likers")
     private List<Liker> liker;
 
-    @SerializedName("comments")
-    private List<Comment> comment;
+//    @SerializedName("comments")
+//    private List<Comment> comment;
 
 //    @SerializedName("createdBy")
 //    private User user;
@@ -35,7 +35,7 @@ public class Memory {
         this.photo = photo;
         this.totalLike = totalLike;
         this.created = created;
-        this.comment = comment;
+        //this.comment = comment;
     }
 
     public String getId() {
@@ -70,13 +70,13 @@ public class Memory {
         this.totalLike = totalLike;
     }
 
-    public List<Comment> getComment() {
-        return comment;
-    }
-
-    public void setComment(List<Comment> comment) {
-        this.comment = comment;
-    }
+//    public List<Comment> getComment() {
+//        return comment;
+//    }
+//
+//    public void setComment(List<Comment> comment) {
+//        this.comment = comment;
+//    }
 
     public List<Liker> getLiker() {
         return liker;
