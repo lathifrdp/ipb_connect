@@ -195,6 +195,7 @@ public class DetailMemoriesFragment extends Fragment{
 
                     }
                     loadComment();
+                    tulis.getText().clear();
                 }
             }
 
