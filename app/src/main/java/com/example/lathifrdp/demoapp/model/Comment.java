@@ -1,12 +1,13 @@
 package com.example.lathifrdp.demoapp.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
 public class Comment {
-//    @SerializedName("createdBy")
-//    private String createdBy;
+    @SerializedName("createdBy")
+    private User user;
 
     @SerializedName("_id")
     private String id;
@@ -20,9 +21,8 @@ public class Comment {
     @SerializedName("created")
     private String created;
 
-    public Comment(String createdBy,String id,String value, String created){
+    public Comment(String id,String value, String created){
         this.value = value;
-        //this.createdBy = createdBy;
         this.created = created;
         this.id = id;
     }
@@ -51,13 +51,13 @@ public class Comment {
         this.liker = liker;
     }
 
-//    public String getCreatedBy() {
-//        return createdBy;
-//    }
-//
-//    public void setCreatedBy(String createdBy) {
-//        this.createdBy = createdBy;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getCreated() {
         return created;
