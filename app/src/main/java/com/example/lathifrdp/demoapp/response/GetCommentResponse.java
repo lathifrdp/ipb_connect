@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class CommentGetResponse {
+public class GetCommentResponse {
     @SerializedName("results")
     private List<Comment> comments;
 
@@ -18,7 +18,7 @@ public class CommentGetResponse {
     @SerializedName("total")
     private Integer total;
 
-    public CommentGetResponse(List<Comment> comments, Integer page, Integer limit, Integer total){
+    public GetCommentResponse(List<Comment> comments, Integer page, Integer limit, Integer total){
         this.comments = comments;
         this.page = page;
         this.limit = limit;
