@@ -2,13 +2,10 @@ package com.example.lathifrdp.demoapp.fragment.memories;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,16 +18,13 @@ import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.adapter.CommentList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
-import com.example.lathifrdp.demoapp.fragment.event.DetailEventFragment;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Comment;
-import com.example.lathifrdp.demoapp.model.Liker;
 import com.example.lathifrdp.demoapp.model.Memory;
-import com.example.lathifrdp.demoapp.response.CommentGetResponse;
-import com.example.lathifrdp.demoapp.response.CommentResponse;
+import com.example.lathifrdp.demoapp.response.GetCommentResponse;
+import com.example.lathifrdp.demoapp.response.PostCommentResponse;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -144,14 +138,14 @@ public class DetailMemoriesFragment extends Fragment{
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<CommentGetResponse> call = apiService.getComment("JWT "+ sessionManager.getKeyToken(),memo);
-        call.enqueue(new Callback<CommentGetResponse>() {
+        Call<GetCommentResponse> call = apiService.getComment("JWT "+ sessionManager.getKeyToken(),memo);
+        call.enqueue(new Callback<GetCommentResponse>() {
             @Override
-            public void onResponse(Call<CommentGetResponse> call, final Response<CommentGetResponse> response) {
+            public void onResponse(Call<GetCommentResponse> call, final Response<GetCommentResponse> response) {
                 //mSwipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
 
-                    CommentGetResponse cgr = response.body();
+                    GetCommentResponse cgr = response.body();
                     commentsList = cgr.getComments();
                     judul_komen.setText("Comments ("+commentsList.size()+") :");
                     commentAdapter = new CommentList(commentsList);
@@ -161,7 +155,7 @@ public class DetailMemoriesFragment extends Fragment{
             }
 
             @Override
-            public void onFailure(Call<CommentGetResponse> call, Throwable t) {
+            public void onFailure(Call<GetCommentResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "gagal", Toast.LENGTH_SHORT).show();
                 //mSwipeRefreshLayout.setRefreshing(false);
             }
@@ -176,14 +170,14 @@ public class DetailMemoriesFragment extends Fragment{
         final String createdBy = sessionManager.getKeyId();
 
 
-        Call<CommentResponse> ucall = apiService.commentRequest("JWT "+ sessionManager.getKeyToken(),value,createdBy,memo);
-        ucall.enqueue(new Callback<CommentResponse>() {
+        Call<PostCommentResponse> ucall = apiService.postComment("JWT "+ sessionManager.getKeyToken(),value,createdBy,memo);
+        ucall.enqueue(new Callback<PostCommentResponse>() {
             @Override
-            public void onResponse(Call<CommentResponse> call, Response<CommentResponse> response) {
+            public void onResponse(Call<PostCommentResponse> call, Response<PostCommentResponse> response) {
 
                 if (response.isSuccessful()) {
 
-                    CommentResponse cr = response.body();
+                    PostCommentResponse cr = response.body();
 
                     if(cr.isSuccess()==false ){
                         Toast.makeText(getActivity(), cr.getMessage(), Toast.LENGTH_SHORT).show();
@@ -200,7 +194,7 @@ public class DetailMemoriesFragment extends Fragment{
             }
 
             @Override
-            public void onFailure(Call<CommentResponse> call, Throwable t) {
+            public void onFailure(Call<PostCommentResponse> call, Throwable t) {
 
                 Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
             }

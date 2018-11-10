@@ -4,10 +4,9 @@ import com.example.lathifrdp.demoapp.model.Event;
 import com.example.lathifrdp.demoapp.model.JobLocation;
 import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
-import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.model.UserProfile;
-import com.example.lathifrdp.demoapp.response.CommentGetResponse;
-import com.example.lathifrdp.demoapp.response.CommentResponse;
+import com.example.lathifrdp.demoapp.response.GetCommentResponse;
+import com.example.lathifrdp.demoapp.response.PostCommentResponse;
 import com.example.lathifrdp.demoapp.response.CountResponse;
 import com.example.lathifrdp.demoapp.response.EventResponse;
 import com.example.lathifrdp.demoapp.response.GroupResponse;
@@ -34,10 +33,9 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("users/login")
-    Call<LoginResponse> loginRequest(
+    Call<LoginResponse> postLogin(
             @Field("email") String email,
             @Field("password") String password
-            //@Body LoginResponse loginResponse
             );
 
     @GET("studyprograms/getlist")
@@ -45,7 +43,7 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("users")
-    Call<RegisterResponse> registerRequest(
+    Call<RegisterResponse> postRegister(
             @Field("fullName") String fullName,
             @Field("gender") String gender,
             @Field("dateOfBirth") String dateOfBirth,
@@ -130,12 +128,12 @@ public interface ApiInterface {
 
     @FormUrlEncoded
     @POST("memories/comment/{id}")
-    Call<CommentResponse> commentRequest(@Header("Authorization") String token,
-                                         @Field("value") String value,
-                                         @Field("createdBy") String createdBy,
-                                         @Path("id") String id);
+    Call<PostCommentResponse> postComment(@Header("Authorization") String token,
+                                             @Field("value") String value,
+                                             @Field("createdBy") String createdBy,
+                                             @Path("id") String id);
 
     @GET("memories/comment/{id}")
-    Call<CommentGetResponse> getComment(@Header("Authorization") String token,
+    Call<GetCommentResponse> getComment(@Header("Authorization") String token,
                                         @Path("id") String id);
 }

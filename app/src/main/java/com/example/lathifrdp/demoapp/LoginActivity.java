@@ -201,7 +201,7 @@ public class LoginActivity extends AppCompatActivity {
         final String password = mPasswordView.getText().toString();
 
 
-        Call<LoginResponse> ucall = apiService.loginRequest(email, password);
+        Call<LoginResponse> ucall = apiService.postLogin(email, password);
         ucall.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, Response<LoginResponse> response) {

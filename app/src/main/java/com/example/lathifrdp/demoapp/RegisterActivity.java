@@ -119,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity {
         final String batch = etAngkatan.getText().toString();
         final Integer isVerified = 0;
 
-        Call<RegisterResponse> ucall = apiService.registerRequest(fullName, gender, dateOfBirth, email, password, nim, userType, batch, studyProgramId, isVerified);
+        Call<RegisterResponse> ucall = apiService.postRegister(fullName, gender, dateOfBirth, email, password, nim, userType, batch, studyProgramId, isVerified);
         ucall.enqueue(new Callback<RegisterResponse>() {
             @Override
             public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
