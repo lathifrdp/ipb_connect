@@ -2,7 +2,7 @@ package com.example.lathifrdp.demoapp.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class CommentResponse {
+public class PostCommentResponse {
 
     @SerializedName("isSuccess")
     private boolean isSuccess;
@@ -10,7 +10,7 @@ public class CommentResponse {
     @SerializedName("message")
     private String message;
 
-    public CommentResponse(boolean isSuccess, String message){
+    public PostCommentResponse(boolean isSuccess, String message){
         this.isSuccess = isSuccess;
         this.message = message;
     }
