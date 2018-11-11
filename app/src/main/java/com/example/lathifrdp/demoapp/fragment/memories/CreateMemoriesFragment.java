@@ -4,7 +4,9 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -44,7 +46,7 @@ public class CreateMemoriesFragment extends Fragment{
     EditText capt;
     Button btn;
     ImageView gambar,gallery,camera;
-    public String pathImage;
+    public String pathImage,msg;
     //RecyclerView gambar;
     public File poto, compoto;
     SessionManager sessionManager;
@@ -95,7 +97,7 @@ public class CreateMemoriesFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Upload File...");
+                pd.setMessage("Upload Gambar...");
                 pd.setCancelable(false);
                 pd.show();
                 postMemories();
@@ -177,12 +179,22 @@ public class CreateMemoriesFragment extends Fragment{
                 if (response.isSuccessful()) {
 
                     PostMemoriesResponse mr = response.body();
+                    msg = mr.getMessage();
 
                     if(mr.isSuccess()==false ){
-                        Toast.makeText(getActivity(), mr.getMessage(), Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
                     }
                     else {
-                        Toast.makeText(getActivity(), mr.getMessage(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                        Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                        Fragment newFragment = null;
+                        newFragment = new MemoriesFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.screen_area, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
                     pd.dismiss();
                 }
