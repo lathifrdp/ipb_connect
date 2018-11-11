@@ -134,13 +134,29 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onBackPressed() {
+        //Fragment currentFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getBackStackEntryCount());
+        //Fragment currentFragment = getSupportFragmentManager().getFragments().get(getSupportFragmentManager().getBackStackEntryCount() - 1);
+
+//        FragmentManager fragManager = this.getSupportFragmentManager();
+//        int count = this.getSupportFragmentManager().getBackStackEntryCount();
+//        Fragment currentFragment = fragManager.getFragments().get(count>0?count-1:count);
+        Fragment cr = getSupportFragmentManager().findFragmentById(R.id.screen_area);
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
         }
-        else if (getFragmentManager().getBackStackEntryCount() > 0) {
-            getFragmentManager().popBackStack();
+//        else if (getFragmentManager().getBackStackEntryCount() > 0) {
+//            getFragmentManager().popBackStack();
+//        }
+//        if (currentFragment instanceof OnBackPressed) {
+//            ((OnBackPressed) currentFragment).onBackPressed();
+//        }
+        else if (cr instanceof HomeFragment) {
+            MainActivity.this.finish();
+            System.exit(0);
         }
+        //super.onBackPressed();
         else {
             super.onBackPressed();
             //finish();
