@@ -1,6 +1,7 @@
 package com.example.lathifrdp.demoapp.api;
 
 import com.example.lathifrdp.demoapp.model.Event;
+import com.example.lathifrdp.demoapp.model.Job;
 import com.example.lathifrdp.demoapp.model.JobLocation;
 import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
@@ -13,6 +14,7 @@ import com.example.lathifrdp.demoapp.response.GroupResponse;
 import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.MemoriesResponse;
+import com.example.lathifrdp.demoapp.response.PostJobResponse;
 import com.example.lathifrdp.demoapp.response.PostMemoriesResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
 import com.example.lathifrdp.demoapp.response.SharingResponse;
@@ -148,4 +150,28 @@ public interface ApiInterface {
                                             @Part MultipartBody.Part photo,
                                             @Part("caption") RequestBody caption,
                                             @Part("createdBy") RequestBody createdBy);
+
+    @FormUrlEncoded
+    @POST("vacancies")
+    Call<PostJobResponse> postJob(
+            @Header("Authorization") String token,
+            @Field("title") String title,
+            @Field("company") String company,
+            @Field("jobLocationId") String jobLocationId,
+            @Field("address") String address,
+            @Field("salaryMin") String salaryMin,
+            @Field("salaryMax") String salaryMax,
+            @Field("closeDate") String closeDate,
+            @Field("companyProfile") String companyProfile,
+            @Field("jobQualification") String jobQualification,
+            @Field("jobDescription") String jobDescription,
+            @Field("email") String email,
+            @Field("subject") String subject,
+            @Field("file") String file,
+            @Field("createdBy") String createdBy
+    );
+
+    @GET("vacancies/{id}")
+    Call<Job> getDetailVacancy(@Header("Authorization") String token,
+                               @Path("id") String id);
 }
