@@ -18,6 +18,7 @@ import com.example.lathifrdp.demoapp.fragment.memories.DetailMemoriesFragment;
 import com.example.lathifrdp.demoapp.model.Comment;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -25,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
 
 public class CommentList extends RecyclerView.Adapter<CommentList.MyViewHolder>{
     private List<Comment> commentList;
@@ -47,7 +49,7 @@ public class CommentList extends RecyclerView.Adapter<CommentList.MyViewHolder>{
             value = (TextView) view.findViewById(R.id.value_comment);
             tanggal = (TextView) view.findViewById(R.id.tanggal_comment);
             nama = (TextView) view.findViewById(R.id.nama_comment);
-            photo = (CircleImageView) view.findViewById(R.id.foto_comment);
+            //photo = (CircleImageView) view.findViewById(R.id.foto_comment);
         }
     }
 
@@ -82,10 +84,10 @@ public class CommentList extends RecyclerView.Adapter<CommentList.MyViewHolder>{
 
             holder.tanggal.setText(formattedDate);
 
-            holder.photo.setImageBitmap(null);
-            Picasso.get().cancelRequest(holder.photo);
-            String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/" + comment.getUser().getUserProfile().getPhoto();
-            Picasso.get().load(url).placeholder(R.drawable.logoipb).error(R.drawable.alumni2).into(holder.photo);
+            //holder.photo.setImageBitmap(null);
+            //Picasso.get().cancelRequest(holder.photo);
+//            String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/" + comment.getUser().getUserProfile().getPhoto();
+//            Picasso.get().load(url).placeholder(R.drawable.logoipb).error(R.drawable.alumni2).into(holder.photo);
 
     }
 
