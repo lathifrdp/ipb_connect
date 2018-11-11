@@ -9,6 +9,9 @@ public class Job {
 //    @SerializedName("profile")
 //    private UserProfile userProfile;
 
+    @SerializedName("createdBy")
+    private User user;
+
     @SerializedName("address")
     private String address;
 
@@ -30,6 +33,9 @@ public class Job {
     @SerializedName("jobDescription")
     private String jobDescription;
 
+    @SerializedName("jobQualification")
+    private String jobQualification;
+
     @SerializedName("salaryMax")
     private String salaryMax;
 
@@ -39,7 +45,13 @@ public class Job {
     @SerializedName("jobLocationId")
     private JobLocation jobLocation;
 
-    public Job(String id, String address, String company, String companyProfile, String email, String subject, String title, String jobDescription, String salaryMax, String salaryMin, JobLocation jobLocation){
+    @SerializedName("closeDate")
+    private String closeDate;
+
+    @SerializedName("file")
+    private String file;
+
+    public Job(String id, String address, String company, String companyProfile, String email, String subject, String title, String jobQualification,String jobDescription, String salaryMax, String salaryMin, JobLocation jobLocation, String closeDate, String file){
         this.id = id;
         this.address = address;
         this.company = company;
@@ -47,10 +59,13 @@ public class Job {
         this.email = email;
         this.subject = subject;
         this.title = title;
+        this.jobQualification = jobQualification;
         this.jobDescription = jobDescription;
         this.salaryMax = salaryMax;
         this.salaryMin = salaryMin;
         this.jobLocation = jobLocation;
+        this.closeDate = closeDate;
+        this.file = file;
     }
 
     public String getId() {
@@ -69,7 +84,14 @@ public class Job {
         this.address = address;
     }
 
-//    public UserProfile getUserProfile() {
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+    //    public UserProfile getUserProfile() {
 //        return userProfile;
 //    }
 //
@@ -147,5 +169,29 @@ public class Job {
 
     public void setJobLocation(JobLocation jobLocation) {
         this.jobLocation = jobLocation;
+    }
+
+    public String getCloseDate() {
+        return closeDate;
+    }
+
+    public void setCloseDate(String closeDate) {
+        this.closeDate = closeDate;
+    }
+
+    public String getJobQualification() {
+        return jobQualification;
+    }
+
+    public void setJobQualification(String jobQualification) {
+        this.jobQualification = jobQualification;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
     }
 }
