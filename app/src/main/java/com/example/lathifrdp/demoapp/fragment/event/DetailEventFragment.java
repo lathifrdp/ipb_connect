@@ -31,7 +31,7 @@ public class DetailEventFragment extends Fragment {
     Bundle bundle;
     private String id_event;
     TextView judul, alamat, harga, deskripsi, kontak, nama, angkatan, prodi;
-    ImageView foto;
+    CircleImageView foto;
     ApiInterface apiService;
     SessionManager sessionManager;
 
@@ -55,7 +55,7 @@ public class DetailEventFragment extends Fragment {
         nama = (TextView) getView().findViewById(R.id.namanya);
         angkatan = (TextView) getView().findViewById(R.id.angkatannya);
         prodi = (TextView) getView().findViewById(R.id.studinya);
-        foto = (ImageView) getView().findViewById(R.id.fotonya);
+        foto = (CircleImageView) getView().findViewById(R.id.fotonya);
 
         bundle = this.getArguments();
 
@@ -100,7 +100,7 @@ public class DetailEventFragment extends Fragment {
                     String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+event.getUser().getUserProfile().getPhoto();
                     Picasso.get()
                             .load(url)
-                            .placeholder(R.drawable.alumni2)
+                            .placeholder(R.drawable.placegam)
                             .error(R.drawable.logoipb)
                             .into(foto);
                 }
