@@ -56,7 +56,7 @@ public class MemoriesList extends RecyclerView.Adapter<MemoriesList.MyViewHolder
         holder.photo.setImageBitmap(null);
         Picasso.get().cancelRequest(holder.photo);
         String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/memory/"+memory.getPhoto();
-        Picasso.get().load(url).placeholder(R.drawable.logoipb).error(R.drawable.alumni2).into(holder.photo);
+        Picasso.get().load(url).placeholder(R.drawable.placegam).error(R.drawable.alumni2).into(holder.photo);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

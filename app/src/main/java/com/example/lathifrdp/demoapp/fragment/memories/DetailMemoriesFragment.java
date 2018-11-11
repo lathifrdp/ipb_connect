@@ -120,7 +120,7 @@ public class DetailMemoriesFragment extends Fragment{
                     String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/memory/"+memory.getPhoto();
                     Picasso.get()
                             .load(url)
-                            .placeholder(R.drawable.alumni2)
+                            .placeholder(R.drawable.placegam)
                             .error(R.drawable.logoipb)
                             .into(foto);
                 }
