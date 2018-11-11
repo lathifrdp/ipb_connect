@@ -59,11 +59,12 @@ public class DetailMemoriesFragment extends Fragment{
 
         recyclerViewCom= (RecyclerView) getView().findViewById(R.id.recy_comment);
         recyclerViewCom.setLayoutManager(new LinearLayoutManager(getActivity()));
+        recyclerViewCom.setHasFixedSize(true);
 
         bundle = this.getArguments();
         caption = (TextView) getView().findViewById(R.id.caption_memories);
         foto = (ImageView) getView().findViewById(R.id.foto_memories);
-        comment = (TextView) getView().findViewById(R.id.comment_memories);
+        //comment = (TextView) getView().findViewById(R.id.comment_memories);
         tulis = (EditText) getView().findViewById(R.id.tulis_komentar);
         kirim = (ImageView) getView().findViewById(R.id.kirim_komentar);
         judul_komen = (TextView) getView().findViewById(R.id.judul_komen);
@@ -112,7 +113,7 @@ public class DetailMemoriesFragment extends Fragment{
 //                    recyclerViewCom.setAdapter(commentAdapter);
 //                    recyclerViewCom.smoothScrollToPosition(0);
 
-                    caption.setText("Caption: "+memory.getCaption());
+                    caption.setText(memory.getCaption());
 //                    for(int i=0;i<commentsList.size();i++) {
 //                        comment.setText("Comment: " + commentsList.get(i).getCreated());
 //                    }
