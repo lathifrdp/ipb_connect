@@ -3,12 +3,14 @@ package com.example.lathifrdp.demoapp.fragment.job;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -74,6 +76,7 @@ public class VacancyFragment extends Fragment {
             Toast.makeText(getActivity(), "gagal bos", Toast.LENGTH_SHORT).show();
         }
 
+        bundle = new Bundle();
         listVacancy = new ArrayList<>();
         adapter= new VacancyList(listVacancy,getActivity());
         listView.setAdapter(adapter);
@@ -84,6 +87,34 @@ public class VacancyFragment extends Fragment {
                 isRefresh = true;
                 //page=1;
                 loadDataVacancy();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //final String str= listEvent.get(i).getFullName();
+
+                Fragment newFragment = null;
+                newFragment = new DetailVacancyFragment();
+
+                //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
+                bundle.putString("id_vacancy",listVacancy.get(i).getId()); // Put anything what you want
+                //bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
+
+                newFragment.setArguments(bundle);
+                Toast.makeText(getActivity(), listVacancy.get(i).getId(), Toast.LENGTH_SHORT).show();
+//
+                // consider using Java coding conventions (upper first char class names!!!)
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                transaction.replace(R.id.screen_area, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+
             }
         });
 
