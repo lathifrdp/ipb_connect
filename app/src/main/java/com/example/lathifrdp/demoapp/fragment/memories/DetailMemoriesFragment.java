@@ -34,7 +34,7 @@ import retrofit2.Response;
 public class DetailMemoriesFragment extends Fragment{
 
     SessionManager sessionManager;
-    TextView caption,comment,judul_komen;
+    TextView caption,comment,judul_komen,namanya;
     EditText tulis;
     ImageView foto, kirim;
     String memo, msg;
@@ -64,7 +64,7 @@ public class DetailMemoriesFragment extends Fragment{
         bundle = this.getArguments();
         caption = (TextView) getView().findViewById(R.id.caption_memories);
         foto = (ImageView) getView().findViewById(R.id.foto_memories);
-        //comment = (TextView) getView().findViewById(R.id.comment_memories);
+        namanya = (TextView) getView().findViewById(R.id.nama_posting_memory);
         tulis = (EditText) getView().findViewById(R.id.tulis_komentar);
         kirim = (ImageView) getView().findViewById(R.id.kirim_komentar);
         judul_komen = (TextView) getView().findViewById(R.id.judul_komen);
@@ -114,6 +114,7 @@ public class DetailMemoriesFragment extends Fragment{
 //                    recyclerViewCom.smoothScrollToPosition(0);
 
                     caption.setText(memory.getCaption());
+                    namanya.setText(memory.getUser().getFullName());
 //                    for(int i=0;i<commentsList.size();i++) {
 //                        comment.setText("Comment: " + commentsList.get(i).getCreated());
 //                    }
