@@ -20,16 +20,16 @@ public class Memory {
     @SerializedName("likers")
     private List<Liker> liker;
 
-//    @SerializedName("comments")
-//    private List<Comment> comment;
+    @SerializedName("comments")
+    private List<Comment> comment;
 
-//    @SerializedName("createdBy")
-//    private User user;
+    @SerializedName("createdBy")
+    private User user;
 
     @SerializedName("created")
     private String created;
 
-    public Memory(String id, String caption, String photo, String totalLike, String created, List<Comment> comment){
+    public Memory(String id, String caption, String photo, String totalLike, String created){
         this.id = id;
         this.caption = caption;
         this.photo = photo;
@@ -70,13 +70,13 @@ public class Memory {
         this.totalLike = totalLike;
     }
 
-//    public List<Comment> getComment() {
-//        return comment;
-//    }
-//
-//    public void setComment(List<Comment> comment) {
-//        this.comment = comment;
-//    }
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
+    }
 
     public List<Liker> getLiker() {
         return liker;
@@ -86,13 +86,13 @@ public class Memory {
         this.liker = liker;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public String getCreated() {
         return created;
