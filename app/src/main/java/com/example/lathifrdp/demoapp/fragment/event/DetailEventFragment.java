@@ -19,6 +19,9 @@ import com.example.lathifrdp.demoapp.model.Event;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -30,7 +33,8 @@ public class DetailEventFragment extends Fragment {
 
     Bundle bundle;
     private String id_event;
-    TextView judul, alamat, harga, deskripsi, kontak, nama, angkatan, prodi;
+    TextView judul, alamat, harga, deskripsi, kontak, nama, angkatan, prodi,startdate,enddate,starttime,endtime;
+    ImageView putu;
     CircleImageView foto;
     ApiInterface apiService;
     SessionManager sessionManager;
@@ -56,6 +60,11 @@ public class DetailEventFragment extends Fragment {
         angkatan = (TextView) getView().findViewById(R.id.angkatannya);
         prodi = (TextView) getView().findViewById(R.id.studinya);
         foto = (CircleImageView) getView().findViewById(R.id.fotonya);
+        putu = (ImageView) getView().findViewById(R.id.foto_poster);
+        startdate = (TextView) getView().findViewById(R.id.startdate_et);
+        enddate = (TextView) getView().findViewById(R.id.enddate_et);
+        starttime = (TextView) getView().findViewById(R.id.starttime_et);
+        endtime = (TextView) getView().findViewById(R.id.endtime_et);
 
         bundle = this.getArguments();
 
@@ -90,18 +99,60 @@ public class DetailEventFragment extends Fragment {
                     String str = NumberFormat.getNumberInstance(Locale.US).format(number);
                     alamat.setText(event.getPlace());
                     judul.setText(event.getTitle());
-                    harga.setText("Rp "+str);
                     deskripsi.setText(event.getDescription());
                     kontak.setText(event.getContact());
                     nama.setText(event.getUser().getFullName());
                     prodi.setText(event.getUser().getStudyProgram().getName());
                     angkatan.setText("Angkatan "+event.getUser().getBatch());
 
+                    if(number == 0){
+                        harga.setText("Gratis");
+                    }
+                    else{
+                        harga.setText("Rp "+str);
+                    }
+
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+
+                    Date awaldate = null;
+                    try {
+                        awaldate = inputFormat.parse(event.getStartDate());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String formattedstartDate = outputFormat.format(awaldate);
+                    startdate.setText(formattedstartDate);
+
+                    Date akhirdate = null;
+                    try {
+                        akhirdate = inputFormat.parse(event.getEndDate());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String formattedendDate = outputFormat.format(akhirdate);
+                    enddate.setText(formattedendDate);
+
+                    starttime.setText("Pukul "+event.getStartTime());
+                    if(event.getEndTime()==""){
+                        endtime.setText("selesai");
+                    }
+                    else{
+                        endtime.setText(event.getEndTime());
+                    }
+
+                    String url2 = "http://api.ipbconnect.cs.ipb.ac.id/uploads/event/"+event.getPicture();
+                    Picasso.get()
+                            .load(url2)
+                            .placeholder(R.drawable.placegam)
+                            .error(R.drawable.placeholdergambar)
+                            .into(putu);
+
                     String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+event.getUser().getUserProfile().getPhoto();
                     Picasso.get()
                             .load(url)
                             .placeholder(R.drawable.placegam)
-                            .error(R.drawable.logoipb)
+                            .error(R.drawable.placeholdergambar)
                             .into(foto);
                 }
             }
