@@ -14,6 +14,7 @@ import com.example.lathifrdp.demoapp.response.GroupResponse;
 import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.MemoriesResponse;
+import com.example.lathifrdp.demoapp.response.PostEventResponse;
 import com.example.lathifrdp.demoapp.response.PostJobResponse;
 import com.example.lathifrdp.demoapp.response.PostMemoriesResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
@@ -174,4 +175,19 @@ public interface ApiInterface {
     @GET("vacancies/{id}")
     Call<Job> getDetailVacancy(@Header("Authorization") String token,
                                @Path("id") String id);
+
+    @Multipart
+    @POST("events")
+    Call<PostEventResponse> postEvent(@Header("Authorization") String token,
+                                      @Part("title") RequestBody title,
+                                      @Part("place") RequestBody place,
+                                      @Part("startDate") RequestBody startDate,
+                                      @Part("endDate") RequestBody endDate,
+                                      @Part("startTime") RequestBody startTime,
+                                      @Part("endTime") RequestBody endTime,
+                                      @Part("description") RequestBody description,
+                                      @Part("contact") RequestBody contact,
+                                      @Part("price") RequestBody price,
+                                      @Part MultipartBody.Part picture,
+                                      @Part("createdBy") RequestBody createdBy);
 }
