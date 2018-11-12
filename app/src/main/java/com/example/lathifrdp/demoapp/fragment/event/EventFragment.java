@@ -63,8 +63,8 @@ public class EventFragment extends Fragment{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
                 Fragment createFragment = null;
                 createFragment = new CreateEventFragment();
                 createFragment.setArguments(bundle);
