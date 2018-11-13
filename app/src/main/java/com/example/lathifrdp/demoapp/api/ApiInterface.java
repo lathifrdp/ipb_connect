@@ -126,7 +126,8 @@ public interface ApiInterface {
                                        @Path("categoryID") String categoryID);
 
     @GET("groupdiscussions")
-    Call<GroupResponse> getGroup(@Header("Authorization") String token);
+    Call<GroupResponse> getGroup(@Header("Authorization") String token,
+                                 @Query("page") Integer page);
 
     @GET("memories")
     Call<MemoriesResponse> getMemories(@Header("Authorization") String token,
