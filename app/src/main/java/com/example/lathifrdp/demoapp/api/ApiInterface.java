@@ -4,6 +4,7 @@ import com.example.lathifrdp.demoapp.model.Event;
 import com.example.lathifrdp.demoapp.model.GroupDiscussion;
 import com.example.lathifrdp.demoapp.model.Job;
 import com.example.lathifrdp.demoapp.model.JobLocation;
+import com.example.lathifrdp.demoapp.model.KnowledgeSharing;
 import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
@@ -215,4 +216,19 @@ public interface ApiInterface {
                                       @Field("title") String title,
                                       @Field("description") String description,
                                       @Field("createdBy") String createdBy);
+
+    @GET("knowledgesharings/{id}")
+    Call<KnowledgeSharing> getDetailKnowledge(@Header("Authorization") String token,
+                                              @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("knowledgesharings/comment/{id}")
+    Call<PostCommentResponse> postCommentKnowledge(@Header("Authorization") String token,
+                                                   @Field("value") String value,
+                                                   @Field("createdBy") String createdBy,
+                                                   @Path("id") String id);
+
+    @GET("knowledgesharings/comment/{id}")
+    Call<KnowledgeSharing> getCommentKnowledge(@Header("Authorization") String token,
+                                                 @Path("id") String id);
 }
