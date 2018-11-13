@@ -92,7 +92,7 @@ public class MainActivity extends AppCompatActivity
         nav_photo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(MainActivity.this, "profil", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(MainActivity.this, "profil", Toast.LENGTH_SHORT).show();
                 bundle = new Bundle();
                 bundle.putString("nama",sessionManager.getKeyFullname());
                 bundle.putString("id",sessionManager.getKeyId());
@@ -155,6 +155,15 @@ public class MainActivity extends AppCompatActivity
         else if (cr instanceof HomeFragment) {
             MainActivity.this.finish();
             System.exit(0);
+        }
+        else if (cr instanceof EventFragment || cr instanceof ExploreFragment || cr instanceof GroupFragment || cr instanceof JobFragment || cr instanceof MemoriesFragment || cr instanceof SharingFragment) {
+            Fragment fragment = null;
+            fragment = new HomeFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
         }
         //super.onBackPressed();
         else {
