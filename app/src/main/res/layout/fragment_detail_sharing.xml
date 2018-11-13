@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/sharing_nama_posting"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="2dp"
+                android:textStyle="bold"
+                android:textColor="#000000"
+                tools:text="Nama created"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/sharing_judul_detail"
+                android:text="Judul Knowledge"
+                android:layout_marginLeft="5dp"
+                android:layout_marginBottom="10dp"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerInside"
+                android:id="@+id/sharing_detail_foto"
+                android:layout_marginBottom="20dp"
+                tools:src="@drawable/alumni2"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/sharing_detail_deskripsi"
+                android:layout_marginBottom="20dp"
+                android:paddingLeft="10dp"
+                tools:text="isinya"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Comments"
+                android:id="@+id/sharing_judul_komen"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="50dp"
+                android:id="@+id/sharing_detail_comment">
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
+    </ScrollView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:background="@color/putih"
+        android:layout_alignParentBottom="true">
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="300dp"
+            android:layout_height="match_parent">
+            <EditText
+                android:id="@+id/sharing_tulis_komentar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="10dp"
+                android:hint="Tulis komentar ..."
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="bottom"
+            android:paddingBottom="10dp"
+            android:id="@+id/sharing_kirim_komentar"
+            android:clickable="true"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_menu_send"/>
+    </LinearLayout>
+
+</RelativeLayout>
