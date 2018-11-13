@@ -37,10 +37,10 @@
         android:layout_marginBottom="5dp"
         android:id="@+id/caption_memories"
         tools:text="Caption"/>
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Like"/>
+        <!--<Button-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="Like"/>-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -53,12 +53,13 @@
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="10dp"
-        android:scrollbars="vertical"
         android:layout_marginBottom="50dp"
         android:id="@+id/recy_comment">
     </android.support.v7.widget.RecyclerView>
+        <!--android:scrollbars="vertical"-->
     </LinearLayout>
     </ScrollView>
     <LinearLayout
