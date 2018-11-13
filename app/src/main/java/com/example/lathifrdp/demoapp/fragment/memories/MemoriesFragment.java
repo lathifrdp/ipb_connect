@@ -27,11 +27,14 @@ import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.response.MemoriesResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static android.widget.AbsListView.OnScrollListener.SCROLL_STATE_IDLE;
 
 public class MemoriesFragment extends Fragment{
 
@@ -64,8 +67,6 @@ public class MemoriesFragment extends Fragment{
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 Fragment createFragment = null;
                 createFragment = new CreateMemoriesFragment();
                 createFragment.setArguments(bundle);
@@ -81,8 +82,56 @@ public class MemoriesFragment extends Fragment{
         recyclerViewGallery.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         //Create RecyclerView Adapter
         //mGalleryAdapter = new MemoriesAdapter(getActivity());
+
+        if(bundle != null){
+            page=1;
+        }
+        else {
+            page=1;
+        }
         loadMemories();
+
+        galleryItems = new ArrayList<>();
+        mGalleryAdapter= new MemoriesList(galleryItems);
+
+        recyclerViewGallery.setAdapter(mGalleryAdapter);
+        recyclerViewGallery.smoothScrollToPosition(0);
         //set adapter to RecyclerView
+//        recyclerViewGallery.addOnScrollListener(new RecyclerView.OnScrollListener() {
+//            @Override
+//            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+//                super.onScrolled(recyclerView, dx, dy);
+//                int pastVisibleItems, visibleItemsCount, totalItemCount;
+////                visibleItemsCount = recyclerViewGallery.getChildCount();
+//
+//                if (dy > 0) {
+////                    if(visibleItemsCount == mGalleryAdapter.getItemCount()-1){
+//                    if (page<limitpage+1) {
+//                        // method where you get your images
+//                        loadMemories();
+//                    }
+////                    }
+//
+//                }
+//            }
+//        });
+
+        recyclerViewGallery.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+//                GridLayoutManager layoutManager = ((GridLayoutManager)recyclerViewGallery.getLayoutManager());
+//                int lastVisiblePosition = layoutManager.findLastVisibleItemPosition();
+
+                if(newState == SCROLL_STATE_IDLE){
+                    if (page<limitpage+1) {
+                        // method where you get your images
+                        loadMemories();
+                        //Toast.makeText(getActivity(), "lanjut " + page, Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
 
     }
 
@@ -98,15 +147,23 @@ public class MemoriesFragment extends Fragment{
                 public void onResponse(Call<MemoriesResponse> call, final Response<MemoriesResponse> response) {
                     if (response.isSuccessful()) {
 
-                        galleryItems = response.body().getMemories();
-                        mGalleryAdapter = new MemoriesList(galleryItems);
-                        //mGalleryAdapter.addGalleryItems(galleryItems);
-                        recyclerViewGallery.setAdapter(mGalleryAdapter);
-                        //recyclerView.setAdapter(new SharingAdapter(getActivity(), sharingArrayList));
-                        recyclerViewGallery.smoothScrollToPosition(0);
+//                        galleryItems = response.body().getMemories();
+//                        mGalleryAdapter = new MemoriesList(galleryItems);
+//                        //mGalleryAdapter.addGalleryItems(galleryItems);
+//                        recyclerViewGallery.setAdapter(mGalleryAdapter);
+//                        //recyclerView.setAdapter(new SharingAdapter(getActivity(), sharingArrayList));
+//                        recyclerViewGallery.smoothScrollToPosition(0);
+                        mGalleryAdapter.addList(response.body().getMemories());
+                        mGalleryAdapter.notifyDataSetChanged();
                         //Toast.makeText(getActivity(), movieArrayList.toString(), Toast.LENGTH_SHORT).show();
                         //swipeContainer.setRefreshing(false);
                         //pd.hide();
+                        int total = response.body().getTotal();
+                        int limit = response.body().getLimit();
+                        limitpage = (int)Math.ceil((double)total/limit);
+
+                        //Log.e("limitpage: ",String.valueOf(limitpage));
+                        page++;
                     }
                 }
 
