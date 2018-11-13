@@ -2,13 +2,16 @@ package com.example.lathifrdp.demoapp.fragment.group;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -41,6 +44,7 @@ public class GroupFragment extends Fragment{
     private boolean isRefresh = false;
     private List<GroupDiscussion> listGroup;
     private int limitpage=0;
+    Bundle bundle;
 
     @Nullable
     @Override
@@ -53,6 +57,21 @@ public class GroupFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Group Discussion");
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_group);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Fragment createFragment = null;
+                createFragment = new CreateGroupFragment();
+                createFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.screen_area, createFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
         listView=(ListView)getView().findViewById(R.id.listGroup);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -61,6 +80,7 @@ public class GroupFragment extends Fragment{
 
         loadDataGroup();
 
+        bundle = new Bundle();
         listGroup = new ArrayList<>();
         adapter= new GroupList(listGroup,getActivity());
         listView.setAdapter(adapter);
@@ -71,6 +91,34 @@ public class GroupFragment extends Fragment{
                 isRefresh = true;
                 //page=1;
                 loadDataGroup();
+            }
+        });
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                //final String str= listEvent.get(i).getFullName();
+
+                Fragment newFragment = null;
+                newFragment = new DetailGroupFragment();
+
+                //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
+                bundle.putString("id_group",listGroup.get(i).getId()); // Put anything what you want
+                //bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
+
+                newFragment.setArguments(bundle);
+                Toast.makeText(getActivity(), listGroup.get(i).getId(), Toast.LENGTH_SHORT).show();
+//
+                // consider using Java coding conventions (upper first char class names!!!)
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                // Replace whatever is in the fragment_container view with this fragment,
+                // and add the transaction to the back stack
+                transaction.replace(R.id.screen_area, newFragment);
+                transaction.addToBackStack(null);
+
+                // Commit the transaction
+                transaction.commit();
+
             }
         });
 
