@@ -20,10 +20,20 @@ import com.example.lathifrdp.demoapp.fragment.memories.DetailMemoriesFragment;
 import com.example.lathifrdp.demoapp.model.Memory;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class MemoriesList extends RecyclerView.Adapter<MemoriesList.MyViewHolder>{
     private List<Memory> memoryList;
+
+    public void setList(List<Memory> list) {
+        if(memoryList==null) memoryList=new ArrayList<>();
+        this.memoryList = list;
+    }
+    public void addList(List<Memory> list) {
+        if(memoryList==null) memoryList=new ArrayList<>();
+        this.memoryList.addAll(list);
+    }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView caption;
@@ -77,7 +87,7 @@ public class MemoriesList extends RecyclerView.Adapter<MemoriesList.MyViewHolder
                 ft.addToBackStack(null);
                 ft.commit();
 
-                Toast.makeText(view.getContext(), memory.getId() + " " + memory.getCaption(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(view.getContext(), memory.getId() + " " + memory.getCaption(), Toast.LENGTH_SHORT).show();
             }
         });
     }
