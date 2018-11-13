@@ -2,6 +2,8 @@ package com.example.lathifrdp.demoapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class KnowledgeSharing {
     @SerializedName("_id")
     private String id;
@@ -9,8 +11,8 @@ public class KnowledgeSharing {
     @SerializedName("title")
     private String title;
 
-//    @SerializedName("description")
-//    private String description;
+    @SerializedName("description")
+    private String description;
 
 //    @SerializedName("category")
 //    private KnowledgeSharingCategory category;
@@ -18,8 +20,8 @@ public class KnowledgeSharing {
     @SerializedName("cover")
     private String cover;
 
-//    @SerializedName("file")
-//    private String file;
+    @SerializedName("file")
+    private String file;
 
     @SerializedName("fileSize")
     private String fileSize;
@@ -30,36 +32,43 @@ public class KnowledgeSharing {
     @SerializedName("totalLike")
     private String totalLike;
 
-//    @SerializedName("totalComment")
-//    private String totalComment;
+    @SerializedName("totalComment")
+    private String totalComment;
 
 //    @SerializedName("likers")
 //    private Liker liker;
 //
-//    @SerializedName("comments")
-//    private Comment comment;
+    @SerializedName("comments")
+    private List<Comment> comment;
 //
 //    @SerializedName("bookmarks")
 //    private Bookmark bookmark;
 
-//    @SerializedName("createdBy")
-//    private String createdBy;
+    @SerializedName("createdBy")
+    private User user;
 
     @SerializedName("created")
     private String created;
 
-    public KnowledgeSharing(String id, String title, String description, String cover, String file, String fileSize, String totalSlide, String totalLike, String totalComment, String created, String createdBy) {
+    @SerializedName("isSuccess")
+    private boolean isSuccess;
+
+    @SerializedName("message")
+    private String message;
+
+    public KnowledgeSharing(String id, String title, String description, String cover, String file, String fileSize, String totalSlide, String totalLike, String totalComment, String created, boolean isSuccess, String message) {
         this.id = id;
         this.title = title;
-        //this.description = description;
+        this.description = description;
         this.cover = cover;
-        //this.file = file;
+        this.file = file;
         this.fileSize = fileSize;
         this.totalSlide = totalSlide;
         this.totalLike = totalLike;
-        //this.totalComment = totalComment;
+        this.totalComment = totalComment;
         this.created = created;
-        //this.createdBy = createdBy;
+        this.isSuccess = isSuccess;
+        this.message = message;
     }
 
     public String getId() {
@@ -78,13 +87,13 @@ public class KnowledgeSharing {
         this.title = title;
     }
 
-//    public String getDescription() {
-//        return description;
-//    }
-//
-//    public void setDescription(String description) {
-//        this.description = description;
-//    }
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
     public String getCover() {
         return cover;
@@ -94,13 +103,13 @@ public class KnowledgeSharing {
         this.cover = cover;
     }
 
-//    public String getFile() {
-//        return file;
-//    }
-//
-//    public void setFile(String file) {
-//        this.file = file;
-//    }
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
 
     public String getFileSize() {
         return fileSize;
@@ -126,14 +135,15 @@ public class KnowledgeSharing {
 //        this.liker = liker;
 //    }
 //
-//    public Comment getComment() {
-//        return comment;
-//    }
-//
-//    public void setComment(Comment comment) {
-//        this.comment = comment;
-//    }
-//
+
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
+    }
+    //
 //    public Bookmark getBookmark() {
 //        return bookmark;
 //    }
@@ -150,13 +160,13 @@ public class KnowledgeSharing {
         this.totalLike = totalLike;
     }
 
-//    public String getTotalComment() {
-//        return totalComment;
-//    }
-//
-//    public void setTotalComment(String totalComment) {
-//        this.totalComment = totalComment;
-//    }
+    public String getTotalComment() {
+        return totalComment;
+    }
+
+    public void setTotalComment(String totalComment) {
+        this.totalComment = totalComment;
+    }
 
     public String getTotalSlide() {
         return totalSlide;
@@ -174,11 +184,27 @@ public class KnowledgeSharing {
         this.created = created;
     }
 
-//    public String getCreatedBy() {
-//        return createdBy;
-//    }
-//
-//    public void setCreatedBy(String createdBy) {
-//        this.createdBy = createdBy;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
+    public void setSuccess(boolean success) {
+        isSuccess = success;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
 }
