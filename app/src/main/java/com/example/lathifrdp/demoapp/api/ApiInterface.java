@@ -1,6 +1,7 @@
 package com.example.lathifrdp.demoapp.api;
 
 import com.example.lathifrdp.demoapp.model.Event;
+import com.example.lathifrdp.demoapp.model.GroupDiscussion;
 import com.example.lathifrdp.demoapp.model.Job;
 import com.example.lathifrdp.demoapp.model.JobLocation;
 import com.example.lathifrdp.demoapp.model.Memory;
@@ -15,6 +16,7 @@ import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.MemoriesResponse;
 import com.example.lathifrdp.demoapp.response.PostEventResponse;
+import com.example.lathifrdp.demoapp.response.PostGroupResponse;
 import com.example.lathifrdp.demoapp.response.PostJobResponse;
 import com.example.lathifrdp.demoapp.response.PostMemoriesResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
@@ -190,4 +192,26 @@ public interface ApiInterface {
                                       @Part("price") RequestBody price,
                                       @Part MultipartBody.Part picture,
                                       @Part("createdBy") RequestBody createdBy);
+
+    @GET("groupdiscussions/comment/{id}")
+    Call<GetCommentResponse> getDiscussion(@Header("Authorization") String token,
+                                        @Path("id") String id);
+
+    @GET("groupdiscussions/{id}")
+    Call<GroupDiscussion> getDetailGroup(@Header("Authorization") String token,
+                                         @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("groupdiscussions/comment/{id}")
+    Call<PostCommentResponse> postDiscussion(@Header("Authorization") String token,
+                                             @Field("value") String value,
+                                             @Field("createdBy") String createdBy,
+                                             @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("groupdiscussions")
+    Call<PostGroupResponse> postGroup(@Header("Authorization") String token,
+                                      @Field("title") String title,
+                                      @Field("description") String description,
+                                      @Field("createdBy") String createdBy);
 }
