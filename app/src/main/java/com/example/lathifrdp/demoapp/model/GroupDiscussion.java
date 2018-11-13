@@ -2,6 +2,8 @@ package com.example.lathifrdp.demoapp.model;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class GroupDiscussion {
 
     @SerializedName("_id")
@@ -16,14 +18,14 @@ public class GroupDiscussion {
     @SerializedName("totalLike")
     private String totalLike;
 
-//    @SerializedName("totalComment")
-//    private int totalComment;
+    @SerializedName("totalComment")
+    private String totalComment;
 
-//    @SerializedName("likers")
-//    private Liker liker;
+    @SerializedName("likers")
+    private List<Liker> liker;
 
-//    @SerializedName("comments")
-//    private Comment comment;
+    @SerializedName("comments")
+    private List<Comment> comment;
 
 //    @SerializedName("bookmarks")
 //    private Bookmark bookmark;
@@ -34,13 +36,12 @@ public class GroupDiscussion {
     @SerializedName("created")
     private String created;
 
-    public GroupDiscussion(String id, String title, String description, String totalLike, int totalComment, User createdBy, String created){
+    public GroupDiscussion(String id, String title, String description, String totalLike, String totalComment, String created){
         this.id = id;
         this.title = title;
         this.description = description;
         this.totalLike = totalLike;
-        //this.totalComment = totalComment;
-        this.createdBy = createdBy;
+        this.totalComment = totalComment;
         this.created = created;
     }
 
@@ -68,13 +69,13 @@ public class GroupDiscussion {
         this.description = description;
     }
 
-//    public int getTotalComment() {
-//        return totalComment;
-//    }
-//
-//    public void setTotalComment(int totalComment) {
-//        this.totalComment = totalComment;
-//    }
+    public String getTotalComment() {
+        return totalComment;
+    }
+
+    public void setTotalComment(String totalComment) {
+        this.totalComment = totalComment;
+    }
 
     public String getTotalLike() {
         return totalLike;
@@ -92,21 +93,22 @@ public class GroupDiscussion {
 //        this.bookmark = bookmark;
 //    }
 
-//    public Comment getComment() {
-//        return comment;
-//    }
-//
-//    public void setComment(Comment comment) {
-//        this.comment = comment;
-//    }
 
-//    public Liker getLiker() {
-//        return liker;
-//    }
-//
-//    public void setLiker(Liker liker) {
-//        this.liker = liker;
-//    }
+    public List<Liker> getLiker() {
+        return liker;
+    }
+
+    public void setLiker(List<Liker> liker) {
+        this.liker = liker;
+    }
+
+    public List<Comment> getComment() {
+        return comment;
+    }
+
+    public void setComment(List<Comment> comment) {
+        this.comment = comment;
+    }
 
     public User getCreatedBy() {
         return createdBy;
