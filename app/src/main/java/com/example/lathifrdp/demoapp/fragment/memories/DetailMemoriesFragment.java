@@ -152,7 +152,7 @@ public class DetailMemoriesFragment extends Fragment{
                     judul_komen.setText("Comments ("+commentsList.size()+") :");
                     commentAdapter = new CommentList(commentsList);
                     recyclerViewCom.setAdapter(commentAdapter);
-                    recyclerViewCom.smoothScrollToPosition(0);
+                    //recyclerViewCom.smoothScrollToPosition(0);
                 }
             }
 
