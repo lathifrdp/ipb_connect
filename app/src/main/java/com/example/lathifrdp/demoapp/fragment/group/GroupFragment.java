@@ -40,7 +40,7 @@ public class GroupFragment extends Fragment{
     GroupList adapter;
     ApiInterface apiService;
     SessionManager sessionManager;
-    private int page = 0;
+    private int page = 1;
     private boolean isRefresh = false;
     private List<GroupDiscussion> listGroup;
     private int limitpage=0;
@@ -89,7 +89,7 @@ public class GroupFragment extends Fragment{
             @Override
             public void onRefresh() {
                 isRefresh = true;
-                //page=1;
+                page=1;
                 loadDataGroup();
             }
         });
@@ -147,7 +147,7 @@ public class GroupFragment extends Fragment{
         apiService = ApiClient.getClient().create(ApiInterface.class);
         //ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        Call<GroupResponse> call = apiService.getGroup("JWT "+ sessionManager.getKeyToken());
+        Call<GroupResponse> call = apiService.getGroup("JWT "+ sessionManager.getKeyToken(),page);
         call.enqueue(new Callback<GroupResponse>() {
             @Override
             public void onResponse(Call<GroupResponse> call, Response<GroupResponse> response) {
