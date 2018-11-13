@@ -97,7 +97,7 @@ public class CreateMemoriesFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Upload Gambar...");
+                pd.setMessage("Create Memories...");
                 pd.setCancelable(false);
                 pd.show();
                 postMemories();
@@ -106,11 +106,19 @@ public class CreateMemoriesFragment extends Fragment{
     }
 
     private void getImageGallery(){
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Buka Gallery...");
+        pd.setCancelable(false);
+        pd.show();
         EasyImage.openGallery(this, 0);
         //EasyImage.openChooserWithGallery(this, "Pick source", 0);
     }
 
     private void getImageCamera(){
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Buka Kamera...");
+        pd.setCancelable(false);
+        pd.show();
         EasyImage.openCamera(this, 0);
         //EasyImage.openChooserWithGallery(this, "Pick source", 0);
     }
@@ -122,6 +130,7 @@ public class CreateMemoriesFragment extends Fragment{
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
 
             @Override
@@ -135,12 +144,14 @@ public class CreateMemoriesFragment extends Fragment{
                 pathImage = imageFiles.getAbsolutePath();
                 onPhotosReturned(poto);
                 Toast.makeText(getActivity(), "picked", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), pathImage, Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+                //Toast.makeText(getActivity(), pathImage, Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onCanceled(EasyImage.ImageSource source, int type) {
                 Toast.makeText(getActivity(), "canceled", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
         });
     }

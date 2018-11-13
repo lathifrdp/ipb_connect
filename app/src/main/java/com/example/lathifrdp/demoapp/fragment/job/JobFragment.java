@@ -62,8 +62,6 @@ public class JobFragment extends Fragment {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
                 Fragment createFragment = null;
                 createFragment = new CreateVacancyFragment();
                 createFragment.setArguments(bundle);
@@ -88,7 +86,7 @@ public class JobFragment extends Fragment {
                 bundle.putString("id_lokasi",jobLocationId);
                 newFragment.setArguments(bundle);
 
-                Toast.makeText(getActivity(), title, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), title, Toast.LENGTH_SHORT).show();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.screen_area, newFragment);
                 transaction.addToBackStack(null);
@@ -124,7 +122,7 @@ public class JobFragment extends Fragment {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             JobLocation studyProgram = (JobLocation) spinner.getSelectedItem();
                             jobLocationId = studyProgram.getId();
-                            Toast.makeText(getActivity(), jobLocationId, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), jobLocationId, Toast.LENGTH_SHORT).show();
 //                            Toast.makeText(getActivity(), studyProgram.getName(), Toast.LENGTH_SHORT).show();
                         }
 

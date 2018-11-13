@@ -82,7 +82,7 @@ public class CreateVacancyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Insert Vacancy...");
+                pd.setMessage("Create Vacancy...");
                 pd.setCancelable(false);
                 pd.show();
                 postJob();
@@ -118,7 +118,7 @@ public class CreateVacancyFragment extends Fragment {
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             JobLocation studyProgram = (JobLocation) spinner.getSelectedItem();
                             jobLocationId = studyProgram.getId();
-                            Toast.makeText(getActivity(), jobLocationId, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), jobLocationId, Toast.LENGTH_SHORT).show();
 //                            Toast.makeText(getActivity(), studyProgram.getName(), Toast.LENGTH_SHORT).show();
                         }
 

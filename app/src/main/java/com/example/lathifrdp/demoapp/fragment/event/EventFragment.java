@@ -88,7 +88,7 @@ public class EventFragment extends Fragment{
             page=1;
         }
         //Toast.makeText(getActivity(), "stat " + stat, Toast.LENGTH_SHORT).show();
-        Toast.makeText(getActivity(), "page " + page, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "page " + page, Toast.LENGTH_SHORT).show();
         loadDataEvent();
 
         bundle = new Bundle();
@@ -118,7 +118,7 @@ public class EventFragment extends Fragment{
                 //bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
 
                 newFragment.setArguments(bundle);
-                Toast.makeText(getActivity(), listEvent.get(i).getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), listEvent.get(i).getId(), Toast.LENGTH_SHORT).show();
 //
                 // consider using Java coding conventions (upper first char class names!!!)
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -140,7 +140,7 @@ public class EventFragment extends Fragment{
                         adapter.getSize() - 1){
                     if(page<limitpage+1) {
                         loadDataEvent();
-                        Toast.makeText(getActivity(), "lanjut " + page, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "lanjut " + page, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

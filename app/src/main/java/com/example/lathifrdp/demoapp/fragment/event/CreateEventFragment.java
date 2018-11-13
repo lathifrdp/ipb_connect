@@ -142,7 +142,7 @@ public class CreateEventFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Insert Event...");
+                pd.setMessage("Create Event...");
                 pd.setCancelable(false);
                 pd.show();
                 postEvent();
@@ -265,11 +265,19 @@ public class CreateEventFragment extends Fragment {
     }
 
     private void getImageGallery(){
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Buka Gallery...");
+        pd.setCancelable(false);
+        pd.show();
         EasyImage.openGallery(this, 0);
         //EasyImage.openChooserWithGallery(this, "Pick source", 0);
     }
 
     private void getImageCamera(){
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Buka Kamera...");
+        pd.setCancelable(false);
+        pd.show();
         EasyImage.openCamera(this, 0);
         //EasyImage.openChooserWithGallery(this, "Pick source", 0);
     }
@@ -281,6 +289,7 @@ public class CreateEventFragment extends Fragment {
             @Override
             public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
                 Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
 
             @Override
@@ -294,12 +303,14 @@ public class CreateEventFragment extends Fragment {
                 pathImage = imageFiles.getAbsolutePath();
                 onPhotosReturned(poto);
                 Toast.makeText(getActivity(), "picked", Toast.LENGTH_SHORT).show();
-                Toast.makeText(getActivity(), pathImage, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), pathImage, Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
 
             @Override
             public void onCanceled(EasyImage.ImageSource source, int type) {
                 Toast.makeText(getActivity(), "canceled", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
         });
     }

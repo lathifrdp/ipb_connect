@@ -103,7 +103,7 @@ public class VacancyFragment extends Fragment {
                 //bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
 
                 newFragment.setArguments(bundle);
-                Toast.makeText(getActivity(), listVacancy.get(i).getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), listVacancy.get(i).getId(), Toast.LENGTH_SHORT).show();
 //
                 // consider using Java coding conventions (upper first char class names!!!)
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
@@ -125,7 +125,7 @@ public class VacancyFragment extends Fragment {
                         adapter.getSize() - 1){
                     if(page<limitpage+1) {
                         loadDataVacancy();
-                        Toast.makeText(getActivity(), "lanjut " + page, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "lanjut " + page, Toast.LENGTH_SHORT).show();
                     }
                 }
             }

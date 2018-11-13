@@ -125,7 +125,7 @@ public class UserFragment extends Fragment{
                 bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
 
                 newFragment.setArguments(bundle);
-                Toast.makeText(getActivity(), str + " "+listUser.get(i).getId(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), str + " "+listUser.get(i).getId(), Toast.LENGTH_SHORT).show();
 
                 // consider using Java coding conventions (upper first char class names!!!)
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
