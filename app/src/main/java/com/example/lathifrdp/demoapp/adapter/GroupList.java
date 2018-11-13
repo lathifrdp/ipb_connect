@@ -58,13 +58,13 @@ public class GroupList extends ArrayAdapter<GroupDiscussion> implements View.OnC
         Object object= getItem(position);
         GroupDiscussion dataModel=(GroupDiscussion)object;
 
-        switch (v.getId())
-        {
-            case R.id.item_info:
-                Snackbar.make(v, "Total Like: " +dataModel.getTotalLike(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                break;
-        }
+//        switch (v.getId())
+//        {
+//            case R.id.item_info:
+//                Snackbar.make(v, "Total Like: " +dataModel.getTotalLike(), Snackbar.LENGTH_LONG)
+//                        .setAction("No action", null).show();
+//                break;
+//        }
     }
 
     private int lastPosition = -1;
@@ -103,8 +103,8 @@ public class GroupList extends ArrayAdapter<GroupDiscussion> implements View.OnC
         viewHolder.txtTitle.setText(dataModel.getTitle());
         viewHolder.txtDescription.setText(dataModel.getDescription());
         viewHolder.txtCreated.setText(dataModel.getCreated());
-        viewHolder.info.setOnClickListener(this);
-        viewHolder.info.setTag(position);
+//        viewHolder.info.setOnClickListener(this);
+//        viewHolder.info.setTag(position);
         // Return the completed view to render on screen
         return convertView;
     }
