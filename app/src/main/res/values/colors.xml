@@ -7,4 +7,7 @@
     <color name="putih">#ffffff</color>
     <color name="abu">#8c8c8c</color>
     <color name="merah">#d63030</color>
+    <color name="hitam">#000000</color>
+    <color name="colorButton">#c6018f1b</color>
+    <color name="accent">#cd3f51b5</color>
 </resources>
