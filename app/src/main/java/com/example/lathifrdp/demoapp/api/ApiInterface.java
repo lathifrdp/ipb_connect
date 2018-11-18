@@ -224,7 +224,7 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("knowledgesharings/comment/{id}")
     Call<PostCommentResponse> postCommentKnowledge(@Header("Authorization") String token,
-                                                   @Field("value") String value,
+                                                   @Field("comment") String comment,
                                                    @Field("createdBy") String createdBy,
                                                    @Path("id") String id);
 
