@@ -9,6 +9,7 @@ import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
+import com.example.lathifrdp.demoapp.response.PostBookmarkResponse;
 import com.example.lathifrdp.demoapp.response.PostCommentResponse;
 import com.example.lathifrdp.demoapp.response.CountResponse;
 import com.example.lathifrdp.demoapp.response.EventResponse;
@@ -19,6 +20,7 @@ import com.example.lathifrdp.demoapp.response.MemoriesResponse;
 import com.example.lathifrdp.demoapp.response.PostEventResponse;
 import com.example.lathifrdp.demoapp.response.PostGroupResponse;
 import com.example.lathifrdp.demoapp.response.PostJobResponse;
+import com.example.lathifrdp.demoapp.response.PostLikeResponse;
 import com.example.lathifrdp.demoapp.response.PostMemoriesResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
 import com.example.lathifrdp.demoapp.response.SharingResponse;
@@ -231,4 +233,28 @@ public interface ApiInterface {
     @GET("knowledgesharings/comment/{id}")
     Call<KnowledgeSharing> getCommentKnowledge(@Header("Authorization") String token,
                                                  @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("knowledgesharings/like/{id}")
+    Call<PostLikeResponse> postLikeKnowledge(@Header("Authorization") String token,
+                                             @Field("createdBy") String createdBy,
+                                             @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("knowledgesharings/unlike/{id}")
+    Call<PostLikeResponse> postUnlikeKnowledge(@Header("Authorization") String token,
+                                               @Field("createdBy") String createdBy,
+                                               @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("knowledgesharings/bookmark/{id}")
+    Call<PostBookmarkResponse> postBookmarkKnowledge(@Header("Authorization") String token,
+                                                     @Field("createdBy") String createdBy,
+                                                     @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("knowledgesharings/unbookmark/{id}")
+    Call<PostBookmarkResponse> postUnbookmarkKnowledge(@Header("Authorization") String token,
+                                                       @Field("createdBy") String createdBy,
+                                                       @Path("id") String id);
 }
