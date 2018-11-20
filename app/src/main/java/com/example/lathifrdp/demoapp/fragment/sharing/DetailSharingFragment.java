@@ -36,10 +36,14 @@ import com.example.lathifrdp.demoapp.adapter.CommentList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
+import com.example.lathifrdp.demoapp.model.Bookmark;
 import com.example.lathifrdp.demoapp.model.Comment;
 import com.example.lathifrdp.demoapp.model.KnowledgeSharing;
+import com.example.lathifrdp.demoapp.model.Liker;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
+import com.example.lathifrdp.demoapp.response.PostBookmarkResponse;
 import com.example.lathifrdp.demoapp.response.PostCommentResponse;
+import com.example.lathifrdp.demoapp.response.PostLikeResponse;
 import com.squareup.picasso.Picasso;
 
 import java.io.File;
@@ -112,13 +116,41 @@ public class DetailSharingFragment extends Fragment{
         }
         loadDataKnowledge();
         loadComment();
+        like.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stateLike==false) {
+                    postLike();
+                    like.setColorFilter(getContext().getResources().getColor(R.color.merah));
+                    stateLike=true;
+                }
+                else if(stateLike==true){
+                    postUnlike();
+                    like.setColorFilter(getContext().getResources().getColor(R.color.abu));
+                    stateLike=false;
+                }
+            }
+        });
+
+        bookmark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stateBookmark==false) {
+                    postBookmark();
+                    bookmark.setColorFilter(getContext().getResources().getColor(R.color.colorPrimary));
+                    stateBookmark=true;
+                }
+                else if(stateBookmark==true){
+                    postUnbookmark();
+                    bookmark.setColorFilter(getContext().getResources().getColor(R.color.abu));
+                    stateBookmark=false;
+                }
+            }
+        });
         kirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 postComment();
-                //commentAdapter.notifyDataSetChanged();
-                //loadComment();
-                //tulis.getText().clear();//clears the text
             }
         });
     }
@@ -140,7 +172,30 @@ public class DetailSharingFragment extends Fragment{
 
                     KnowledgeSharing ks = response.body();
                     //commentsList = memory.getComment();
-//                    List<Liker> like = memory.getLiker();
+                    List<Liker> suka = ks.getLiker();
+                    List<Bookmark> book = ks.getBookmark();
+                    //int likeSize = 0;
+                    int i = 0, j = 0;
+                    //likeSize = Integer.parseInt(ks.getTotalLike());
+                    for(i=0;i<suka.size();i++) {
+                        if(suka.get(i).getCreatedBy().getId().equals(sessionManager.getKeyId())){
+                            like.setColorFilter(getContext().getResources().getColor(R.color.merah));
+                            stateLike=true;
+                        }
+                        else{
+                            stateLike=false;
+                        }
+                    }
+
+                    for(j=0;j<book.size();j++) {
+                        if(book.get(j).getUser().getId().equals(sessionManager.getKeyId())){
+                            bookmark.setColorFilter(getContext().getResources().getColor(R.color.colorPrimary));
+                            stateBookmark=true;
+                        }
+                        else{
+                            stateBookmark=false;
+                        }
+                    }
 //
 //                    commentAdapter = new CommentList(commentsList);
 //                    recyclerViewCom.setAdapter(commentAdapter);
@@ -160,34 +215,6 @@ public class DetailSharingFragment extends Fragment{
                             .error(R.drawable.placeholdergambar)
                             .into(fotonya);
 
-
-                    like.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if(stateLike==false) {
-                                like.setColorFilter(getContext().getResources().getColor(R.color.merah));
-                                stateLike=true;
-                            }
-                            else if(stateLike==true){
-                                like.setColorFilter(getContext().getResources().getColor(R.color.abu));
-                                stateLike=false;
-                            }
-                        }
-                    });
-
-                    bookmark.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
-                            if(stateBookmark==false) {
-                                bookmark.setColorFilter(getContext().getResources().getColor(R.color.colorPrimary));
-                                stateBookmark=true;
-                            }
-                            else if(stateBookmark==true){
-                                bookmark.setColorFilter(getContext().getResources().getColor(R.color.abu));
-                                stateBookmark=false;
-                            }
-                        }
-                    });
 //                    for(int i=0;i<commentsList.size();i++) {
 //                        comment.setText("Comment: " + commentsList.get(i).getCreated());
 //                    }
@@ -437,5 +464,117 @@ public class DetailSharingFragment extends Fragment{
             }
         });
 
+    }
+
+    private void postLike() {
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        final String createdBy = sessionManager.getKeyId();
+
+        Call<PostLikeResponse> ucall = apiService.postLikeKnowledge("JWT "+ sessionManager.getKeyToken(),createdBy,sharing_id);
+        ucall.enqueue(new Callback<PostLikeResponse>() {
+            @Override
+            public void onResponse(Call<PostLikeResponse> call, Response<PostLikeResponse> response) {
+
+                if (response.isSuccessful()) {
+                    PostLikeResponse lr = response.body();
+
+                    if(lr.isSuccess()==false ){
+                        Toast.makeText(getActivity(), lr.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), lr.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostLikeResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void postUnlike() {
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        final String createdBy = sessionManager.getKeyId();
+
+        Call<PostLikeResponse> ucall = apiService.postUnlikeKnowledge("JWT "+ sessionManager.getKeyToken(),createdBy,sharing_id);
+        ucall.enqueue(new Callback<PostLikeResponse>() {
+            @Override
+            public void onResponse(Call<PostLikeResponse> call, Response<PostLikeResponse> response) {
+
+                if (response.isSuccessful()) {
+                    PostLikeResponse lr = response.body();
+
+                    if(lr.isSuccess()==false ){
+                        Toast.makeText(getActivity(), lr.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), lr.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostLikeResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void postBookmark() {
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        final String createdBy = sessionManager.getKeyId();
+
+        Call<PostBookmarkResponse> ucall = apiService.postBookmarkKnowledge("JWT "+ sessionManager.getKeyToken(),createdBy,sharing_id);
+        ucall.enqueue(new Callback<PostBookmarkResponse>() {
+            @Override
+            public void onResponse(Call<PostBookmarkResponse> call, Response<PostBookmarkResponse> response) {
+
+                if (response.isSuccessful()) {
+                    PostBookmarkResponse br = response.body();
+
+                    if(br.isSuccess()==false ){
+                        Toast.makeText(getActivity(), br.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), br.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostBookmarkResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void postUnbookmark() {
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        final String createdBy = sessionManager.getKeyId();
+
+        Call<PostBookmarkResponse> ucall = apiService.postUnbookmarkKnowledge("JWT "+ sessionManager.getKeyToken(),createdBy,sharing_id);
+        ucall.enqueue(new Callback<PostBookmarkResponse>() {
+            @Override
+            public void onResponse(Call<PostBookmarkResponse> call, Response<PostBookmarkResponse> response) {
+
+                if (response.isSuccessful()) {
+                    PostBookmarkResponse br = response.body();
+
+                    if(br.isSuccess()==false ){
+                        Toast.makeText(getActivity(), br.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), br.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostBookmarkResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
