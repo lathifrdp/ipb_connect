@@ -4,22 +4,33 @@ import com.google.gson.annotations.SerializedName;
 
 public class Bookmark {
     @SerializedName("createdBy")
-    private String createdBy;
+    private User user;
 
     @SerializedName("created")
     private String created;
 
-    public Bookmark(String createdBy, String created){
-        this.createdBy = createdBy;
+    @SerializedName("_id")
+    private String id;
+
+    public Bookmark(String created, String id){
         this.created = created;
+        this.id = id;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getId() {
+        return id;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getCreated() {

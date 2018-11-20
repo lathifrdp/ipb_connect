@@ -32,4 +32,12 @@ public class Liker {
     public void setId(String id) {
         this.id = id;
     }
+
+    public User getCreatedBy() {
+        return createdBy;
+    }
+
+    public void setCreatedBy(User createdBy) {
+        this.createdBy = createdBy;
+    }
 }

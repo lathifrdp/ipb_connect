@@ -8,15 +8,18 @@ public class KnowledgeSharingCategory {
     private String name;
 
     @SerializedName("createdBy")
-    private String createdBy;
+    private User user;
 
     @SerializedName("created")
     private String created;
 
-    public KnowledgeSharingCategory(String name, String createdBy, String created){
+    @SerializedName("_id")
+    private String id;
+
+    public KnowledgeSharingCategory(String name, String created, String id){
         this.name = name;
-        this.createdBy = createdBy;
         this.created = created;
+        this.id = id;
     }
 
     public String getName() {
@@ -27,12 +30,20 @@ public class KnowledgeSharingCategory {
         this.name = name;
     }
 
-    public String getCreatedBy() {
-        return createdBy;
+    public String getId() {
+        return id;
     }
 
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public String getCreated() {

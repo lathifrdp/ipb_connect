@@ -14,8 +14,8 @@ public class KnowledgeSharing {
     @SerializedName("description")
     private String description;
 
-//    @SerializedName("category")
-//    private KnowledgeSharingCategory category;
+    @SerializedName("category")
+    private KnowledgeSharingCategory category;
 
     @SerializedName("cover")
     private String cover;
@@ -35,14 +35,14 @@ public class KnowledgeSharing {
     @SerializedName("totalComment")
     private String totalComment;
 
-//    @SerializedName("likers")
-//    private Liker liker;
+    @SerializedName("likers")
+    private List<Liker> liker;
 //
     @SerializedName("comments")
     private List<Comment> comment;
 //
-//    @SerializedName("bookmarks")
-//    private Bookmark bookmark;
+    @SerializedName("bookmarks")
+    private List<Bookmark> bookmark;
 
     @SerializedName("createdBy")
     private User user;
@@ -119,23 +119,6 @@ public class KnowledgeSharing {
         this.fileSize = fileSize;
     }
 
-//    public KnowledgeSharingCategory getCategory() {
-//        return category;
-//    }
-//
-//    public void setCategory(KnowledgeSharingCategory category) {
-//        this.category = category;
-//    }
-//
-//    public Liker getLiker() {
-//        return liker;
-//    }
-//
-//    public void setLiker(Liker liker) {
-//        this.liker = liker;
-//    }
-//
-
     public List<Comment> getComment() {
         return comment;
     }
@@ -143,14 +126,6 @@ public class KnowledgeSharing {
     public void setComment(List<Comment> comment) {
         this.comment = comment;
     }
-    //
-//    public Bookmark getBookmark() {
-//        return bookmark;
-//    }
-//
-//    public void setBookmark(Bookmark bookmark) {
-//        this.bookmark = bookmark;
-//    }
 
     public String getTotalLike() {
         return totalLike;
@@ -206,5 +181,29 @@ public class KnowledgeSharing {
 
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    public KnowledgeSharingCategory getCategory() {
+        return category;
+    }
+
+    public void setCategory(KnowledgeSharingCategory category) {
+        this.category = category;
+    }
+
+    public List<Liker> getLiker() {
+        return liker;
+    }
+
+    public void setLiker(List<Liker> liker) {
+        this.liker = liker;
+    }
+
+    public List<Bookmark> getBookmark() {
+        return bookmark;
+    }
+
+    public void setBookmark(List<Bookmark> bookmark) {
+        this.bookmark = bookmark;
     }
 }
