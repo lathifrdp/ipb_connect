@@ -1,14 +1,19 @@
 package com.example.lathifrdp.demoapp.fragment.sharing;
 
+import android.app.DownloadManager;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
@@ -17,6 +22,7 @@ import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +51,13 @@ import com.example.lathifrdp.demoapp.response.PostBookmarkResponse;
 import com.example.lathifrdp.demoapp.response.PostCommentResponse;
 import com.example.lathifrdp.demoapp.response.PostLikeResponse;
 import com.squareup.picasso.Picasso;
+import com.tonyodev.fetch2.Error;
+import com.tonyodev.fetch2.Fetch;
+import com.tonyodev.fetch2.FetchConfiguration;
+import com.tonyodev.fetch2.NetworkType;
+import com.tonyodev.fetch2.Priority;
+import com.tonyodev.fetch2.Request;
+import com.tonyodev.fetch2core.Func;
 
 import java.io.File;
 import java.io.IOException;
@@ -72,6 +85,10 @@ public class DetailSharingFragment extends Fragment{
     WebView wv;
     public boolean stateLike = false, stateBookmark = false;
     ProgressDialog pd;
+    Fetch fetch;
+    DownloadManager dm;
+    long queueid;
+    private Request request;
 
     @Nullable
     @Override
@@ -98,6 +115,7 @@ public class DetailSharingFragment extends Fragment{
         kirim = (ImageView) getView().findViewById(R.id.sharing_kirim_komentar);
         judul_komen = (TextView) getView().findViewById(R.id.sharing_judul_komen);
         judul_sharing = (TextView) getView().findViewById(R.id.sharing_judul_detail);
+        share = (ImageView) getView().findViewById(R.id.sharing_share);
         download = (ImageView) getView().findViewById(R.id.sharing_download);
         wv = (WebView) getView().findViewById(R.id.webview);
         nama = (TextView) getView().findViewById(R.id.sharing_namanya);
@@ -247,12 +265,89 @@ public class DetailSharingFragment extends Fragment{
                     });
                     wv.loadUrl("https://docs.google.com/gview?url="+filenya+"&embedded=true");
 
+                    share.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            Toast.makeText(getActivity(), "Sharing Coming Soon", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
                     download.setOnClickListener(new View.OnClickListener() {
                         @RequiresApi(api = Build.VERSION_CODES.N)
                         @Override
                         public void onClick(View view) {
 
-                            String packageName = "cn.wps.moffice_eng";
+                            Toast.makeText(getActivity(), "Download Coming Soon", Toast.LENGTH_SHORT).show();
+//                            dm = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
+//                            DownloadManager.Request req = new DownloadManager.Request(Uri.parse(filenya));
+//                            queueid = dm.enqueue(req);
+//                            BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+//                                @Override
+//                                public void onReceive(Context context, Intent intent) {
+//                                    String action = intent.getAction();
+//                                    if(DownloadManager.ACTION_DOWNLOAD_COMPLETE.equals(action)){
+//                                        DownloadManager.Query req_query = new DownloadManager.Query();
+//                                        req_query.setFilterById(queueid);
+//                                        Cursor c = dm.query(req_query);
+//                                        if(c.moveToFirst()){
+//                                            int columnIndex = c.getColumnIndex(DownloadManager.COLUMN_STATUS);
+//                                            if(DownloadManager.STATUS_SUCCESSFUL == c.getInt(columnIndex)){
+//                                                Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                            else{
+//                                                Toast.makeText(getActivity(), "no", Toast.LENGTH_SHORT).show();
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            };
+//                            getActivity().registerReceiver(broadcastReceiver, new IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE));
+
+                            //betul
+//                            FetchConfiguration fetchConfiguration = new FetchConfiguration.Builder(getActivity())
+//                                    .setDownloadConcurrentLimit(3)
+//                                    .build();
+//
+//                            fetch = Fetch.Impl.getInstance(fetchConfiguration);
+//
+//                            String dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+//                            String a = "http://api.ipbconnect.cs.ipb.ac.id/uploads/knowledgesharing/"+ks.getFile();
+//                            String b = dir+"/tes.pptx";
+//
+//                            Log.e("url: ", a);
+//                            Log.e("url: ", b);
+//
+//                            request = new Request(a, b);
+//                            request.setPriority(Priority.HIGH);
+//                            request.setNetworkType(NetworkType.ALL);
+//                            request.addHeader("clientKey", "SD78DF93_3947&MVNGHE1WONG");
+//
+//                            fetch.enqueue(request, updatedRequest -> {
+//                                //Request was successfully enqueued for download.
+//                                //request = updatedRequest;
+//                                Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
+//                            }, error -> {
+//                                //An error occurred enqueuing the request.
+//                                Toast.makeText(getActivity(), "no", Toast.LENGTH_SHORT).show();
+//                            });
+                            //betul
+
+//                            fetch.enqueue(request, new Func<Request>() {
+//                                @Override
+//                                public void call(Request download) {
+//                                    //Request successfully Queued for download
+//                                    Toast.makeText(getActivity(), "done", Toast.LENGTH_SHORT).show();
+//                                }
+//                            }, new Func<Error>() {
+//                                @Override
+//                                public void call(Error error) {
+//                                    //An error occurred when enqueuing a request.
+//                                    Toast.makeText(getActivity(), "no", Toast.LENGTH_SHORT).show();
+//                                }
+//                            });
+
+
+                            //String packageName = "cn.wps.moffice_eng";
                             //boolean isPackageInstalled;
 //                            PackageManager pm = getActivity().getPackageManager();
 //                            int flags = 0;
@@ -278,7 +373,6 @@ public class DetailSharingFragment extends Fragment{
 //                            intent.setDataAndType(uri, "application/vnd.ms-powerpoint");
 //                            intent.setPackage(packageName);
 
-                            File myFile = new File(filenya);
 //                            try {
 //                                FileOpen.openFile(getActivity(), myFile);
 //                            } catch (IOException e) {
@@ -287,16 +381,19 @@ public class DetailSharingFragment extends Fragment{
                             //install.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                             //install.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
 
-                            Uri apkURI = FileProvider.getUriForFile(
-                                    getActivity(),
-                                    getActivity().getApplicationContext()
-                                            .getPackageName() + ".provider", myFile);
-                            getActivity().grantUriPermission(getActivity().getPackageName(), apkURI, Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                            Intent install = new Intent(Intent.ACTION_VIEW);
-                            install.setDataAndType(apkURI, "application/vnd.ms-powerpoint");
-                            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                            // bener
+//                            File myFile = new File(filenya);
+//                            Uri apkURI = FileProvider.getUriForFile(
+//                                    getActivity(),
+//                                    getActivity().getApplicationContext()
+//                                            .getPackageName() + ".provider", myFile);
+//                            getActivity().grantUriPermission(getActivity().getPackageName(), apkURI, Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                            Intent install = new Intent(Intent.ACTION_VIEW);
+//                            install.setDataAndType(apkURI, "application/vnd.ms-powerpoint");
+//                            install.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+//                            getActivity().startActivity(install);
+                            // bener
 
-                            getActivity().startActivity(install);
 //                                if (intent.resolveActivity(getActivity().getPackageManager()) != null){
 //                                    startActivity(intent);
 //                                    Toast.makeText(getActivity(), uri.toString(), Toast.LENGTH_SHORT).show();
