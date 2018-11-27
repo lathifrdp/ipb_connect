@@ -18,6 +18,7 @@ import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.adapter.CommentList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Comment;
 import com.example.lathifrdp.demoapp.model.Memory;
@@ -119,7 +120,7 @@ public class DetailMemoriesFragment extends Fragment{
 //                        comment.setText("Comment: " + commentsList.get(i).getCreated());
 //                    }
                     //comment.setText("Comment: " + like.size());
-                    String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/memory/"+memory.getPhoto();
+                    String url = new BaseModel().getMemoryUrl()+memory.getPhoto();
                     Picasso.get()
                             .load(url)
                             .placeholder(R.drawable.placegam)
