@@ -2,8 +2,10 @@ package com.example.lathifrdp.demoapp.fragment.sharing;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -32,6 +34,21 @@ public class SharingFragment extends Fragment {
 //
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Knowledge Sharing");
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_sharing);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                Fragment createFragment = null;
+                createFragment = new CreateSharingFragment();
+                //createFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.screen_area, createFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
 
         ViewPager viewPager = getView().findViewById(R.id.viewpager);
         setupViewPager(viewPager);
