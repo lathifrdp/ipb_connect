@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.model.UserProfile;
@@ -103,7 +104,7 @@ public class ProfileFragment extends Fragment {
                     job_profil.setText("Pekerjaan saat ini: "+userProfile.getCurrentJob());
                     marital_profil.setText("Status: "+userProfile.getMaritalStatus());
 
-                    String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+userProfile.getPhoto();
+                    String url = new BaseModel().getProfileUrl()+userProfile.getPhoto();
                     Picasso.get()
                             .load(url)
                             .placeholder(R.drawable.alumni2)
