@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.fragment.sharing.DetailSharingFragment;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.model.KnowledgeSharing;
 import com.squareup.picasso.Picasso;
 
@@ -49,11 +50,11 @@ public class SharingAdapter extends RecyclerView.Adapter<SharingAdapter.ViewHold
 //                .load(movies.get(i).getCover())
 //                .placeholder(R.drawable.load)
 //                .into(viewHolder.imageView);
-        String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/knowledgesharing/"+knowledgeSharings.get(i).getCover();
+        String url = new BaseModel().getKnowledgeUrl()+knowledgeSharings.get(i).getCover();
         Picasso.get()
                 .load(url)
-                .placeholder(R.drawable.logoipb)
-                .error(R.drawable.alumni2)
+                .placeholder(R.drawable.placegam)
+                .error(R.drawable.placeholdergambar)
                 .into(viewHolder.imageView);
 
         //viewHolder.imageView.setImageURI(movies.get(i).getCover());
