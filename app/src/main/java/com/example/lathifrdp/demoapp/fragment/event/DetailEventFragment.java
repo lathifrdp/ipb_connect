@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Event;
 import com.squareup.picasso.Picasso;
@@ -141,14 +142,14 @@ public class DetailEventFragment extends Fragment {
                         endtime.setText(event.getEndTime());
                     }
 
-                    String url2 = "http://api.ipbconnect.cs.ipb.ac.id/uploads/event/"+event.getPicture();
+                    String url2 = new BaseModel().getEventUrl()+event.getPicture();
                     Picasso.get()
                             .load(url2)
                             .placeholder(R.drawable.placegam)
                             .error(R.drawable.placeholdergambar)
                             .into(putu);
 
-                    String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+event.getUser().getUserProfile().getPhoto();
+                    String url = new BaseModel().getProfileUrl()+event.getUser().getUserProfile().getPhoto();
                     Picasso.get()
                             .load(url)
                             .placeholder(R.drawable.placegam)
