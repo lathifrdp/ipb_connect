@@ -33,6 +33,7 @@ import com.example.lathifrdp.demoapp.fragment.job.JobFragment;
 import com.example.lathifrdp.demoapp.fragment.memories.MemoriesFragment;
 import com.example.lathifrdp.demoapp.fragment.post.PostFragment;
 import com.example.lathifrdp.demoapp.fragment.sharing.SharingFragment;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.squareup.picasso.Picasso;
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity
         nav_email.setText(sessionManager.getKeyEmail());
         nav_fullname.setText(sessionManager.getKeyFullname());
 
-        String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+sessionManager.getKeyPhoto();
+        String url = new BaseModel().getProfileUrl()+sessionManager.getKeyPhoto();
         Picasso.get()
                 .load(url)
                 .placeholder(R.drawable.alumni2)
