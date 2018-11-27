@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.fragment.memories.DetailMemoriesFragment;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.model.Memory;
 import com.squareup.picasso.Picasso;
 
@@ -65,8 +66,8 @@ public class MemoriesList extends RecyclerView.Adapter<MemoriesList.MyViewHolder
         holder.caption.setText(memory.getCaption());
         holder.photo.setImageBitmap(null);
         Picasso.get().cancelRequest(holder.photo);
-        String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/memory/"+memory.getPhoto();
-        Picasso.get().load(url).placeholder(R.drawable.placegam).error(R.drawable.alumni2).into(holder.photo);
+        String url = new BaseModel().getMemoryUrl()+memory.getPhoto();
+        Picasso.get().load(url).placeholder(R.drawable.placegam).error(R.drawable.placeholdergambar).into(holder.photo);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
