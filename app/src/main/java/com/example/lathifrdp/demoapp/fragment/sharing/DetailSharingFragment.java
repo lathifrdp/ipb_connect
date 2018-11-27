@@ -36,11 +36,17 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.androidnetworking.AndroidNetworking;
+import com.androidnetworking.common.Priority;
+import com.androidnetworking.error.ANError;
+import com.androidnetworking.interfaces.DownloadListener;
+import com.androidnetworking.interfaces.DownloadProgressListener;
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.adapter.CommentKnowledgeList;
 import com.example.lathifrdp.demoapp.adapter.CommentList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Bookmark;
 import com.example.lathifrdp.demoapp.model.Comment;
@@ -55,7 +61,7 @@ import com.tonyodev.fetch2.Error;
 import com.tonyodev.fetch2.Fetch;
 import com.tonyodev.fetch2.FetchConfiguration;
 import com.tonyodev.fetch2.NetworkType;
-import com.tonyodev.fetch2.Priority;
+//import com.tonyodev.fetch2.Priority;
 import com.tonyodev.fetch2.Request;
 import com.tonyodev.fetch2core.Func;
 
@@ -102,6 +108,7 @@ public class DetailSharingFragment extends Fragment{
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Knowledge");
         sessionManager = new SessionManager(getActivity());
+        AndroidNetworking.initialize(getActivity());
 
         recyclerViewCom= (RecyclerView) getView().findViewById(R.id.sharing_detail_comment);
         recyclerViewCom.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -226,7 +233,7 @@ public class DetailSharingFragment extends Fragment{
                     prodi.setText(ks.getUser().getStudyProgram().getName());
                     angkatan.setText("Angkatan "+ks.getUser().getBatch());
 
-                    String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+ks.getUser().getUserProfile().getPhoto();
+                    String url = new BaseModel().getProfileUrl()+ks.getUser().getUserProfile().getPhoto();
                     Picasso.get()
                             .load(url)
                             .placeholder(R.drawable.placegam)
@@ -238,7 +245,8 @@ public class DetailSharingFragment extends Fragment{
 //                    }
                     //comment.setText("Comment: " + like.size());
 
-                    final String filenya = "http://api.ipbconnect.cs.ipb.ac.id/uploads/knowledgesharing/"+ks.getFile();
+                    final String filenya = new BaseModel().getKnowledgeUrl()+ks.getFile();
+                    final String fileName = ks.getFile();
                     pd = new ProgressDialog(getActivity());
                     pd.setMessage("Load document, please wait...");
                     pd.setCancelable(false);
@@ -277,7 +285,47 @@ public class DetailSharingFragment extends Fragment{
                         @Override
                         public void onClick(View view) {
 
-                            Toast.makeText(getActivity(), "Download Coming Soon", Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(getActivity(), "Download Coming Soon", Toast.LENGTH_SHORT).show();
+                            String dirPath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString();
+                            Log.e("filenya: ", filenya);
+                            Log.e("filenya: ", dirPath);
+                            Log.e("filenya: ", fileName);
+
+                            AndroidNetworking.download(filenya,dirPath,fileName)
+                                    .setTag("downloadFile")
+                                    .setPriority(Priority.HIGH)
+                                    .build()
+                                    .setDownloadProgressListener(new DownloadProgressListener() {
+                                        @Override
+                                        public void onProgress(long bytesDownloaded, long totalBytes) {
+                                            // do anything with progress
+                                            Toast.makeText(getActivity(), "Download Progress: "+bytesDownloaded+"/"+totalBytes, Toast.LENGTH_SHORT).show();
+                                        }
+                                    })
+                                    .startDownload(new DownloadListener() {
+                                        @Override
+                                        public void onDownloadComplete() {
+                                            // do anything after completion
+                                            Toast.makeText(getActivity(), "Download Complete", Toast.LENGTH_SHORT).show();
+                                        }
+                                        @Override
+                                        public void onError(ANError error) {
+                                            // handle error
+                                            Toast.makeText(getActivity(), "Download Error", Toast.LENGTH_SHORT).show();
+                                            if (error.getErrorCode() != 0) {
+                                                // received error from server
+                                                // error.getErrorCode() - the error code from server
+                                                // error.getErrorBody() - the error body from server
+                                                // error.getErrorDetail() - just an error detail
+                                                Log.e("errornya: ", "onError errorCode : " + error.getErrorCode());
+                                                Log.e("errornya: ", "onError errorBody : " + error.getErrorBody());
+                                                Log.e("errornya: ", "onError errorDetail : " + error.getErrorDetail());
+                                            } else {
+                                                // error.getErrorDetail() : connectionError, parseError, requestCancelledError
+                                                Log.e("errornya: ", "onError errorDetail : " + error.getErrorDetail());
+                                            }
+                                        }
+                                    });
 //                            dm = (DownloadManager) getActivity().getSystemService(Context.DOWNLOAD_SERVICE);
 //                            DownloadManager.Request req = new DownloadManager.Request(Uri.parse(filenya));
 //                            queueid = dm.enqueue(req);
