@@ -5,6 +5,7 @@ import com.example.lathifrdp.demoapp.model.GroupDiscussion;
 import com.example.lathifrdp.demoapp.model.Job;
 import com.example.lathifrdp.demoapp.model.JobLocation;
 import com.example.lathifrdp.demoapp.model.KnowledgeSharing;
+import com.example.lathifrdp.demoapp.model.KnowledgeSharingCategory;
 import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
@@ -22,6 +23,7 @@ import com.example.lathifrdp.demoapp.response.PostGroupResponse;
 import com.example.lathifrdp.demoapp.response.PostJobResponse;
 import com.example.lathifrdp.demoapp.response.PostLikeResponse;
 import com.example.lathifrdp.demoapp.response.PostMemoriesResponse;
+import com.example.lathifrdp.demoapp.response.PostSharingResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
 import com.example.lathifrdp.demoapp.response.SharingResponse;
 import com.example.lathifrdp.demoapp.response.UserResponse;
@@ -257,4 +259,15 @@ public interface ApiInterface {
     Call<PostBookmarkResponse> postUnbookmarkKnowledge(@Header("Authorization") String token,
                                                        @Field("createdBy") String createdBy,
                                                        @Path("id") String id);
+    @GET("knowledgesharingcategories")
+    Call<List<KnowledgeSharingCategory>> getCategory(@Header("Authorization") String token);
+
+    @Multipart
+    @POST("knowledgesharings")
+    Call<PostSharingResponse> postKnowledge(@Header("Authorization") String token,
+                                            @Part MultipartBody.Part file,
+                                            @Part("title") RequestBody title,
+                                            @Part("description") RequestBody description,
+                                            @Part("category") RequestBody category,
+                                            @Part("createdBy") RequestBody createdBy);
 }
