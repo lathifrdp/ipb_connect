@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Job;
 import com.squareup.picasso.Picasso;
@@ -141,7 +142,7 @@ public class DetailVacancyFragment extends Fragment{
                     prodi.setText(job.getUser().getStudyProgram().getName());
                     angkatan.setText("Angkatan "+job.getUser().getBatch());
 
-                    String url = "http://api.ipbconnect.cs.ipb.ac.id/uploads/profile/"+job.getUser().getUserProfile().getPhoto();
+                    String url = new BaseModel().getProfileUrl()+job.getUser().getUserProfile().getPhoto();
                     Picasso.get()
                             .load(url)
                             .placeholder(R.drawable.placegam)
