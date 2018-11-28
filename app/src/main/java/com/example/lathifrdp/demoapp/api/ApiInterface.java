@@ -270,4 +270,14 @@ public interface ApiInterface {
                                             @Part("description") RequestBody description,
                                             @Part("category") RequestBody category,
                                             @Part("createdBy") RequestBody createdBy);
+
+    @GET("vacancies")
+    Call<JobResponse> getJobPost(@Header("Authorization") String token,
+                                 @Query("createdBy") String createdBy,
+                                 @Query("page") Integer page);
+
+    @GET("events")
+    Call<EventResponse> getEventPost(@Header("Authorization") String token,
+                                     @Query("createdBy") String createdBy,
+                                     @Query("page") Integer page);
 }
