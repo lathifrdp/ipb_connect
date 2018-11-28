@@ -24,6 +24,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.fragment.bookmark.BookmarkFragment;
+import com.example.lathifrdp.demoapp.fragment.crowdfunding.CrowdAlumniFragment;
+import com.example.lathifrdp.demoapp.fragment.crowdfunding.CrowdMahasiswaFragment;
 import com.example.lathifrdp.demoapp.fragment.event.EventFragment;
 import com.example.lathifrdp.demoapp.fragment.explore.ExploreFragment;
 import com.example.lathifrdp.demoapp.fragment.explore.ProfileFragment;
@@ -158,7 +160,11 @@ public class MainActivity extends AppCompatActivity
             MainActivity.this.finish();
             System.exit(0);
         }
-        else if (cr instanceof EventFragment || cr instanceof ExploreFragment || cr instanceof GroupFragment || cr instanceof JobFragment || cr instanceof MemoriesFragment || cr instanceof SharingFragment || cr instanceof PostFragment || cr instanceof BookmarkFragment) {
+        else if (cr instanceof EventFragment || cr instanceof ExploreFragment ||
+                cr instanceof GroupFragment || cr instanceof JobFragment ||
+                cr instanceof MemoriesFragment || cr instanceof SharingFragment ||
+                cr instanceof PostFragment || cr instanceof BookmarkFragment ||
+                cr instanceof CrowdMahasiswaFragment || cr instanceof CrowdAlumniFragment) {
             Fragment fragment = null;
             fragment = new HomeFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -243,6 +249,19 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.group) {
             fragment = new GroupFragment();
+        }
+        else if (id == R.id.crowdfunding) {
+
+            String status = sessionManager.getKeyUsertype();
+            //Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
+            if(status.equals("Mahasiswa")) {
+                fragment = new CrowdMahasiswaFragment();
+                //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
+            }
+            else if(status.equals("Alumni")) {
+                fragment = new CrowdAlumniFragment();
+                //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
+            }
         }
         else if (id == R.id.bookmark) {
             fragment = new BookmarkFragment();
