@@ -32,6 +32,10 @@
             android:id="@+id/group"
             android:icon="@drawable/group"
             android:title="Group Discussion" />
+        <item
+            android:id="@+id/crowdfunding"
+            android:icon="@drawable/crowdfunding"
+            android:title="Crowdfunding" />
     </group>
 
     <item android:title="Your Activity">
