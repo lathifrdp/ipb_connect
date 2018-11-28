@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -157,7 +158,7 @@ public class MainActivity extends AppCompatActivity
             MainActivity.this.finish();
             System.exit(0);
         }
-        else if (cr instanceof EventFragment || cr instanceof ExploreFragment || cr instanceof GroupFragment || cr instanceof JobFragment || cr instanceof MemoriesFragment || cr instanceof SharingFragment) {
+        else if (cr instanceof EventFragment || cr instanceof ExploreFragment || cr instanceof GroupFragment || cr instanceof JobFragment || cr instanceof MemoriesFragment || cr instanceof SharingFragment || cr instanceof PostFragment || cr instanceof BookmarkFragment) {
             Fragment fragment = null;
             fragment = new HomeFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -165,6 +166,10 @@ public class MainActivity extends AppCompatActivity
             ft.replace(R.id.screen_area, fragment);
             ft.addToBackStack(null);
             ft.commit();
+
+            NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+            navigationView.setNavigationItemSelectedListener(this);
+            navigationView.getMenu().getItem(0).setChecked(true);
         }
         //super.onBackPressed();
         else {
@@ -217,6 +222,7 @@ public class MainActivity extends AppCompatActivity
 
         if (id == R.id.home) {
             fragment = new HomeFragment();
+            //Log.e("idhome",String.valueOf(id));
         }
         else if (id == R.id.job) {
             fragment = new JobFragment();
