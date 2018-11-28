@@ -44,6 +44,7 @@ public class VacancyFragment extends Fragment {
     private boolean isRefresh = false;
     private List<Job> listVacancy;
     private int limitpage=0;
+    TextView kosong;
 
     @Nullable
     @Override
@@ -59,6 +60,7 @@ public class VacancyFragment extends Fragment {
         listView=(ListView)getView().findViewById(R.id.listVacancy);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        kosong = (TextView)  getView().findViewById(R.id.vacancy_isEmpty);
 
         sessionManager = new SessionManager(getActivity());
         bundle = this.getArguments();
@@ -159,6 +161,10 @@ public class VacancyFragment extends Fragment {
                     int limit = response.body().getLimit();
                     limitpage = (int)Math.ceil((double)total/limit);
                     page++;
+
+                    if(total == 0){
+                        kosong.setText("Maaf, yang anda cari tidak ada");
+                    }
 
                 }
             }

@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
@@ -49,6 +50,7 @@ public class UserFragment extends Fragment{
     private boolean isRefresh = false;
     private List<User> listUser;
     private int limitpage=0;
+    TextView kosong;
 
     @Nullable
     @Override
@@ -64,6 +66,7 @@ public class UserFragment extends Fragment{
         listView=(ListView) getView().findViewById(R.id.list);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
+        kosong = (TextView)  getView().findViewById(R.id.user_isEmpty);
 
 //
 //        dataModels= new ArrayList<User>();
@@ -193,6 +196,10 @@ public class UserFragment extends Fragment{
 
                     //Log.e("limitpage: ",String.valueOf(limitpage));
                     page++;
+
+                    if(total == 0){
+                        kosong.setText("Maaf, yang anda cari tidak ada");
+                    }
 
 //                    listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //                        @Override
