@@ -1,13 +1,230 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/postFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:text="Post Activity Coming Soon"/>
+        tools:text="Post Activity Coming Soon"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#dedbdb"
+        android:id="@+id/post_job"
+        android:layout_marginTop="10dp">
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/fotonya_job"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:elevation="5dp"
+            android:src="@drawable/tas_512"
+            android:scaleType="centerCrop"/>
+        <TextView
+            android:id="@+id/namanya_job"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Job Vacancy"
+            android:layout_toRightOf="@id/fotonya_job"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit or Delete"
+            android:layout_toRightOf="@id/fotonya_job"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="5dp"
+            android:layout_below="@id/namanya_job" />
+    </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dedbdb"
+            android:id="@+id/post_event"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/fotonya_event"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:src="@drawable/calendar_flat"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/namanya_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Event Reunion"
+                android:layout_toRightOf="@id/fotonya_event"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit or Delete"
+                android:layout_toRightOf="@id/fotonya_event"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/namanya_event" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dedbdb"
+            android:id="@+id/post_memories"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/fotonya_memories"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:src="@drawable/memories_a"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/namanya_memories"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Our Memories"
+                android:layout_toRightOf="@id/fotonya_memories"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit or Delete"
+                android:layout_toRightOf="@id/fotonya_memories"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/namanya_memories" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dedbdb"
+            android:id="@+id/post_sharing"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/fotonya_sharing"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:src="@drawable/folder_flat"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/namanya_sharing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Knowledge Sharing"
+                android:layout_toRightOf="@id/fotonya_sharing"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit or Delete"
+                android:layout_toRightOf="@id/fotonya_sharing"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/namanya_sharing" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dedbdb"
+            android:id="@+id/post_group"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/fotonya_group"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:src="@drawable/group_a"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/namanya_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Group Discussion"
+                android:layout_toRightOf="@id/fotonya_group"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit or Delete"
+                android:layout_toRightOf="@id/fotonya_group"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/namanya_group" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dedbdb"
+            android:id="@+id/post_crowd"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/fotonya_crowd"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:src="@drawable/crowdfunding_gede"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/namanya_crowd"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Crowdfunding"
+                android:layout_toRightOf="@id/fotonya_crowd"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Edit or Delete"
+                android:layout_toRightOf="@id/fotonya_crowd"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/namanya_crowd" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
