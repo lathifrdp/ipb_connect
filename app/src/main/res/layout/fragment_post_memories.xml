@@ -3,10 +3,11 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
+    <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Post Memories"/>
+        android:scrollbars="vertical"
+        android:id="@+id/recc">
+    </android.support.v7.widget.RecyclerView>
 
 </android.support.constraint.ConstraintLayout>
