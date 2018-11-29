@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.adapter.VacancyList;
+import com.example.lathifrdp.demoapp.adapter.VacancyPostList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
@@ -32,7 +33,7 @@ public class PostJobFragment extends Fragment{
 
     SwipeRefreshLayout mSwipeRefreshLayout;
     ListView listView;
-    VacancyList adapter;
+    VacancyPostList adapter;
     ApiInterface apiService;
     SessionManager sessionManager;
     private int page = 1;
@@ -60,7 +61,7 @@ public class PostJobFragment extends Fragment{
         sessionManager = new SessionManager(getActivity());
 
         listVacancy = new ArrayList<>();
-        adapter= new VacancyList(listVacancy,getActivity());
+        adapter= new VacancyPostList(listVacancy,getActivity());
         listView.setAdapter(adapter);
 
         loadDataVacancy();
