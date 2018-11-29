@@ -280,4 +280,21 @@ public interface ApiInterface {
     Call<EventResponse> getEventPost(@Header("Authorization") String token,
                                      @Query("createdBy") String createdBy,
                                      @Query("page") Integer page);
+
+    @FormUrlEncoded
+    @POST("memories/like/{id}")
+    Call<PostLikeResponse> postLikeMemories(@Header("Authorization") String token,
+                                             @Field("createdBy") String createdBy,
+                                             @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("memories/unlike/{id}")
+    Call<PostLikeResponse> postUnlikeMemories(@Header("Authorization") String token,
+                                               @Field("createdBy") String createdBy,
+                                               @Path("id") String id);
+
+    @GET("memories")
+    Call<MemoriesResponse> getMemoriesPost(@Header("Authorization") String token,
+                                           @Query("createdBy") String createdBy,
+                                           @Query("page") Integer page);
 }
