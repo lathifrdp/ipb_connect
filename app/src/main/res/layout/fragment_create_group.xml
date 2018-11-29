@@ -25,7 +25,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Judul Pertanyaan"
-            android:backgroundTint="@color/colorPrimaryDark"
             android:inputType="textMultiLine"
             android:id="@+id/judul_pertanyaan" />
         </android.support.design.widget.TextInputLayout>
@@ -37,7 +36,6 @@
             android:layout_height="match_parent"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
-            android:backgroundTint="@color/colorPrimaryDark"
             android:hint="Pertanyaan"
             android:inputType="textMultiLine"
             android:id="@+id/pertanyaan" />
