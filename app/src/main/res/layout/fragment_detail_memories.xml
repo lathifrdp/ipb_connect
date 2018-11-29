@@ -14,34 +14,83 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/nama_posting_memory"
             android:layout_marginBottom="10dp"
-            android:layout_marginLeft="2dp"
-            android:textStyle="bold"
-            android:textColor="#000000"
-            tools:text="Nama created"/>
+            android:orientation="horizontal">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:id="@+id/foto_posting_memory"
+                android:layout_marginLeft="5dp"
+                tools:src="@drawable/trash"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/nama_posting_memory"
+                android:layout_marginLeft="8dp"
+                android:layout_gravity="center_vertical"
+                android:textColor="#000000"
+                tools:text="Nama created"/>
+        </LinearLayout>
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="300dp"
         android:scaleType="centerCrop"
         android:id="@+id/foto_memories"
         tools:src="@drawable/alumni2"/>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
-        android:id="@+id/caption_memories"
-        tools:text="Caption"/>
-        <!--<Button-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Like"/>-->
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:id="@+id/like_memories"
+                android:tint="@color/abu"
+                android:clickable="true"
+                android:src="@drawable/baseline_favorite_black_18dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/totalLike_memories"
+                android:layout_gravity="center_vertical"
+                android:textStyle="bold"
+                android:layout_marginLeft="10dp"
+                tools:text="totalnya"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:textStyle="bold"
+                android:id="@+id/nama_caption_memories"
+                tools:text="nama orang"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/caption_memories"
+            tools:text="Caption"/>
+        </LinearLayout>
+            <!--<Button-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="Like"/>-->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
