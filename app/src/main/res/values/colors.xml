@@ -10,4 +10,10 @@
     <color name="hitam">#000000</color>
     <color name="colorButton">#c6018f1b</color>
     <color name="accent">#cd3f51b5</color>
+    <color name="darknya">#309890</color>
+    <color name="primarydarknya">#23ae95</color>
+    <color name="accentnya">#2db4aa</color>
+    <color name="darknya2">#0086d6</color>
+    <color name="primarydarknya2">#4864ff</color>
+    <color name="accentnya2">#48a3ff</color>
 </resources>
