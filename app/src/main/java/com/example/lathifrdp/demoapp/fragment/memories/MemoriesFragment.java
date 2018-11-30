@@ -170,7 +170,7 @@ public class MemoriesFragment extends Fragment{
                 @Override
                 public void onFailure(Call<MemoriesResponse> call, Throwable t) {
                     Log.d("Error", t.getMessage());
-                    Toast.makeText(getActivity(), "Error Fetching Data!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Gagal Mengambil Data!", Toast.LENGTH_SHORT).show();
 //                    pd.hide();
                 }
 

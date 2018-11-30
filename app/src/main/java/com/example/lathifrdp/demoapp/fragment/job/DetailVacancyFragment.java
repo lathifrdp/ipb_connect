@@ -49,7 +49,7 @@ public class DetailVacancyFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Vacancy");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Lowongan");
         sessionManager = new SessionManager(getActivity());
         judul = (TextView) getView().findViewById(R.id.judul_vacancy);
         comp = (TextView) getView().findViewById(R.id.nama_perusahaan);
@@ -129,7 +129,7 @@ public class DetailVacancyFragment extends Fragment{
                     gajimax.setText("Rp "+strmax);
                     deskripsi.setText(job.getJobDescription());
                     comp.setText(job.getCompany());
-                    sub.setText("Subject: "+job.getSubject());
+                    sub.setText("Subyek: "+job.getSubject());
                     enddate.setText("Berakhir pada tanggal "+formattedDate);
                     mail.setText("Email: "+job.getEmail());
                     profil.setText(job.getCompanyProfile());

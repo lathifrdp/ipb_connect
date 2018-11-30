@@ -64,7 +64,7 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Home");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Beranda");
         sessionManager = new SessionManager(getActivity());
 
         HomeProdi = (TextView) getView().findViewById(R.id.homeProdi);
@@ -148,7 +148,7 @@ public class HomeFragment extends Fragment {
         pieChart.setTransparentCircleRadius(61f);
         pieChart.setHoleColor(Color.WHITE);
         pieChart.setDrawEntryLabels(false);
-        pieChart.setCenterText("Gender");
+        pieChart.setCenterText("Jenis Kelamin");
         pieChart.animateY(2000, Easing.EasingOption.EaseInOutCubic);
         //pieChart.animateX(2000, Easing.EasingOption.EaseInBack);
         ArrayList<PieEntry> yValues = new ArrayList<>();
@@ -176,7 +176,7 @@ public class HomeFragment extends Fragment {
         pieChart2.setTransparentCircleRadius(61f);
         pieChart2.setHoleColor(Color.WHITE);
         pieChart2.setDrawEntryLabels(false);
-        pieChart2.setCenterText("Account");
+        pieChart2.setCenterText("Pengguna");
         pieChart2.animateY(2000, Easing.EasingOption.EaseInOutCubic);
         //pieChart2.animateX(2000, Easing.EasingOption.EaseInBack);
         ArrayList<PieEntry> yValues2 = new ArrayList<>();

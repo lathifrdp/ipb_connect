@@ -56,7 +56,7 @@ public class VacancyFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Vacancy List");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Lowongan");
         listView=(ListView)getView().findViewById(R.id.listVacancy);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);

@@ -43,7 +43,7 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Profile");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Profil");
         sessionManager = new SessionManager(getActivity());
         foto_profil = (CircleImageView) getView().findViewById(R.id.user_profile_photo);
         nama_profil = (TextView) getView().findViewById(R.id.user_profile_name);

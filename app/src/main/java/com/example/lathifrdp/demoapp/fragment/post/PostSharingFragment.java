@@ -21,7 +21,7 @@ public class PostSharingFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("My Sharing Activity");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Pengetahuan");
 
     }
 }

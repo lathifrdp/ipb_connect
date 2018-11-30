@@ -57,7 +57,7 @@ public class JobFragment extends Fragment {
 //                Toast.makeText(getActivity(),"Job Fragment",Toast.LENGTH_SHORT).show();
 //            }
 //        });
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Job Vacancy");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mencari Lowongan");
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_vacancy);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

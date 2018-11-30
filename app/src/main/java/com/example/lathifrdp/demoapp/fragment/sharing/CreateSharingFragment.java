@@ -67,7 +67,7 @@ public class CreateSharingFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Knowledge Sharing");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Membuat Pengetahuan");
         sessionManager = new SessionManager(getActivity());
         uploadFile = (LinearLayout) getView().findViewById(R.id.sharingET_upload);
         urlnya = (TextView) getView().findViewById(R.id.sharingET_url);
@@ -87,7 +87,7 @@ public class CreateSharingFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Create Knowledge Sharing...");
+                pd.setMessage("Membuat Pengetahuan...");
                 pd.setCancelable(false);
                 pd.show();
                 postSharing();

@@ -51,7 +51,7 @@ public class PostEventFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("My Event Activity");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Event");
         listView=(ListView)getView().findViewById(R.id.listEvent);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);

@@ -67,7 +67,7 @@ public class ExploreFragment extends Fragment{
 //            }
 //        });
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Explore Alumni");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mencari Alumni");
 
         loadDataProdi();
         bundle = new Bundle();

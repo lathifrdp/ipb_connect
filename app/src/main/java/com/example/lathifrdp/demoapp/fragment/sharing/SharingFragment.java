@@ -33,7 +33,7 @@ public class SharingFragment extends Fragment {
 //        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 //
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Knowledge Sharing");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Pengetahuan");
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_sharing);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

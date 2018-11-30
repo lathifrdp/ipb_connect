@@ -42,7 +42,7 @@ public class CreateGroupFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Group");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Membuat Forum");
         sessionManager = new SessionManager(getActivity());
         judul = (EditText) getView().findViewById(R.id.judul_pertanyaan);
         tanya = (EditText) getView().findViewById(R.id.pertanyaan);
@@ -52,7 +52,7 @@ public class CreateGroupFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Create Group ...");
+                pd.setMessage("Membuat Forum ...");
                 pd.setCancelable(false);
                 pd.show();
                 postGroup();

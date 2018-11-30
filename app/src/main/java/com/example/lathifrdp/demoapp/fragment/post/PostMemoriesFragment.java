@@ -50,7 +50,7 @@ public class PostMemoriesFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("My Memories Activity");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Memories");
         sessionManager = new SessionManager(getActivity());
 
         recyclerViewGallery= (RecyclerView) getView().findViewById(R.id.recc);

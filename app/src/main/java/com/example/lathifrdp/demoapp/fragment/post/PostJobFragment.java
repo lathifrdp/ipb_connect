@@ -52,7 +52,7 @@ public class PostJobFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("My Job Activity");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Lowongan");
         listView=(ListView)getView().findViewById(R.id.listVacancy);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -63,6 +63,7 @@ public class PostJobFragment extends Fragment{
         listVacancy = new ArrayList<>();
         adapter= new VacancyPostList(listVacancy,getActivity());
         listView.setAdapter(adapter);
+        listView.smoothScrollToPosition(0);
 
         loadDataVacancy();
 

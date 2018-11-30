@@ -62,7 +62,7 @@ public class UserFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Alumni");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Alumni");
         listView=(ListView) getView().findViewById(R.id.list);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);

@@ -71,7 +71,7 @@ public class CreateEventFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Event");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Membuat Event");
         sessionManager = new SessionManager(getActivity());
 
         gambar = (ImageView) getView().findViewById(R.id.gambar_event);
@@ -142,7 +142,7 @@ public class CreateEventFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Create Event...");
+                pd.setMessage("Membuat Event...");
                 pd.setCancelable(false);
                 pd.show();
                 postEvent();
@@ -266,7 +266,7 @@ public class CreateEventFragment extends Fragment {
 
     private void getImageGallery(){
         pd = new ProgressDialog(getActivity());
-        pd.setMessage("Buka Gallery...");
+        pd.setMessage("Membuka Galeri...");
         pd.setCancelable(false);
         pd.show();
         EasyImage.openGallery(this, 0);
@@ -275,7 +275,7 @@ public class CreateEventFragment extends Fragment {
 
     private void getImageCamera(){
         pd = new ProgressDialog(getActivity());
-        pd.setMessage("Buka Kamera...");
+        pd.setMessage("Membuka Kamera...");
         pd.setCancelable(false);
         pd.show();
         EasyImage.openCamera(this, 0);

@@ -22,7 +22,7 @@ public class CrowdAlumniFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Crowdfunding Alumni");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Crowdfunding");
 
     }
 }

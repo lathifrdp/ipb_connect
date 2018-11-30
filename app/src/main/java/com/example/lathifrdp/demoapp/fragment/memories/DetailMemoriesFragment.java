@@ -121,7 +121,7 @@ public class DetailMemoriesFragment extends Fragment{
                 if (response.isSuccessful()) {
 
                     Memory memory = response.body();
-                    jumlahlike = memory.getTotalLike()+" likes";
+                    jumlahlike = memory.getTotalLike()+" orang menyukai";
                     total_like.setText(jumlahlike);
                 }
             }
@@ -170,7 +170,7 @@ public class DetailMemoriesFragment extends Fragment{
 //                    recyclerViewCom.setAdapter(commentAdapter);
 //                    recyclerViewCom.smoothScrollToPosition(0);
 
-                    jumlahlike = memory.getTotalLike()+" likes";
+                    jumlahlike = memory.getTotalLike()+" orang menyukai";
                     nama_capt.setText(memory.getUser().getFullName());
                     caption.setText(memory.getCaption());
                     namanya.setText(memory.getUser().getFullName());
@@ -216,7 +216,7 @@ public class DetailMemoriesFragment extends Fragment{
 
                     GetCommentResponse cgr = response.body();
                     commentsList = cgr.getComments();
-                    judul_komen.setText("Comments ("+commentsList.size()+") :");
+                    judul_komen.setText("Komentar ("+commentsList.size()+") :");
                     commentAdapter = new CommentList(commentsList);
                     recyclerViewCom.setAdapter(commentAdapter);
                     //recyclerViewCom.smoothScrollToPosition(0);

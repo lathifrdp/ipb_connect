@@ -59,7 +59,7 @@ public class CreateVacancyFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Create Vacancy");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Membuat Lowongan");
         sessionManager = new SessionManager(getActivity());
 
         judul = (EditText) getView().findViewById(R.id.judul);
@@ -82,7 +82,7 @@ public class CreateVacancyFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Create Vacancy...");
+                pd.setMessage("Membuat Lowongan...");
                 pd.setCancelable(false);
                 pd.show();
                 postJob();
