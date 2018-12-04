@@ -1,9 +1,11 @@
 package com.example.lathifrdp.demoapp;
 
 import android.app.DatePickerDialog;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -13,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -24,11 +27,19 @@ import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
+import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import id.zelory.compressor.Compressor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import pl.aprilapps.easyphotopicker.EasyImage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -56,6 +67,11 @@ public class RegisterActivity extends AppCompatActivity {
     private String dateOfBirth;
     private String studyProgramId;
     Button butRegis;
+    ImageView gambar,gallery,camera;
+    ProgressDialog pd;
+    public String pathImage,msg;
+    public File poto, compoto;
+    String iddia;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,12 +86,29 @@ public class RegisterActivity extends AppCompatActivity {
         etNIM = (EditText) findViewById(R.id.nim);
         radiostatButton = (RadioButton) findViewById(R.id.alumni);
         etAngkatan = (EditText) findViewById(R.id.angkatan);
+        gambar = (ImageView) findViewById(R.id.regis_gambar);
+        gallery = (ImageView) findViewById(R.id.regis_gallery);
+        camera = (ImageView) findViewById(R.id.regis_camera);
 
         onRadioButtonJKClicked(radiojkButton);
         onRadioButtonStatClicked(radiostatButton);
         getTanggalLahir();
 
         loadDataProdi();
+
+        gallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getImageGallery();
+            }
+        });
+
+        camera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                getImageCamera();
+            }
+        });
 
         butRegis = (Button) findViewById(R.id.register);
         butRegis.setOnClickListener(new View.OnClickListener() {
@@ -108,6 +141,65 @@ public class RegisterActivity extends AppCompatActivity {
         daftarkuy();
     }
 
+    private void getImageGallery(){
+        pd = new ProgressDialog(this);
+        pd.setMessage("Membuka Galeri...");
+        pd.setCancelable(false);
+        pd.show();
+        EasyImage.openGallery(this, 0);
+        //EasyImage.openChooserWithGallery(this, "Pick source", 0);
+    }
+
+    private void getImageCamera(){
+        pd = new ProgressDialog(this);
+        pd.setMessage("Membuka Kamera...");
+        pd.setCancelable(false);
+        pd.show();
+        EasyImage.openCamera(this, 0);
+        //EasyImage.openChooserWithGallery(this, "Pick source", 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        EasyImage.handleActivityResult(requestCode, resultCode, data, this, new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                Toast.makeText(RegisterActivity.this, "error", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+            }
+
+            @Override
+            public void onImagePicked(File imageFiles, EasyImage.ImageSource source, int type) {
+                try {
+                    poto = new Compressor(RegisterActivity.this).compressToFile(imageFiles);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ;
+                pathImage = imageFiles.getAbsolutePath();
+                onPhotosReturned(poto);
+                Toast.makeText(RegisterActivity.this, "picked", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+                //Toast.makeText(getActivity(), pathImage, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+                Toast.makeText(RegisterActivity.this, "canceled", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+            }
+        });
+    }
+
+    private void onPhotosReturned(File returnedPhotos) {
+        Picasso.get()
+                .load(returnedPhotos)
+                .placeholder(R.drawable.placegam)
+                .error(R.drawable.logoipb)
+                .into(gambar);
+    }
+
     public void daftarkuy(){
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
@@ -132,6 +224,9 @@ public class RegisterActivity extends AppCompatActivity {
                         Toast.makeText(RegisterActivity.this, rr.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                     else {
+                        iddia = rr.getUser().getId();
+                        uploadFoto();
+                        Toast.makeText(RegisterActivity.this, rr.getUser().getId(), Toast.LENGTH_SHORT).show();
                         Intent logIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                         Toast.makeText(RegisterActivity.this, rr.getMessage(), Toast.LENGTH_SHORT).show();
                         RegisterActivity.this.startActivity(logIntent);
@@ -142,6 +237,48 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<RegisterResponse> call, Throwable t) {
                 Toast.makeText(RegisterActivity.this, "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    public void uploadFoto(){
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        File filenya = new File(pathImage);
+        try {
+            compoto = new Compressor(this).compressToFile(filenya);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), compoto);
+        MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", poto.getName(), reqFile);
+        //RequestBody id = RequestBody.create(MediaType.parse("text/plain"), id2);
+        //final String id = id2;
+
+        Call<RegisterResponse> ucall = apiService.uploadPhoto(iddia,photo);
+        ucall.enqueue(new Callback<RegisterResponse>() {
+            @Override
+            public void onResponse(Call<RegisterResponse> call, Response<RegisterResponse> response) {
+
+                if (response.isSuccessful()) {
+
+                    RegisterResponse mr = response.body();
+                    msg = mr.getMessage();
+
+                    if(mr.isSuccess()==false ){
+                        Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                    pd.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<RegisterResponse> call, Throwable t) {
+                Toast.makeText(RegisterActivity.this, "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
         });
     }
