@@ -9,7 +9,7 @@ public class BaseModel {
 
     public BaseModel(){
         //this.url = "http://api.ipbconnect.cs.ipb.ac.id/";
-        this.url = "http://172.30.64.126:3501/";
+        this.url = "http://172.20.32.88:3501/";
         //this.url = "http://192.168.43.31:3501/";
         //this.url = "http://192.168.1.7:3501/";
         this.eventUrl = this.url + "uploads/event/";
