@@ -71,6 +71,12 @@ public interface ApiInterface {
             @Field("isVerified") Integer isVerified
     );
 
+    @Multipart
+    @POST("users/profiles/upload/{id}")
+    Call<RegisterResponse> uploadPhoto(
+            @Path("id") String id,
+            @Part MultipartBody.Part photo);
+
     @GET("users/count/")
     Call<CountResponse> getCount(@Header("Authorization") String token);
 
