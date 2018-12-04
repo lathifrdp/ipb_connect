@@ -36,6 +36,7 @@ public class SessionManager {
     public static final String KEY_FULLNAME = "fullname";
     public static final String KEY_USERTYPE = "userType";
     public static final String KEY_PRODI = "name";
+    public static final String KEY_CROWDFUNDING = "crowdfunding";
     // Email address (make variable public to access from outside)
     //public static final String KEY_EMAIL = "email";
 
@@ -51,7 +52,7 @@ public class SessionManager {
     /**
      * Create login session
      * */
-    public void createLoginSession(String token,String _id,String photo,String email, String fullname, String userType, String name){
+    public void createLoginSession(String token,String _id,String photo,String email, String fullname, String userType, String name, String crowdfunding){
         // Storing login value as TRUE
         editor.putBoolean(IS_LOGIN, true);
         // Storing to pref
@@ -62,6 +63,7 @@ public class SessionManager {
         editor.putString(KEY_FULLNAME, fullname);
         editor.putString(KEY_USERTYPE, userType);
         editor.putString(KEY_PRODI, name);
+        editor.putString(KEY_CROWDFUNDING, crowdfunding);
         // commit changes
         editor.commit();
     }
@@ -96,6 +98,7 @@ public class SessionManager {
     public String getKeyFullname(){ return pref.getString(KEY_FULLNAME,""); }
     public String getKeyUsertype(){ return pref.getString(KEY_USERTYPE,""); }
     public String getKeyProdi(){ return pref.getString(KEY_PRODI,""); }
+    public String getKeyCrowdfunding(){return pref.getString(KEY_CROWDFUNDING,"");}
 
 
     /**
@@ -112,6 +115,7 @@ public class SessionManager {
         user.put(KEY_FULLNAME, pref.getString(KEY_FULLNAME, null));
         user.put(KEY_USERTYPE, pref.getString(KEY_USERTYPE, null));
         user.put(KEY_PRODI, pref.getString(KEY_PRODI, null));
+        user.put(KEY_CROWDFUNDING, pref.getString(KEY_CROWDFUNDING, null));
 
         // return user
         return user;

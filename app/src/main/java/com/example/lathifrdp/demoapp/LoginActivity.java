@@ -222,6 +222,7 @@ public class LoginActivity extends AppCompatActivity {
                         String fullname = lr.getUser().getFullName();
                         String userType = lr.getUser().getUserType();
                         String name = lr.getUser().getStudyProgram().getName();
+                        String crowdfunding = lr.getUser().getCrowdfunding();
                         //getIntent().getByteArrayExtra(photo);
 
                         //cekLogin();
@@ -236,7 +237,7 @@ public class LoginActivity extends AppCompatActivity {
 //                  Toast.makeText(LoginActivity.this, "alamat : "+lr.getUser().getUserProfile().getAddress(), Toast.LENGTH_SHORT).show();
 
                         Intent mainIntent = new Intent(LoginActivity.this, MainActivity.class);
-                        sessionManager.createLoginSession(token, _id, photo, email, fullname, userType, name);
+                        sessionManager.createLoginSession(token, _id, photo, email, fullname, userType, name, crowdfunding);
                         mainIntent.putExtra("tipe",userType);
                         mainIntent.putExtra("prodi",name);
                         LoginActivity.this.startActivity(mainIntent);
@@ -248,6 +249,7 @@ public class LoginActivity extends AppCompatActivity {
                         Toast.makeText(LoginActivity.this, lr.getMessage(), Toast.LENGTH_SHORT).show();
                         Toast.makeText(LoginActivity.this, userType, Toast.LENGTH_SHORT).show();
                         Toast.makeText(LoginActivity.this, name, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(LoginActivity.this, crowdfunding, Toast.LENGTH_SHORT).show();
 
 //                        Toast.makeText(LoginActivity.this, lr.getUser().getId(), Toast.LENGTH_SHORT).show();
 //                        Toast.makeText(LoginActivity.this, lr.getUser().getUserType(), Toast.LENGTH_SHORT).show();
