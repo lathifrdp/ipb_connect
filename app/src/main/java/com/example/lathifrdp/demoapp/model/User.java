@@ -44,7 +44,10 @@ public class User {
     @SerializedName("dateOfBirth")
     private String dateOfBirth;
 
-    public User(String id, String fullName, String nim, String email, String password, String gender, boolean isVerified, String batch, boolean isAdmin, String userType, String dateOfBirth) {
+    @SerializedName("isCrowdfunding")
+    private String crowdfunding;
+
+    public User(String id, String fullName, String nim, String email, String password, String gender, boolean isVerified, String batch, boolean isAdmin, String userType, String dateOfBirth, String crowdfunding) {
         this.id = id;
         this.fullName = fullName;
         this.nim = nim;
@@ -56,6 +59,7 @@ public class User {
         this.isAdmin = isAdmin;
         this.userType = userType;
         this.dateOfBirth = dateOfBirth;
+        this.crowdfunding = crowdfunding;
     }
 
 
@@ -149,5 +153,13 @@ public class User {
 
     public void setDateOfBirth(String dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public String getCrowdfunding() {
+        return crowdfunding;
+    }
+
+    public void setCrowdfunding(String crowdfunding) {
+        this.crowdfunding = crowdfunding;
     }
 }
