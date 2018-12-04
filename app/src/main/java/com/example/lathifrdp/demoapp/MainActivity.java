@@ -253,12 +253,13 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.crowdfunding) {
 
             String status = sessionManager.getKeyUsertype();
+            String crowd = sessionManager.getKeyCrowdfunding();
             //Toast.makeText(this, status, Toast.LENGTH_SHORT).show();
             if(status.equals("Mahasiswa")) {
                 fragment = new CrowdMahasiswaFragment();
                 //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
             }
-            else if(status.equals("Alumni")) {
+            else if(status.equals("Alumni") && crowd.equals("0")) {
                 fragment = new CrowdAlumniFragment();
                 //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
             }
