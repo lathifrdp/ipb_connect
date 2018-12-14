@@ -33,7 +33,7 @@ public class SharingFragment extends Fragment {
 //        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
 //
 //        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Pengetahuan");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Berbagi Ilmu");
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_sharing);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -57,7 +57,7 @@ public class SharingFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
     }
     private void setupViewPager(ViewPager viewPager) {
-        ViewPagerAdapter adapter = new ViewPagerAdapter(getActivity().getSupportFragmentManager());
+        ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
         adapter.addFragment(TerbaruFragment.newInstance(), "Terbaru");
         adapter.addFragment(PopularFragment.newInstance(), "Popular");
         adapter.addFragment(TeknologiFragment.newInstance(), "Teknologi");
@@ -66,6 +66,7 @@ public class SharingFragment extends Fragment {
         adapter.addFragment(KesehatanFragment.newInstance(), "Kesehatan");
         adapter.addFragment(UmumFragment.newInstance(), "Umum");
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(adapter.getCount());
         //viewPager.setOffscreenPageLimit(2);
     }
 }
