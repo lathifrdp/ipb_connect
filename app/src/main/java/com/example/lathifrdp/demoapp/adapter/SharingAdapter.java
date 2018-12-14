@@ -20,6 +20,7 @@ import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.model.KnowledgeSharing;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SharingAdapter extends RecyclerView.Adapter<SharingAdapter.ViewHolder>{
@@ -61,6 +62,7 @@ public class SharingAdapter extends RecyclerView.Adapter<SharingAdapter.ViewHold
     }
     @Override
     public int getItemCount() {
+        if(knowledgeSharings == null) knowledgeSharings = new ArrayList<>();
         return knowledgeSharings.size();
     }
 
