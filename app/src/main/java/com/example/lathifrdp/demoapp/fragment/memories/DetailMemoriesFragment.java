@@ -61,7 +61,7 @@ public class DetailMemoriesFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Memories");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Memori");
         sessionManager = new SessionManager(getActivity());
 
         recyclerViewCom= (RecyclerView) getView().findViewById(R.id.recy_comment);

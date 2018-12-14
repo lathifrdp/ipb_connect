@@ -71,7 +71,7 @@ public class CreateEventFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Membuat Event");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Buat Acara");
         sessionManager = new SessionManager(getActivity());
 
         gambar = (ImageView) getView().findViewById(R.id.gambar_event);
@@ -142,7 +142,7 @@ public class CreateEventFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Membuat Event...");
+                pd.setMessage("Membuat Acara...");
                 pd.setCancelable(false);
                 pd.show();
                 postEvent();

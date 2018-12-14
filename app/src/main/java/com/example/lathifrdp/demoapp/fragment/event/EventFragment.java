@@ -58,7 +58,7 @@ public class EventFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Event");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Acara");
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_event);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

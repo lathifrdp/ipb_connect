@@ -106,7 +106,7 @@ public class DetailSharingFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Pengetahuan");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Ilmu");
         sessionManager = new SessionManager(getActivity());
         AndroidNetworking.initialize(getActivity());
 

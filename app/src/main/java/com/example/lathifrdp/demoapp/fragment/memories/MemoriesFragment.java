@@ -62,7 +62,7 @@ public class MemoriesFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Memories");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Memori");
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_memories);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

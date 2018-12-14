@@ -59,7 +59,7 @@ public class CreateVacancyFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Membuat Lowongan");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Buat Lowongan");
         sessionManager = new SessionManager(getActivity());
 
         judul = (EditText) getView().findViewById(R.id.judul);

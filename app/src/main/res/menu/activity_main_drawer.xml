@@ -7,46 +7,46 @@
         <item
             android:id="@+id/home"
             android:icon="@drawable/home"
-            android:title="Home" />
+            android:title="Beranda" />
         <item
             android:id="@+id/job"
             android:icon="@drawable/job"
-            android:title="Job Vacancy" />
+            android:title="Lowongan Pekerjaan" />
         <item
             android:id="@+id/event"
             android:icon="@drawable/event"
-            android:title="Event Reunion" />
+            android:title="Acara" />
         <item
             android:id="@+id/explore"
             android:icon="@drawable/explore"
-            android:title="Explore Alumni" />
+            android:title="Alumni" />
         <item
             android:id="@+id/memories"
             android:icon="@drawable/memories"
-            android:title="Our Memories" />
+            android:title="Memori" />
         <item
             android:id="@+id/sharing"
             android:icon="@drawable/ic_menu_share"
-            android:title="Knowledge Sharing" />
+            android:title="Berbagi Ilmu" />
         <item
             android:id="@+id/group"
             android:icon="@drawable/group"
-            android:title="Group Discussion" />
+            android:title="Grup Diskusi" />
         <item
             android:id="@+id/crowdfunding"
             android:icon="@drawable/crowdfunding"
             android:title="Crowdfunding" />
     </group>
 
-    <item android:title="Your Activity">
+    <item android:title="Aktifitas Anda">
         <menu>
             <item
                 android:id="@+id/bookmark"
-                android:title="My Bookmark" />
+                android:title="Bookmark Saya" />
             <!--android:icon="@drawable/ic_menu_share"-->
             <item
                 android:id="@+id/post"
-                android:title="My Post Activity" />
+                android:title="Aktifitas Saya" />
             <!--android:icon="@drawable/ic_menu_send"-->
         </menu>
     </item>

@@ -65,7 +65,7 @@ public class CreateMemoriesFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Membuat Memories");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Bagikan Memori");
         sessionManager = new SessionManager(getActivity());
 
         gambar = (ImageView) getView().findViewById(R.id.gambar);
@@ -97,7 +97,7 @@ public class CreateMemoriesFragment extends Fragment{
             @Override
             public void onClick(View view) {
                 pd = new ProgressDialog(getActivity());
-                pd.setMessage("Membuat Memories...");
+                pd.setMessage("Membagikan Memori...");
                 pd.setCancelable(false);
                 pd.show();
                 postMemories();

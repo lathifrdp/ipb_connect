@@ -50,7 +50,7 @@ public class DetailEventFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Event");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Acara");
         sessionManager = new SessionManager(getActivity());
         judul = (TextView) getView().findViewById(R.id.judul_event);
         alamat = (TextView) getView().findViewById(R.id.alamat);
