@@ -1,5 +1,7 @@
 package com.example.lathifrdp.demoapp.api;
 
+import android.content.pm.PackageInfo;
+
 import com.example.lathifrdp.demoapp.model.Event;
 import com.example.lathifrdp.demoapp.model.GroupDiscussion;
 import com.example.lathifrdp.demoapp.model.Job;
@@ -10,6 +12,7 @@ import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
+import com.example.lathifrdp.demoapp.response.PinResponse;
 import com.example.lathifrdp.demoapp.response.PostBookmarkResponse;
 import com.example.lathifrdp.demoapp.response.PostCommentResponse;
 import com.example.lathifrdp.demoapp.response.CountResponse;
@@ -18,6 +21,7 @@ import com.example.lathifrdp.demoapp.response.GroupResponse;
 import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.MemoriesResponse;
+import com.example.lathifrdp.demoapp.response.PostCrowdRequestResponse;
 import com.example.lathifrdp.demoapp.response.PostEventResponse;
 import com.example.lathifrdp.demoapp.response.PostGroupResponse;
 import com.example.lathifrdp.demoapp.response.PostJobResponse;
@@ -26,6 +30,7 @@ import com.example.lathifrdp.demoapp.response.PostMemoriesResponse;
 import com.example.lathifrdp.demoapp.response.PostSharingResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
 import com.example.lathifrdp.demoapp.response.SharingResponse;
+import com.example.lathifrdp.demoapp.response.StatusResponse;
 import com.example.lathifrdp.demoapp.response.UserResponse;
 
 import java.util.List;
@@ -303,4 +308,21 @@ public interface ApiInterface {
     Call<MemoriesResponse> getMemoriesPost(@Header("Authorization") String token,
                                            @Query("createdBy") String createdBy,
                                            @Query("page") Integer page);
+
+    @FormUrlEncoded
+    @POST("crowdfundings/join")
+    Call<PostCrowdRequestResponse> postCrowdRequest(@Header("Authorization") String token,
+                                                    @Field("createdBy") String createdBy);
+
+    @GET("crowdfundings/checkstatus/{id}")
+    Call<StatusResponse> getStatus(@Header("Authorization") String token,
+                                   @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("crowdfundings/login")
+    Call<PinResponse> postPin(
+            @Header("Authorization") String token,
+            @Field("createdBy") String createdBy,
+            @Field("key") String key
+    );
 }
