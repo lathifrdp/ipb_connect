@@ -68,6 +68,11 @@ public class SessionManager {
         editor.commit();
     }
 
+    public void updateCrowdfunding(String crowdfunding){
+        editor.putString(KEY_CROWDFUNDING, crowdfunding);
+        editor.commit();
+    }
+
     /**
      * Check login method wil check user login status
      * If false it will redirect user to login page
