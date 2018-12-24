@@ -1,15 +1,9 @@
 package com.example.lathifrdp.demoapp;
 
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -24,12 +18,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.fragment.bookmark.BookmarkFragment;
-import com.example.lathifrdp.demoapp.fragment.crowdfunding.CrowdAlumniFragment;
-import com.example.lathifrdp.demoapp.fragment.crowdfunding.CrowdMahasiswaFragment;
+import com.example.lathifrdp.demoapp.fragment.crowdfunding.alumni.CrowdNotifFragment;
+import com.example.lathifrdp.demoapp.fragment.crowdfunding.alumni.CrowdPinFragment;
+import com.example.lathifrdp.demoapp.fragment.crowdfunding.alumni.CrowdRequestFragment;
+import com.example.lathifrdp.demoapp.fragment.crowdfunding.mahasiswa.CrowdMahasiswaFragment;
 import com.example.lathifrdp.demoapp.fragment.event.EventFragment;
 import com.example.lathifrdp.demoapp.fragment.explore.ExploreFragment;
 import com.example.lathifrdp.demoapp.fragment.explore.ProfileFragment;
-import com.example.lathifrdp.demoapp.fragment.explore.UserFragment;
 import com.example.lathifrdp.demoapp.fragment.group.GroupFragment;
 import com.example.lathifrdp.demoapp.fragment.home.HomeFragment;
 import com.example.lathifrdp.demoapp.fragment.job.JobFragment;
@@ -39,12 +34,6 @@ import com.example.lathifrdp.demoapp.fragment.sharing.SharingFragment;
 import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.squareup.picasso.Picasso;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -164,7 +153,8 @@ public class MainActivity extends AppCompatActivity
                 cr instanceof GroupFragment || cr instanceof JobFragment ||
                 cr instanceof MemoriesFragment || cr instanceof SharingFragment ||
                 cr instanceof PostFragment || cr instanceof BookmarkFragment ||
-                cr instanceof CrowdMahasiswaFragment || cr instanceof CrowdAlumniFragment) {
+                cr instanceof CrowdMahasiswaFragment || cr instanceof CrowdRequestFragment ||
+                cr instanceof CrowdNotifFragment || cr instanceof CrowdPinFragment) {
             Fragment fragment = null;
             fragment = new HomeFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -260,7 +250,15 @@ public class MainActivity extends AppCompatActivity
                 //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
             }
             else if(status.equals("Alumni") && crowd.equals("0")) {
-                fragment = new CrowdAlumniFragment();
+                fragment = new CrowdRequestFragment();
+                //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
+            }
+            else if(status.equals("Alumni") && crowd.equals("1")) {
+                fragment = new CrowdNotifFragment();
+                //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
+            }
+            else if(status.equals("Alumni") && crowd.equals("2")) {
+                fragment = new CrowdPinFragment();
                 //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
             }
         }
