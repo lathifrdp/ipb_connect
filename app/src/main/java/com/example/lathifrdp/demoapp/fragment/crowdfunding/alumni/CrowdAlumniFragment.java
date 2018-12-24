@@ -2,7 +2,6 @@ package com.example.lathifrdp.demoapp.fragment.crowdfunding.alumni;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,16 +17,11 @@ import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.adapter.CrowdAlumniList;
-import com.example.lathifrdp.demoapp.adapter.EventList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
-import com.example.lathifrdp.demoapp.fragment.event.CreateEventFragment;
-import com.example.lathifrdp.demoapp.fragment.event.DetailEventFragment;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Crowdfunding;
-import com.example.lathifrdp.demoapp.model.Event;
 import com.example.lathifrdp.demoapp.response.CrowdResponse;
-import com.example.lathifrdp.demoapp.response.EventResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +30,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CrowdKontenFragment extends Fragment{
+public class CrowdAlumniFragment extends Fragment{
 
     private String title;
     TextView tv;
@@ -56,7 +50,7 @@ public class CrowdKontenFragment extends Fragment{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_crowd_konten_alumni,null);
+        return inflater.inflate(R.layout.fragment_crowd_alumni,null);
     }
 
     @Override

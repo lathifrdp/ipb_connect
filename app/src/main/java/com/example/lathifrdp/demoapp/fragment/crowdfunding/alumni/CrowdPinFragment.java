@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
-import com.example.lathifrdp.demoapp.fragment.crowdfunding.mahasiswa.CrowdMahasiswaFragment;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.response.PinResponse;
 
@@ -78,7 +77,7 @@ public class CrowdPinFragment extends Fragment {
                         //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), pr.getMessage(), Toast.LENGTH_SHORT).show();
                         Fragment newFragment = null;
-                        newFragment = new CrowdKontenFragment();
+                        newFragment = new CrowdAlumniFragment();
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
                         transaction.replace(R.id.screen_area, newFragment);
                         transaction.addToBackStack(null);
