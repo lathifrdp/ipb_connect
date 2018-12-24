@@ -76,6 +76,7 @@ public class CrowdPinFragment extends Fragment {
                     else {
                         //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), pr.getMessage(), Toast.LENGTH_SHORT).show();
+                        //sessionManager.updateCrowdfunding("3");
                         Fragment newFragment = null;
                         newFragment = new CrowdAlumniFragment();
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
