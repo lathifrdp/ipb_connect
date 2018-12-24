@@ -27,6 +27,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.example.lathifrdp.demoapp.response.StatusResponse;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.data.PieData;
@@ -80,10 +81,11 @@ public class HomeFragment extends Fragment {
             @Override
             public void onRefresh() {
                 loadCount();
-
+                loadStatus();
             }
         });
         loadCount();
+        loadStatus();
         //setPieChart();
 
 
@@ -94,6 +96,28 @@ public class HomeFragment extends Fragment {
 //
 //            }
 //        });
+    }
+    private void loadStatus(){
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<StatusResponse> call = apiService.getStatus("JWT "+ sessionManager.getKeyToken(), sessionManager.getKeyId());
+        call.enqueue(new Callback<StatusResponse>() {
+            @Override
+            public void onResponse(Call<StatusResponse> call, Response<StatusResponse> response) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (response.isSuccessful()) {
+
+                    StatusResponse sr = response.body();
+                    sessionManager.updateCrowdfunding(sr.getIsCrowdfunding());
+                    Toast.makeText(getActivity(), "status: "+sr.getIsCrowdfunding(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<StatusResponse> call, Throwable t) {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
     }
 
     private void loadCount(){
