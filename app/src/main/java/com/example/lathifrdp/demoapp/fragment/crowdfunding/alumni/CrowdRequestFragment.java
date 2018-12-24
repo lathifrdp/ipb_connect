@@ -22,7 +22,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CrowdRequestiFragment extends Fragment{
+public class CrowdRequestFragment extends Fragment{
 
     Button req;
     SessionManager sessionManager;
