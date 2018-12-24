@@ -24,6 +24,7 @@ import com.example.lathifrdp.demoapp.response.JobResponse;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.MemoriesResponse;
 import com.example.lathifrdp.demoapp.response.PostCrowdRequestResponse;
+import com.example.lathifrdp.demoapp.response.PostCrowdfundingResponse;
 import com.example.lathifrdp.demoapp.response.PostEventResponse;
 import com.example.lathifrdp.demoapp.response.PostGroupResponse;
 import com.example.lathifrdp.demoapp.response.PostJobResponse;
@@ -336,4 +337,24 @@ public interface ApiInterface {
     @GET("crowdfundings/{id}")
     Call<Crowdfunding> getDetailCrowd(@Header("Authorization") String token,
                                       @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("crowdfundings/list")
+    Call<CrowdResponse> getCrowdMhs(
+            @Header("Authorization") String token,
+            @Query("page") Integer page,
+            @Field("creator") String creator
+    );
+
+    @Multipart
+    @POST("crowdfundings")
+    Call<PostCrowdfundingResponse> postCrowd(@Header("Authorization") String token,
+                                             @Part MultipartBody.Part file,
+                                             @Part("title") RequestBody title,
+                                             @Part("description") RequestBody description,
+                                             @Part("contactPerson") RequestBody contactPerson,
+                                             @Part("location") RequestBody location,
+                                             @Part("projectType") RequestBody projectType,
+                                             @Part("cost") RequestBody cost,
+                                             @Part("createdBy") RequestBody createdBy);
 }
