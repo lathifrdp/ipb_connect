@@ -2,6 +2,7 @@ package com.example.lathifrdp.demoapp.api;
 
 import android.content.pm.PackageInfo;
 
+import com.example.lathifrdp.demoapp.model.Crowdfunding;
 import com.example.lathifrdp.demoapp.model.Event;
 import com.example.lathifrdp.demoapp.model.GroupDiscussion;
 import com.example.lathifrdp.demoapp.model.Job;
@@ -11,6 +12,7 @@ import com.example.lathifrdp.demoapp.model.KnowledgeSharingCategory;
 import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
+import com.example.lathifrdp.demoapp.response.CrowdResponse;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
 import com.example.lathifrdp.demoapp.response.PinResponse;
 import com.example.lathifrdp.demoapp.response.PostBookmarkResponse;
@@ -325,4 +327,13 @@ public interface ApiInterface {
             @Field("createdBy") String createdBy,
             @Field("key") String key
     );
+
+    @GET("crowdfundings")
+    Call<CrowdResponse> getCrowdAlumni(@Header("Authorization") String token,
+                                       @Query("page") Integer page,
+                                       @Query("verified") String verified);
+
+    @GET("crowdfundings/{id}")
+    Call<Crowdfunding> getDetailCrowd(@Header("Authorization") String token,
+                                      @Path("id") String id);
 }
