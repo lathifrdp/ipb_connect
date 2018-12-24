@@ -33,7 +33,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.example.lathifrdp.demoapp.model.Item;
 import com.example.lathifrdp.demoapp.response.LoginResponse;
 
 import com.example.lathifrdp.demoapp.api.ApiInterface;
@@ -56,7 +55,6 @@ import com.example.lathifrdp.demoapp.helper.SessionManager;
 public class LoginActivity extends AppCompatActivity {
     ApiInterface apiService;
     ProgressDialog progressDialog;
-    private ArrayList<Item> data;
     private SessionManager sessionManager;
     //private UserLoginTask mAuthTask = null;
 
@@ -189,10 +187,6 @@ public class LoginActivity extends AppCompatActivity {
 
     private void login() {
         //progressDialog = ProgressDialog.show(context, null, "Validasi User...",true,false);
-
-        //uname = user;
-        //LogCred logCred = new LogCred(email, password);
-        //LoginResponse loginResponse = new LoginResponse(email,password);
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
         //apiService = ApiUtils.getUserService();

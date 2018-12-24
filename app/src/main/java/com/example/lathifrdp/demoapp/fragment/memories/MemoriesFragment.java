@@ -1,10 +1,8 @@
 package com.example.lathifrdp.demoapp.fragment.memories;
 
-import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -14,13 +12,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
-import com.example.lathifrdp.demoapp.adapter.MemoriesAdapter;
 import com.example.lathifrdp.demoapp.adapter.MemoriesList;
-import com.example.lathifrdp.demoapp.adapter.MyRecyclerAdapter;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
@@ -43,7 +38,6 @@ public class MemoriesFragment extends Fragment{
     private RecyclerView recyclerViewGallery;
     //Read storage permission request code
     //private static final int RC_READ_STORAGE = 5;
-    //MemoriesAdapter mGalleryAdapter;
     MemoriesList mGalleryAdapter;
     ApiInterface apiService;
     SessionManager sessionManager;
@@ -81,7 +75,6 @@ public class MemoriesFragment extends Fragment{
         recyclerViewGallery= (RecyclerView) getView().findViewById(R.id.recc);
         recyclerViewGallery.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         //Create RecyclerView Adapter
-        //mGalleryAdapter = new MemoriesAdapter(getActivity());
 
         if(bundle != null){
             page=1;
