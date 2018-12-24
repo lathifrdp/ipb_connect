@@ -2,6 +2,7 @@ package com.example.lathifrdp.demoapp.fragment.crowdfunding.alumni;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,10 @@ public class CrowdNotifFragment extends Fragment {
                 transaction.replace(R.id.screen_area, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
+
+//                NavigationView navigationView = (NavigationView) getActivity().findViewById(R.id.nav_view);
+//                //navigationView.setNavigationItemSelectedListener(getActivity());
+//                navigationView.getMenu().getItem(0).setChecked(true);
             }
         });
     }
