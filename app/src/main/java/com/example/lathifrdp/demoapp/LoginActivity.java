@@ -189,7 +189,6 @@ public class LoginActivity extends AppCompatActivity {
         //progressDialog = ProgressDialog.show(context, null, "Validasi User...",true,false);
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //apiService = ApiUtils.getUserService();
 
         final String email = mEmailView.getText().toString();
         final String password = mPasswordView.getText().toString();
