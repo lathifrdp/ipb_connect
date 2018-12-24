@@ -19,7 +19,13 @@ public class CrowdResponse {
     @SerializedName("total")
     private Integer total;
 
-    public CrowdResponse(List<Crowdfunding> crowdfunding, Integer page, Integer total){
+    @SerializedName("isSuccess")
+    private boolean isSuccess;
+
+    @SerializedName("message")
+    private String message;
+
+    public CrowdResponse(List<Crowdfunding> crowdfunding, Integer page, Integer total, boolean isSuccess, String message){
         this.crowdfunding = crowdfunding;
         this.page = page;
         this.total = total;
@@ -47,5 +53,21 @@ public class CrowdResponse {
 
     public void setTotal(Integer total) {
         this.total = total;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public boolean isSuccess() {
+        return isSuccess;
+    }
+
+    public void setSuccess(boolean success) {
+        isSuccess = success;
     }
 }
