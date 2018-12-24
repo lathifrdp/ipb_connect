@@ -78,7 +78,7 @@ public class CrowdPinFragment extends Fragment {
                         //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                         Toast.makeText(getActivity(), pr.getMessage(), Toast.LENGTH_SHORT).show();
                         Fragment newFragment = null;
-                        newFragment = new CrowdMahasiswaFragment();
+                        newFragment = new CrowdKontenFragment();
                         FragmentTransaction transaction = getFragmentManager().beginTransaction();
                         transaction.replace(R.id.screen_area, newFragment);
                         transaction.addToBackStack(null);
