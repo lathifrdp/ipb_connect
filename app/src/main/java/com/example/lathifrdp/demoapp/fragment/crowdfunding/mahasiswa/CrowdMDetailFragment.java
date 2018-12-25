@@ -1,12 +1,16 @@
 package com.example.lathifrdp.demoapp.fragment.crowdfunding.mahasiswa;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +38,7 @@ public class CrowdMDetailFragment extends Fragment {
     CircleImageView foto;
     ApiInterface apiService;
     SessionManager sessionManager;
+    Button btn;
 
     @Nullable
     @Override
@@ -45,7 +50,7 @@ public class CrowdMDetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Proposal");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail M Proposal");
         sessionManager = new SessionManager(getActivity());
         judul = (TextView) getView().findViewById(R.id.judul_crowd_mahasiswa);
         lokasi = (TextView) getView().findViewById(R.id.lokasi_crowd_mahasiswa);
@@ -57,6 +62,7 @@ public class CrowdMDetailFragment extends Fragment {
         prodi = (TextView) getView().findViewById(R.id.studinya);
         foto = (CircleImageView) getView().findViewById(R.id.fotonya);
         proyek = (TextView) getView().findViewById(R.id.project_crowd_mahasiswa);
+        btn = (Button) getView().findViewById(R.id.crowd_donatur);
 
         bundle = this.getArguments();
 
@@ -67,6 +73,28 @@ public class CrowdMDetailFragment extends Fragment {
         else {
             Toast.makeText(getActivity(), "gagal bos", Toast.LENGTH_SHORT).show();
         }
+
+        btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                alertDialog.setTitle("Donatur");
+                //alertDialog.setView(inflater.inflate(R.layout.fragment_crowd_donasi, null));
+                View dialogview = inflater.inflate(R.layout.fragment_crowd_donatur, null);
+                alertDialog.setView(dialogview);
+
+                alertDialog.setButton(Dialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getActivity(), "OK di klik", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                // Showing Alert Message
+                alertDialog.show();
+            }
+        });
 
     }
 
