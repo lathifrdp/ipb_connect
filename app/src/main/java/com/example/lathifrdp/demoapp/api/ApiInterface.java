@@ -13,6 +13,7 @@ import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.CrowdResponse;
+import com.example.lathifrdp.demoapp.response.DonaturResponse;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
 import com.example.lathifrdp.demoapp.response.PinResponse;
 import com.example.lathifrdp.demoapp.response.PostBookmarkResponse;
@@ -25,6 +26,7 @@ import com.example.lathifrdp.demoapp.response.LoginResponse;
 import com.example.lathifrdp.demoapp.response.MemoriesResponse;
 import com.example.lathifrdp.demoapp.response.PostCrowdRequestResponse;
 import com.example.lathifrdp.demoapp.response.PostCrowdfundingResponse;
+import com.example.lathifrdp.demoapp.response.PostDonasiResponse;
 import com.example.lathifrdp.demoapp.response.PostEventResponse;
 import com.example.lathifrdp.demoapp.response.PostGroupResponse;
 import com.example.lathifrdp.demoapp.response.PostJobResponse;
@@ -357,4 +359,19 @@ public interface ApiInterface {
                                              @Part("projectType") RequestBody projectType,
                                              @Part("cost") RequestBody cost,
                                              @Part("createdBy") RequestBody createdBy);
+
+    @Multipart
+    @POST("crowdfundings/donate/{id}")
+    Call<PostDonasiResponse> postDonasi(@Header("Authorization") String token,
+                                        @Part MultipartBody.Part file,
+                                        @Path("id") String id,
+                                        @Part("createdBy") RequestBody createdBy);
+
+    @FormUrlEncoded
+    @POST("crowdfundings/list/donatur")
+    Call<DonaturResponse> getDonatur(
+            @Header("Authorization") String token,
+            @Query("page") Integer page,
+            @Field("creator") String creator
+    );
 }
