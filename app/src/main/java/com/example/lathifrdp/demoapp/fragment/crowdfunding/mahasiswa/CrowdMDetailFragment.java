@@ -7,6 +7,8 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +17,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
+import com.example.lathifrdp.demoapp.adapter.DonationList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Crowdfunding;
+import com.example.lathifrdp.demoapp.model.Donation;
+import com.example.lathifrdp.demoapp.response.DonationResponse;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.util.List;
 import java.util.Locale;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -39,6 +45,9 @@ public class CrowdMDetailFragment extends Fragment {
     ApiInterface apiService;
     SessionManager sessionManager;
     Button btn;
+    public List<Donation> donationList;
+    public RecyclerView recyclerViewDon;
+    DonationList donationAdapter;
 
     @Nullable
     @Override
@@ -83,6 +92,11 @@ public class CrowdMDetailFragment extends Fragment {
                 //alertDialog.setView(inflater.inflate(R.layout.fragment_crowd_donasi, null));
                 View dialogview = inflater.inflate(R.layout.fragment_crowd_donatur, null);
                 alertDialog.setView(dialogview);
+
+                recyclerViewDon= (RecyclerView) dialogview.findViewById(R.id.recy_donatur);
+                recyclerViewDon.setLayoutManager(new LinearLayoutManager(getActivity()));
+                recyclerViewDon.setHasFixedSize(true);
+                loadDonation();
 
                 alertDialog.setButton(Dialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
                     @Override
@@ -145,5 +159,33 @@ public class CrowdMDetailFragment extends Fragment {
                 //mSwipeRefreshLayout.setRefreshing(false);
             }
         });
+    }
+
+    private void loadDonation(){
+
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<DonationResponse> call = apiService.getDonation("JWT "+ sessionManager.getKeyToken(),id_crowd);
+        call.enqueue(new Callback<DonationResponse>() {
+            @Override
+            public void onResponse(Call<DonationResponse> call, final Response<DonationResponse> response) {
+                //mSwipeRefreshLayout.setRefreshing(false);
+                if (response.isSuccessful()) {
+
+                    DonationResponse dr = response.body();
+                    donationList = dr.getDonations();
+                    donationAdapter = new DonationList(donationList);
+                    recyclerViewDon.setAdapter(donationAdapter);
+                    //recyclerViewCom.smoothScrollToPosition(0);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<DonationResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "gagal", Toast.LENGTH_SHORT).show();
+                //mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
     }
 }
