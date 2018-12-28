@@ -170,12 +170,13 @@ public class CrowdMahasiswaFragment extends Fragment {
 
                     CrowdResponse cr = response.body();
 
-                    if(cr.isSuccess()==false && page<1 ){
+                    if(cr.isSuccess()==false ){
                         Toast.makeText(getActivity(), cr.getMessage(), Toast.LENGTH_SHORT).show();
                         stat.setText("Anda tidak memiliki proposal");
                     }
-                    else {
+                    if(page>0) {
                         //Toast.makeText(getActivity(), cr.getMessage(), Toast.LENGTH_SHORT).show();
+                        stat.setText("");
                         if(isRefresh) adapter.setList(response.body().getCrowdfunding());
                         else adapter.addList(response.body().getCrowdfunding());
                         isRefresh = false;
