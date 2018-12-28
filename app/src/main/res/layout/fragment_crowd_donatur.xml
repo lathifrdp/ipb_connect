@@ -14,19 +14,19 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:text="Belum Selesai"/>
-
-            <!--<android.support.v7.widget.RecyclerView-->
+            <!--<TextView-->
                 <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="0dp"-->
-                <!--android:layout_weight="1"-->
-                <!--android:padding="10dp"-->
-                <!--android:id="@+id/recy_donatur">-->
-            <!--</android.support.v7.widget.RecyclerView>-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:layout_marginLeft="20dp"-->
+                <!--android:text="Belum Selesai"/>-->
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:padding="10dp"
+                android:id="@+id/recy_donatur">
+            </android.support.v7.widget.RecyclerView>
 
         </LinearLayout>
     </ScrollView>
