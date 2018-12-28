@@ -13,6 +13,7 @@ import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.CrowdResponse;
+import com.example.lathifrdp.demoapp.response.DonationResponse;
 import com.example.lathifrdp.demoapp.response.DonaturResponse;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
 import com.example.lathifrdp.demoapp.response.PinResponse;
@@ -374,4 +375,8 @@ public interface ApiInterface {
             @Query("page") Integer page,
             @Field("creator") String creator
     );
+
+    @GET("crowdfundings/donations/{id}")
+    Call<DonationResponse> getDonation(@Header("Authorization") String token,
+                                       @Path("id") String id);
 }
