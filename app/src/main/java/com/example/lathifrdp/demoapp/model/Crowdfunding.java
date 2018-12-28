@@ -32,8 +32,8 @@ public class Crowdfunding {
     @SerializedName("currentCost")
     private String currentCost;
 
-    @SerializedName("payment")
-    private List<Donation> payment;
+    @SerializedName("donations")
+    private List<Donation> donation;
 
     @SerializedName("isVerified")
     private boolean isVerified;
@@ -143,12 +143,12 @@ public class Crowdfunding {
         this.location = location;
     }
 
-    public List<Donation> getPayment() {
-        return payment;
+    public List<Donation> getDonation() {
+        return donation;
     }
 
-    public void setPayment(List<Donation> payment) {
-        this.payment = payment;
+    public void setDonation(List<Donation> donation) {
+        this.donation = donation;
     }
 
     public String getProjectType() {
