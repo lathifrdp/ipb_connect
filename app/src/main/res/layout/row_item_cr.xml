@@ -44,8 +44,7 @@
         tools:text="23"
         android:layout_marginTop="5dp"
         android:textAppearance="?android:attr/textAppearanceButton"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:textColor="@android:color/black" />
 
     <TextView
         android:id="@+id/total_cr"
@@ -54,8 +53,7 @@
         tools:text="24"
         android:layout_marginTop="5dp"
         android:textAppearance="?android:attr/textAppearanceButton"
-        android:textColor="@android:color/black"
-        android:textStyle="bold" />
+        android:textColor="@android:color/black" />
     </LinearLayout>
 
     <!--<ImageView-->
