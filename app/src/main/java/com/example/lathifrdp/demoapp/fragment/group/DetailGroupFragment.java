@@ -18,14 +18,19 @@ import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.adapter.DiscussionList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Comment;
 import com.example.lathifrdp.demoapp.model.GroupDiscussion;
+import com.example.lathifrdp.demoapp.model.Liker;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
 import com.example.lathifrdp.demoapp.response.PostCommentResponse;
+import com.example.lathifrdp.demoapp.response.PostLikeResponse;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -39,9 +44,12 @@ public class DetailGroupFragment extends Fragment {
     private RecyclerView rvDiscuss;
     DiscussionList discussionAdapter;
     public String group_id;
-    TextView nama_posting, judul, deskripsi, judul_jawaban;
+    TextView nama_posting, judul, deskripsi, judul_jawaban, total_like;
     EditText tulis;
-    ImageView kirim;
+    ImageView kirim, suka;
+    CircleImageView pp;
+    public boolean stateLike = false;
+    String jumlahlike;
 
     @Nullable
     @Override
@@ -66,6 +74,9 @@ public class DetailGroupFragment extends Fragment {
         judul_jawaban = (TextView) getView().findViewById(R.id.jawaban_group);
         tulis = (EditText) getView().findViewById(R.id.jawaban_anda);
         kirim = (ImageView) getView().findViewById(R.id.kirim_jawaban);
+        pp = (CircleImageView) getView().findViewById(R.id.foto_posting_group);
+        suka = (ImageView) getView().findViewById(R.id.like_group);
+        total_like = (TextView) getView().findViewById(R.id.totalLike_group);
 
         bundle = this.getArguments();
         if(bundle != null){
@@ -79,6 +90,18 @@ public class DetailGroupFragment extends Fragment {
         loadDataGroup();
         loadDiscuss();
 
+        suka.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(stateLike==false) {
+                    postLike();
+                }
+                else if(stateLike==true){
+                    postUnlike();
+                }
+            }
+        });
+
         kirim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +109,91 @@ public class DetailGroupFragment extends Fragment {
                 //commentAdapter.notifyDataSetChanged();
                 //loadComment();
                 //tulis.getText().clear();//clears the text
+            }
+        });
+    }
+
+    private void loadLike(){
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        Call<GroupDiscussion> call = apiService.getDetailGroup("JWT "+ sessionManager.getKeyToken(),group_id);
+        call.enqueue(new Callback<GroupDiscussion>() {
+            @Override
+            public void onResponse(Call<GroupDiscussion> call, final Response<GroupDiscussion> response) {
+                if (response.isSuccessful()) {
+
+                    GroupDiscussion gd = response.body();
+                    jumlahlike = gd.getTotalLike()+" orang menyukai";
+                    total_like.setText(jumlahlike);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<GroupDiscussion> call, Throwable t) {
+                Toast.makeText(getActivity(), "gagal", Toast.LENGTH_SHORT).show();
+                //mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    private void postLike() {
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        final String createdBy = sessionManager.getKeyId();
+
+        Call<PostLikeResponse> ucall = apiService.postLikeGroup("JWT "+ sessionManager.getKeyToken(),createdBy,group_id);
+        ucall.enqueue(new Callback<PostLikeResponse>() {
+            @Override
+            public void onResponse(Call<PostLikeResponse> call, Response<PostLikeResponse> response) {
+
+                if (response.isSuccessful()) {
+                    PostLikeResponse lr = response.body();
+
+                    if(lr.isSuccess()==false ){
+                        Toast.makeText(getActivity(), lr.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), lr.getMessage(), Toast.LENGTH_SHORT).show();
+                        suka.setColorFilter(getContext().getResources().getColor(R.color.merah));
+                        stateLike=true;
+                        loadLike();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostLikeResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void postUnlike() {
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+        final String createdBy = sessionManager.getKeyId();
+
+        Call<PostLikeResponse> ucall = apiService.postUnlikeGroup("JWT "+ sessionManager.getKeyToken(),createdBy,group_id);
+        ucall.enqueue(new Callback<PostLikeResponse>() {
+            @Override
+            public void onResponse(Call<PostLikeResponse> call, Response<PostLikeResponse> response) {
+
+                if (response.isSuccessful()) {
+                    PostLikeResponse lr = response.body();
+
+                    if(lr.isSuccess()==false ){
+                        Toast.makeText(getActivity(), lr.getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), lr.getMessage(), Toast.LENGTH_SHORT).show();
+                        suka.setColorFilter(getContext().getResources().getColor(R.color.abu));
+                        stateLike=false;
+                        loadLike();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<PostLikeResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -102,10 +210,31 @@ public class DetailGroupFragment extends Fragment {
                 if (response.isSuccessful()) {
 
                     GroupDiscussion gd = response.body();
+                    List<Liker> like = gd.getLiker();
+
+                    int i = 0;
+                    for(i=0;i<like.size();i++) {
+                        if(like.get(i).getCreatedBy().getId().equals(sessionManager.getKeyId())){
+                            suka.setColorFilter(getContext().getResources().getColor(R.color.merah));
+                            stateLike=true;
+                        }
+                        else{
+                            stateLike=false;
+                        }
+                    }
 
                     nama_posting.setText(gd.getCreatedBy().getFullName());
                     judul.setText(gd.getTitle());
                     deskripsi.setText(gd.getDescription());
+                    jumlahlike = gd.getTotalLike()+" orang menyukai";
+                    total_like.setText(jumlahlike);
+
+                    String urlPP = new BaseModel().getProfileUrl()+gd.getCreatedBy().getUserProfile().getPhoto();
+                    Picasso.get()
+                            .load(urlPP)
+                            .placeholder(R.drawable.placegam)
+                            .error(R.drawable.placeholdergambar)
+                            .into(pp);
                 }
             }
 
