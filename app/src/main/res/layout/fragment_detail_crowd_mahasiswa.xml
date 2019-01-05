@@ -111,16 +111,37 @@
                     android:layout_marginLeft="20dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/donasi_crowd_mahasiswa"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Harga"
-                    android:textColor="#10cc0d"
                     android:layout_toRightOf="@id/icon_donasi"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_below="@id/donasi" />
+                    android:layout_below="@id/donasi">
+                    <TextView
+                        android:id="@+id/donasi_crowd_mahasiswa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current"
+                        android:textStyle="bold"
+                        android:textColor="@color/merah" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dari target"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/hitam" />
+
+                    <TextView
+                        android:id="@+id/donasi_total_crowd_mahasiswa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Total"
+                        android:textColor="#10cc0d" />
+                </LinearLayout>
+
             </RelativeLayout>
 
             <TextView

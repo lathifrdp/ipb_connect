@@ -59,7 +59,7 @@ public class CrowdMDetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail M Proposal");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Proposal");
         sessionManager = new SessionManager(getActivity());
         judul = (TextView) getView().findViewById(R.id.judul_crowd_mahasiswa);
         lokasi = (TextView) getView().findViewById(R.id.lokasi_crowd_mahasiswa);
@@ -72,6 +72,7 @@ public class CrowdMDetailFragment extends Fragment {
         foto = (CircleImageView) getView().findViewById(R.id.fotonya);
         proyek = (TextView) getView().findViewById(R.id.project_crowd_mahasiswa);
         btn = (Button) getView().findViewById(R.id.crowd_donatur);
+        tot = (TextView) getView().findViewById(R.id.donasi_total_crowd_mahasiswa);
 
         bundle = this.getArguments();
 
@@ -131,6 +132,7 @@ public class CrowdMDetailFragment extends Fragment {
                     Crowdfunding crowd = response.body();
 
                     int sekarang = Integer.parseInt(crowd.getCurrentCost());
+                    int total = Integer.parseInt(crowd.getTotalCost());
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
@@ -143,6 +145,7 @@ public class CrowdMDetailFragment extends Fragment {
                     angkatan.setText("Angkatan "+crowd.getUser().getBatch());
                     curr.setText(formatRupiah.format((double)sekarang));
                     proyek.setText(crowd.getProjectType());
+                    tot.setText(formatRupiah.format((double)total));
 
                     String url = new BaseModel().getProfileUrl()+crowd.getUser().getUserProfile().getPhoto();
                     Picasso.get()
