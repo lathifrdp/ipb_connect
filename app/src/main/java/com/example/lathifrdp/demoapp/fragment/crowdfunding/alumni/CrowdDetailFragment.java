@@ -77,6 +77,7 @@ public class CrowdDetailFragment extends Fragment {
         judul = (TextView) getView().findViewById(R.id.judul_crowd_alumni);
         lokasi = (TextView) getView().findViewById(R.id.lokasi_crowd_alumni);
         curr = (TextView) getView().findViewById(R.id.donasi_crowd_alumni);
+        tot = (TextView) getView().findViewById(R.id.donasi_total_crowd_alumni);
         deskripsi = (TextView) getView().findViewById(R.id.deskripsi_crowd_alumni);
         kontak = (TextView) getView().findViewById(R.id.kontak_crowd_alumni);
         nama = (TextView) getView().findViewById(R.id.namanya);
@@ -170,6 +171,7 @@ public class CrowdDetailFragment extends Fragment {
                     Crowdfunding crowd = response.body();
 
                     int sekarang = Integer.parseInt(crowd.getCurrentCost());
+                    int total = Integer.parseInt(crowd.getTotalCost());
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
@@ -181,6 +183,7 @@ public class CrowdDetailFragment extends Fragment {
                     prodi.setText(crowd.getUser().getStudyProgram().getName());
                     angkatan.setText("Angkatan "+crowd.getUser().getBatch());
                     curr.setText(formatRupiah.format((double)sekarang));
+                    tot.setText(formatRupiah.format((double)total));
                     proyek.setText(crowd.getProjectType());
 
                     String url = new BaseModel().getProfileUrl()+crowd.getUser().getUserProfile().getPhoto();
