@@ -1,6 +1,7 @@
 package com.example.lathifrdp.demoapp.adapter;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,7 +111,7 @@ public class CrowdAlumniList extends ArrayAdapter<Crowdfunding> implements View.
 
 
         int current = Integer.parseInt(dataModel.getCurrentCost());
- //       int total = Integer.parseInt(dataModel.getTotalCost());
+        int total = Integer.parseInt(dataModel.getTotalCost());
 
         Locale localeID = new Locale("in", "ID");
         NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
@@ -118,7 +119,7 @@ public class CrowdAlumniList extends ArrayAdapter<Crowdfunding> implements View.
         viewHolder.txtTitle.setText(dataModel.getTitle());
         viewHolder.txtDescription.setText(dataModel.getDescription());
         viewHolder.txtCurrent.setText("Telah terkumpul "+formatRupiah.format((double)current));
- //       viewHolder.txtTotal.setText(" dari target "+formatRupiah.format((double)total));
+        viewHolder.txtTotal.setText(" dari target "+formatRupiah.format((double)total));
         //viewHolder.info.setOnClickListener(this);
         //viewHolder.info.setTag(position);
         // Return the completed view to render on screen
