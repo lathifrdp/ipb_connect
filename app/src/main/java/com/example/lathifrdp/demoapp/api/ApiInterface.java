@@ -379,4 +379,16 @@ public interface ApiInterface {
     @GET("crowdfundings/donations/{id}")
     Call<DonationResponse> getDonation(@Header("Authorization") String token,
                                        @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("groupdiscussions/like/{id}")
+    Call<PostLikeResponse> postLikeGroup(@Header("Authorization") String token,
+                                            @Field("createdBy") String createdBy,
+                                            @Path("id") String id);
+
+    @FormUrlEncoded
+    @POST("groupdiscussions/unlike/{id}")
+    Call<PostLikeResponse> postUnlikeGroup(@Header("Authorization") String token,
+                                              @Field("createdBy") String createdBy,
+                                              @Path("id") String id);
 }
