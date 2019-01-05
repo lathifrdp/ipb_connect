@@ -111,16 +111,41 @@
                     android:layout_marginLeft="20dp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/donasi_crowd_alumni"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Harga"
-                    android:textColor="#10cc0d"
+                    android:orientation="horizontal"
                     android:layout_toRightOf="@id/icon_donasi"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="5dp"
-                    android:layout_below="@id/donasi" />
+                    android:layout_below="@id/donasi">
+
+                    <TextView
+                        android:id="@+id/donasi_crowd_alumni"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Current"
+                        android:textStyle="bold"
+                        android:textColor="@color/merah" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="dari target"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/hitam" />
+
+                    <TextView
+                        android:id="@+id/donasi_total_crowd_alumni"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="Total"
+                        android:textColor="@color/merah" />
+
+                </LinearLayout>
+
+
             </RelativeLayout>
 
             <TextView
@@ -155,13 +180,21 @@
                 android:paddingLeft="10dp"
                 tools:text="isinya"/>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:textStyle="italic"
+                android:layout_marginTop="20dp"
+                android:textColor="@color/merah"
+                android:text="Setelah melakukan transfer, diharapkan mengunggah bukti transfer dengan menekan tombol unggah bukti."/>
+
             <Button
                 style="@style/Widget.AppCompat.Button.Colored"
                 android:id="@+id/crowd_donasi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Lakukan Donasi"/>
+                android:text="Unggah Bukti"/>
 
             <View
                 android:layout_width="match_parent"
