@@ -135,7 +135,7 @@ public class DetailEventFragment extends Fragment {
                     enddate.setText(formattedendDate);
 
                     starttime.setText("Pukul "+event.getStartTime());
-                    if(event.getEndTime()==""){
+                    if(event.getEndTime().equals("")){
                         endtime.setText("selesai");
                     }
                     else{
