@@ -40,7 +40,7 @@
                     android:id="@+id/judul_event_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Judul Event"
+                    android:hint="Judul Acara"
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
@@ -55,7 +55,7 @@
                     android:id="@+id/lokasi_event_et"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Lokasi Event"
+                    android:hint="Lokasi Acara"
                     android:inputType="text"
                     android:maxLines="1"
                     android:singleLine="true" />
