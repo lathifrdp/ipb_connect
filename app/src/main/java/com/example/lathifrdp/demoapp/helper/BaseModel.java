@@ -8,10 +8,10 @@ public class BaseModel {
     String knowledgeUrl;
 
     public BaseModel(){
-        //this.url = "http://api.ipbconnect.cs.ipb.ac.id/";
+        this.url = "http://api.ipbconnect.cs.ipb.ac.id/";
         //this.url = "http://172.20.32.178:3501/";
         //this.url = "http://192.168.43.31:3501/";
-        this.url = "http://192.168.1.10:3501/";
+        //this.url = "http://192.168.1.10:3501/";
         //this.url = "http://172.30.48.135:3501/";
         //this.url = "http://192.168.43.88:3501/";
         this.eventUrl = this.url + "uploads/event/";
