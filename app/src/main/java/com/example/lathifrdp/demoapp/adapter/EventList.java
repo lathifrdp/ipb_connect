@@ -12,7 +12,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lathifrdp.demoapp.R;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.model.Event;
+import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -41,7 +43,7 @@ public class EventList extends ArrayAdapter<Event> implements View.OnClickListen
         TextView txtPrice;
         TextView txtDescription;
         TextView txtContact;
-        ImageView info;
+        ImageView poster;
     }
 
     public EventList(List<Event> data, Context context) {
@@ -91,7 +93,7 @@ public class EventList extends ArrayAdapter<Event> implements View.OnClickListen
             viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.title_ev);
             viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.desc_ev);
             viewHolder.txtPrice = (TextView) convertView.findViewById(R.id.price_ev);
-            viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+            viewHolder.poster = (ImageView) convertView.findViewById(R.id.poster_ev);
 
             result=convertView;
 
@@ -120,6 +122,13 @@ public class EventList extends ArrayAdapter<Event> implements View.OnClickListen
         viewHolder.txtTitle.setText(dataModel.getTitle());
         viewHolder.txtDescription.setText("Rp "+str);
         viewHolder.txtPrice.setText(formattedDate);
+
+        String url = new BaseModel().getEventUrl()+dataModel.getPicture();
+        Picasso.get()
+                .load(url)
+                .placeholder(R.drawable.placegam)
+                .error(R.drawable.placeholdergambar)
+                .into(viewHolder.poster);
         //viewHolder.info.setOnClickListener(this);
         //viewHolder.info.setTag(position);
         // Return the completed view to render on screen
