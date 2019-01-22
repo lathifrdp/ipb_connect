@@ -40,7 +40,7 @@ public class CrowdMDetailFragment extends Fragment {
 
     Bundle bundle;
     private String id_crowd;
-    TextView judul, lokasi, curr, tot, deskripsi, kontak, nama, angkatan, prodi,proyek;
+    TextView judul, lokasi, curr, tot, deskripsi, kontak, nama, angkatan, prodi,proyek, kosong;
     CircleImageView foto;
     ApiInterface apiService;
     SessionManager sessionManager;
@@ -48,6 +48,15 @@ public class CrowdMDetailFragment extends Fragment {
     public List<Donation> donationList;
     public RecyclerView recyclerViewDon;
     DonationList donationAdapter;
+
+    public static CrowdMDetailFragment newInstance(String id) {
+
+        Bundle args = new Bundle();
+        CrowdMDetailFragment fragment = new CrowdMDetailFragment();
+        args.putString("id",id);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -59,7 +68,7 @@ public class CrowdMDetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Proposal");
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Proposal");
         sessionManager = new SessionManager(getActivity());
         judul = (TextView) getView().findViewById(R.id.judul_crowd_mahasiswa);
         lokasi = (TextView) getView().findViewById(R.id.lokasi_crowd_mahasiswa);
@@ -94,6 +103,7 @@ public class CrowdMDetailFragment extends Fragment {
                 View dialogview = inflater.inflate(R.layout.fragment_crowd_donatur, null);
                 alertDialog.setView(dialogview);
 
+                kosong = (TextView) dialogview.findViewById(R.id.donatur_kosong);
                 recyclerViewDon= (RecyclerView) dialogview.findViewById(R.id.recy_donatur);
                 recyclerViewDon.setLayoutManager(new LinearLayoutManager(getActivity()));
                 recyclerViewDon.setHasFixedSize(true);
@@ -180,6 +190,10 @@ public class CrowdMDetailFragment extends Fragment {
                     donationAdapter = new DonationList(donationList);
                     recyclerViewDon.setAdapter(donationAdapter);
                     //recyclerViewCom.smoothScrollToPosition(0);
+                    int total = dr.getTotal();
+                    if(total == 0){
+                        kosong.setText("Belum ada donatur");
+                    }
                 }
             }
 
