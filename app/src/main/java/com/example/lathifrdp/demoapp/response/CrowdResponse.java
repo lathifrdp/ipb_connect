@@ -25,8 +25,11 @@ public class CrowdResponse {
     @SerializedName("message")
     private String message;
 
-    public CrowdResponse(List<Crowdfunding> crowdfunding, Integer page, Integer total, boolean isSuccess, String message){
-        this.crowdfunding = crowdfunding;
+    @SerializedName("error")
+    private String error;
+
+    public CrowdResponse(Integer page, Integer total){
+        //this.crowdfunding = crowdfunding;
         this.page = page;
         this.total = total;
     }
@@ -69,5 +72,13 @@ public class CrowdResponse {
 
     public void setSuccess(boolean success) {
         isSuccess = success;
+    }
+
+    public String getError() {
+        return error;
+    }
+
+    public void setError(String error) {
+        this.error = error;
     }
 }
