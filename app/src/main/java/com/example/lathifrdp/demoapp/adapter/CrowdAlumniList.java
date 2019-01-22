@@ -12,8 +12,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lathifrdp.demoapp.R;
+import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.model.Crowdfunding;
 import com.example.lathifrdp.demoapp.model.Event;
+import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -44,7 +46,7 @@ public class CrowdAlumniList extends ArrayAdapter<Crowdfunding> implements View.
         TextView txtDescription;
         TextView txtContact;
 
-        ImageView info;
+        ImageView gambar;
     }
 
     public CrowdAlumniList(List<Crowdfunding> data, Context context) {
@@ -95,7 +97,7 @@ public class CrowdAlumniList extends ArrayAdapter<Crowdfunding> implements View.
             viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.desc_cr);
             viewHolder.txtCurrent = (TextView) convertView.findViewById(R.id.current_cr);
             viewHolder.txtTotal = (TextView) convertView.findViewById(R.id.total_cr);
-            //viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+            viewHolder.gambar = (ImageView) convertView.findViewById(R.id.gambar_cr);
 
             result=convertView;
 
@@ -120,6 +122,13 @@ public class CrowdAlumniList extends ArrayAdapter<Crowdfunding> implements View.
         viewHolder.txtDescription.setText(dataModel.getDescription());
         viewHolder.txtCurrent.setText("Telah terkumpul "+formatRupiah.format((double)current));
         viewHolder.txtTotal.setText(" dari target "+formatRupiah.format((double)total));
+
+        String url = new BaseModel().getCrowdfundingUrl()+dataModel.getProposalImages().get(0).getFile();
+        Picasso.get()
+                .load(url)
+                .placeholder(R.drawable.placegam)
+                .error(R.drawable.placeholdergambar)
+                .into(viewHolder.gambar);
         //viewHolder.info.setOnClickListener(this);
         //viewHolder.info.setTag(position);
         // Return the completed view to render on screen

@@ -57,7 +57,7 @@ public class CrowdAlumniFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Proposal");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Daftar Crowdfunding");
         listView=(ListView)getView().findViewById(R.id.listKontenAlumni);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -95,7 +95,7 @@ public class CrowdAlumniFragment extends Fragment{
                 //final String str= listEvent.get(i).getFullName();
 
                 Fragment newFragment = null;
-                newFragment = new CrowdDetailFragment();
+                newFragment = new CrowdPagerFragment();
 
                 //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
                 bundle.putString("id",listCrowd.get(i).getId()); // Put anything what you want

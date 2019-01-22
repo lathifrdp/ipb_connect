@@ -12,12 +12,30 @@
     android:orientation="vertical"
     android:padding="10dp">
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:id="@+id/gambar_cr"
+                android:scaleType="centerCrop"
+                android:src="@drawable/folder_flat"/>
+
     <TextView
         android:id="@+id/title_cr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
         android:text="Marshmallow"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:layout_marginTop="10dp"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black" />
 
@@ -26,7 +44,6 @@
         android:id="@+id/desc_cr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title_cr"
         android:layout_marginTop="5dp"
         android:text="Android 6.0"
         android:textColor="@android:color/black" />
@@ -34,7 +51,6 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/desc_cr"
         android:orientation="horizontal">
 
     <TextView
@@ -55,6 +71,8 @@
         android:textAppearance="?android:attr/textAppearanceButton"
         android:textColor="@android:color/black" />
     </LinearLayout>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
 
     <!--<ImageView-->
         <!--android:id="@+id/item_info"-->
