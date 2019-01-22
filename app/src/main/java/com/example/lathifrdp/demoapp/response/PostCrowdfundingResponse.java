@@ -1,5 +1,6 @@
 package com.example.lathifrdp.demoapp.response;
 
+import com.example.lathifrdp.demoapp.model.Crowdfunding;
 import com.google.gson.annotations.SerializedName;
 
 public class PostCrowdfundingResponse {
@@ -8,6 +9,9 @@ public class PostCrowdfundingResponse {
 
     @SerializedName("message")
     private String message;
+
+    @SerializedName("item")
+    private Crowdfunding crowdfunding;
 
     public PostCrowdfundingResponse(boolean isSuccess, String message){
         this.isSuccess = isSuccess;
@@ -28,5 +32,13 @@ public class PostCrowdfundingResponse {
 
     public void setSuccess(boolean success) {
         isSuccess = success;
+    }
+
+    public Crowdfunding getCrowdfunding() {
+        return crowdfunding;
+    }
+
+    public void setCrowdfunding(Crowdfunding crowdfunding) {
+        this.crowdfunding = crowdfunding;
     }
 }
