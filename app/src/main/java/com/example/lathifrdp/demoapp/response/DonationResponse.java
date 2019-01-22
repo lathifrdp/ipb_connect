@@ -7,15 +7,33 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 public class DonationResponse {
-    @SerializedName("items")
+//    @SerializedName("items")
+//    private List<Donation> donations;
+//
+//    @SerializedName("isSuccess")
+//    private boolean isSuccess;
+
+    @SerializedName("results")
     private List<Donation> donations;
 
-    @SerializedName("isSuccess")
-    private boolean isSuccess;
+    @SerializedName("page")
+    private Integer page;
 
-    public DonationResponse(List<Donation> donations, boolean isSuccess){
-        this.donations = donations;
-        this.isSuccess = isSuccess;
+    @SerializedName("limit")
+    private Integer limit;
+
+    @SerializedName("total")
+    private Integer total;
+
+//    public DonationResponse(List<Donation> donations, boolean isSuccess){
+//        this.donations = donations;
+//        this.isSuccess = isSuccess;
+//    }
+
+    public DonationResponse(Integer page, Integer total, Integer limit){
+        this.limit = limit;
+        this.page = page;
+        this.total = total;
     }
 
     public List<Donation> getDonations() {
@@ -26,11 +44,27 @@ public class DonationResponse {
         this.donations = donations;
     }
 
-    public boolean isSuccess() {
-        return isSuccess;
+    public Integer getLimit() {
+        return limit;
     }
 
-    public void setSuccess(boolean success) {
-        isSuccess = success;
+    public void setLimit(Integer limit) {
+        this.limit = limit;
+    }
+
+    public Integer getTotal() {
+        return total;
+    }
+
+    public void setTotal(Integer total) {
+        this.total = total;
+    }
+
+    public Integer getPage() {
+        return page;
+    }
+
+    public void setPage(Integer page) {
+        this.page = page;
     }
 }
