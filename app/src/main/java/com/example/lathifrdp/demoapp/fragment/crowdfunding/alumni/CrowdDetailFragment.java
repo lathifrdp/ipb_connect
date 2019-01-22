@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.api.ApiClient;
@@ -62,6 +63,15 @@ public class CrowdDetailFragment extends Fragment {
     public ImageView galeri,kamera, gambar;
     Button postnya;
 
+    public static CrowdDetailFragment newInstance(String id) {
+
+        Bundle args = new Bundle();
+        CrowdDetailFragment fragment = new CrowdDetailFragment();
+        args.putString("id",id);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -72,7 +82,7 @@ public class CrowdDetailFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Proposal");
+        //((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Detail Proposal");
         sessionManager = new SessionManager(getActivity());
         judul = (TextView) getView().findViewById(R.id.judul_crowd_alumni);
         lokasi = (TextView) getView().findViewById(R.id.lokasi_crowd_alumni);
@@ -86,6 +96,7 @@ public class CrowdDetailFragment extends Fragment {
         foto = (CircleImageView) getView().findViewById(R.id.fotonya);
         proyek = (TextView) getView().findViewById(R.id.project_crowd_alumni);
         btn = (Button) getView().findViewById(R.id.crowd_donasi);
+
 
         bundle = this.getArguments();
 
