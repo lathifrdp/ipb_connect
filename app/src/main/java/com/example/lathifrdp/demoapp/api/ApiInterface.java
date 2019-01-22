@@ -34,9 +34,11 @@ import com.example.lathifrdp.demoapp.response.PostJobResponse;
 import com.example.lathifrdp.demoapp.response.PostLikeResponse;
 import com.example.lathifrdp.demoapp.response.PostMemoriesResponse;
 import com.example.lathifrdp.demoapp.response.PostSharingResponse;
+import com.example.lathifrdp.demoapp.response.ProgressResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
 import com.example.lathifrdp.demoapp.response.SharingResponse;
 import com.example.lathifrdp.demoapp.response.StatusResponse;
+import com.example.lathifrdp.demoapp.response.UploadCrowdfundingResponse;
 import com.example.lathifrdp.demoapp.response.UserResponse;
 
 import java.util.List;
@@ -349,6 +351,10 @@ public interface ApiInterface {
             @Field("creator") String creator
     );
 
+    @GET("crowdfundings")
+    Call<CrowdResponse> getCrowdMahasiswa(@Header("Authorization") String token,
+                                          @Query("createdBy") String createdBy);
+
     @Multipart
     @POST("crowdfundings")
     Call<PostCrowdfundingResponse> postCrowd(@Header("Authorization") String token,
@@ -359,6 +365,7 @@ public interface ApiInterface {
                                              @Part("location") RequestBody location,
                                              @Part("projectType") RequestBody projectType,
                                              @Part("cost") RequestBody cost,
+                                             @Part("deadline") RequestBody deadline,
                                              @Part("createdBy") RequestBody createdBy);
 
     @Multipart
@@ -391,4 +398,31 @@ public interface ApiInterface {
     Call<PostLikeResponse> postUnlikeGroup(@Header("Authorization") String token,
                                               @Field("createdBy") String createdBy,
                                               @Path("id") String id);
+
+    @Multipart
+    @POST("crowdfundings/upload/{id}")
+    Call<UploadCrowdfundingResponse> uploadPhotoCrowd(
+            @Header("Authorization") String token,
+            @Path("id") String id,
+            @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST("crowdfundings/uploadVideo/{id}")
+    Call<UploadCrowdfundingResponse> uploadVideoCrowd(
+            @Header("Authorization") String token,
+            @Path("id") String id,
+            @Part MultipartBody.Part file);
+
+    @Multipart
+    @POST("crowdfundings/update/{id}")
+    Call<UploadCrowdfundingResponse> updateProgress(
+            @Header("Authorization") String token,
+            @Path("id") String id,
+            @Part MultipartBody.Part file,
+            @Part("description") RequestBody description,
+            @Part("createdBy") RequestBody createdBy);
+
+    @GET("crowdfundings/progress/{id}")
+    Call<ProgressResponse> getProgress(@Header("Authorization") String token,
+                                       @Path("id") String id);
 }
