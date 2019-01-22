@@ -50,7 +50,19 @@ public class Crowdfunding {
     @SerializedName("message")
     private String message;
 
-    public Crowdfunding(String id, String title, String description, String contactPerson, String file, String location, String projectType, String totalCost, String currentCost, String created) {
+    @SerializedName("deadline")
+    private String deadline;
+
+    @SerializedName("proposalVideo")
+    private String proposalVideo;
+
+    @SerializedName("progress")
+    private List<Progress> progresses;
+
+    @SerializedName("proposalImage")
+    private List<ProposalImage> proposalImages;
+
+    public Crowdfunding(String id, String title, String description, String contactPerson, String file, String location, String projectType, String totalCost, String currentCost, String created, String deadline, String proposalVideo) {
         this.id = id;
         this.title = title;
         this.description = description;
@@ -61,6 +73,8 @@ public class Crowdfunding {
         this.totalCost = totalCost;
         this.currentCost = currentCost;
         this.created = created;
+        this.deadline = deadline;
+        this.proposalVideo = proposalVideo;
     }
 
     public String getId() {
@@ -181,5 +195,37 @@ public class Crowdfunding {
 
     public boolean isVerified() {
         return isVerified;
+    }
+
+    public List<Progress> getProgresses() {
+        return progresses;
+    }
+
+    public void setProgresses(List<Progress> progresses) {
+        this.progresses = progresses;
+    }
+
+    public List<ProposalImage> getProposalImages() {
+        return proposalImages;
+    }
+
+    public void setProposalImages(List<ProposalImage> proposalImages) {
+        this.proposalImages = proposalImages;
+    }
+
+    public String getDeadline() {
+        return deadline;
+    }
+
+    public void setDeadline(String deadline) {
+        this.deadline = deadline;
+    }
+
+    public String getProposalVideo() {
+        return proposalVideo;
+    }
+
+    public void setProposalVideo(String proposalVideo) {
+        this.proposalVideo = proposalVideo;
     }
 }
