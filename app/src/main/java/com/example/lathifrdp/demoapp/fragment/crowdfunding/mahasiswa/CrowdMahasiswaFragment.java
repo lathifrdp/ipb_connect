@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
 import com.example.lathifrdp.demoapp.adapter.CrowdAlumniList;
+import com.example.lathifrdp.demoapp.adapter.CrowdMahasiswaList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
@@ -38,7 +39,7 @@ public class CrowdMahasiswaFragment extends Fragment {
     TextView tv;
     SwipeRefreshLayout mSwipeRefreshLayout;
     ListView listView;
-    CrowdAlumniList adapter;
+    CrowdMahasiswaList adapter;
     ApiInterface apiService;
     SessionManager sessionManager;
     private int page = 1;
@@ -47,7 +48,7 @@ public class CrowdMahasiswaFragment extends Fragment {
     private int limitpage=0;
     Bundle bundle;
     TextView stat;
-    //String verified = "1";
+    String verified = "1";
 
     @Nullable
     @Override
@@ -95,7 +96,7 @@ public class CrowdMahasiswaFragment extends Fragment {
 
         bundle = new Bundle();
         listCrowd = new ArrayList<>();
-        adapter= new CrowdAlumniList(listCrowd,getActivity());
+        adapter= new CrowdMahasiswaList(listCrowd,getActivity());
         listView.setAdapter(adapter);
 
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -113,7 +114,7 @@ public class CrowdMahasiswaFragment extends Fragment {
                 //final String str= listEvent.get(i).getFullName();
 
                 Fragment newFragment = null;
-                newFragment = new CrowdMDetailFragment();
+                newFragment = new CrowdMPagerFragment();
 
                 //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
                 bundle.putString("id",listCrowd.get(i).getId()); // Put anything what you want
@@ -156,12 +157,13 @@ public class CrowdMahasiswaFragment extends Fragment {
     }
     private void loadDataCrowdMhs(){
 
-        final String creator = sessionManager.getKeyId();
+        final String createdBy = sessionManager.getKeyId();
         //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
         //ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
-        Call<CrowdResponse> call = apiService.getCrowdMhs("JWT "+ sessionManager.getKeyToken(),page,creator);
+        Call<CrowdResponse> call = apiService.getCrowdMahasiswa("JWT "+ sessionManager.getKeyToken(),createdBy);
+        //Call<CrowdResponse> call = apiService.getCrowdMhs("JWT "+ sessionManager.getKeyToken(),page,creator);
         call.enqueue(new Callback<CrowdResponse>() {
             @Override
             public void onResponse(Call<CrowdResponse> call, Response<CrowdResponse> response) {
@@ -170,8 +172,8 @@ public class CrowdMahasiswaFragment extends Fragment {
 
                     CrowdResponse cr = response.body();
 
-                    if(cr.isSuccess()==false ){
-                        Toast.makeText(getActivity(), cr.getMessage(), Toast.LENGTH_SHORT).show();
+                    if(cr.getError() != null ){
+                        Toast.makeText(getActivity(), cr.getError(), Toast.LENGTH_SHORT).show();
                         stat.setText("Anda tidak memiliki proposal");
                     }
                     if(page>0) {
@@ -193,6 +195,7 @@ public class CrowdMahasiswaFragment extends Fragment {
             @Override
             public void onFailure(Call<CrowdResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "gagal", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), creator, Toast.LENGTH_SHORT).show();
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
