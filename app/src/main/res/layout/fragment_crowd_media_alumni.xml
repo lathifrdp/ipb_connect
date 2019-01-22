@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="10dp">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Dokumen"
+                        android:layout_marginBottom="10dp"
+                        android:textStyle="bold"/>
+
+                    <WebView
+                        android:layout_width="match_parent"
+                        android:layout_height="200dp"
+                        android:id="@+id/file_crowd_alumni">
+                    </WebView>
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Video"
+                    android:layout_marginBottom="10dp"
+                    android:textStyle="bold"/>
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                <VideoView
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:id="@+id/video_crowd_alumni" />
+                    <ProgressBar
+                        android:id="@+id/progressbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_gravity="center"
+                        android:visibility="gone" />
+                </FrameLayout>
+                <!--<LinearLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:orientation="horizontal"-->
+                    <!--android:layout_marginBottom="20dp"-->
+                    <!--android:layout_marginLeft="10dp"-->
+                    <!--android:layout_marginTop="5dp">-->
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/play_crowd_alumni"-->
+                        <!--android:clickable="true"-->
+                        <!--android:src="@drawable/playbutton"/>-->
+
+                    <!--<ImageView-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content"-->
+                        <!--android:id="@+id/pause_crowd_alumni"-->
+                        <!--android:layout_marginLeft="20dp"-->
+                        <!--android:clickable="true"-->
+                        <!--android:src="@drawable/pause"/>-->
+
+                <!--</LinearLayout>-->
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
