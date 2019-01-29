@@ -10,12 +10,14 @@ import com.example.lathifrdp.demoapp.model.JobLocation;
 import com.example.lathifrdp.demoapp.model.KnowledgeSharing;
 import com.example.lathifrdp.demoapp.model.KnowledgeSharingCategory;
 import com.example.lathifrdp.demoapp.model.Memory;
+import com.example.lathifrdp.demoapp.model.News;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.CrowdResponse;
 import com.example.lathifrdp.demoapp.response.DonationResponse;
 import com.example.lathifrdp.demoapp.response.DonaturResponse;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
+import com.example.lathifrdp.demoapp.response.NewsResponse;
 import com.example.lathifrdp.demoapp.response.PinResponse;
 import com.example.lathifrdp.demoapp.response.PostBookmarkResponse;
 import com.example.lathifrdp.demoapp.response.PostCommentResponse;
@@ -425,4 +427,16 @@ public interface ApiInterface {
     @GET("crowdfundings/progress/{id}")
     Call<ProgressResponse> getProgress(@Header("Authorization") String token,
                                        @Path("id") String id);
+
+    @GET("IPBNews/Berita/List")
+    Call<NewsResponse> getNews(@Header("X-IPBAPI-TOKEN") String token,
+                               @Query("language") String language,
+                               @Query("page") Integer page,
+                               @Query("perPage") Integer perPage,
+                               @Query("order ") String order );
+
+    @GET("IPBNews/Berita/Detail")
+    Call<News> getNewsDetail(@Header("X-IPBAPI-TOKEN") String token,
+                             @Query("language") String language,
+                             @Query("id") String id );
 }
