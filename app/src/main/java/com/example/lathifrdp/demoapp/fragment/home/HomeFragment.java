@@ -7,19 +7,26 @@ import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.MainActivity;
 import com.example.lathifrdp.demoapp.R;
+import com.example.lathifrdp.demoapp.adapter.NewsList;
 import com.example.lathifrdp.demoapp.api.ApiClient;
+import com.example.lathifrdp.demoapp.api.ApiClient2;
 import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.MyValueFormatter;
+import com.example.lathifrdp.demoapp.helper.NonScrollListView;
+import com.example.lathifrdp.demoapp.model.News;
 import com.example.lathifrdp.demoapp.response.CountResponse;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 
@@ -27,6 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.example.lathifrdp.demoapp.response.NewsResponse;
 import com.example.lathifrdp.demoapp.response.StatusResponse;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
@@ -36,6 +44,7 @@ import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class HomeFragment extends Fragment {
 
@@ -54,6 +63,13 @@ public class HomeFragment extends Fragment {
     TextView HomeTotalKet;
     SwipeRefreshLayout mSwipeRefreshLayout;
     //private TextView HomeProdi, HomeKet;
+    NonScrollListView listView;
+    NewsList adapter;
+    private int page = 1;
+    private boolean isRefresh = false;
+    private List<News> listNews;
+    private int limitpage=0;
+    Bundle bundle;
 
     @Nullable
     @Override
@@ -72,6 +88,21 @@ public class HomeFragment extends Fragment {
         HomeKet = (TextView) getView().findViewById(R.id.homeKet);
         HomeTotal = (TextView) getView().findViewById(R.id.homeTotal);
         HomeTotalKet = (TextView) getView().findViewById(R.id.homeTotalKet);
+        listView=(NonScrollListView) getView().findViewById(R.id.listNews);
+
+        if(bundle != null){
+            page=1;
+        }
+        else {
+            page=1;
+        }
+
+        loadDataNews();
+
+        bundle = new Bundle();
+        listNews = new ArrayList<>();
+        adapter= new NewsList(listNews,getActivity());
+        listView.setAdapter(adapter);
 
         pieChart = (PieChart) getView().findViewById(R.id.piechart_gender);
         pieChart2 = (PieChart) getView().findViewById(R.id.piechart_account);
@@ -82,10 +113,30 @@ public class HomeFragment extends Fragment {
             public void onRefresh() {
                 loadCount();
                 loadStatus();
+                isRefresh = true;
+                page = 1;
+                loadDataNews();
             }
         });
         loadCount();
         loadStatus();
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Fragment newFragment = null;
+                newFragment = new DetailNewsFragment();
+                bundle.putString("id",listNews.get(i).getId());
+                newFragment.setArguments(bundle);
+
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.screen_area, newFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+
+            }
+        });
+
         //setPieChart();
 
 
@@ -97,6 +148,44 @@ public class HomeFragment extends Fragment {
 //            }
 //        });
     }
+
+    private void loadDataNews(){
+
+        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
+        apiService = ApiClient2.getClient().create(ApiInterface.class);
+        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
+        final String language = "ID";
+        final String order = "Latest";
+        final Integer perPage = 5;
+
+        Call<NewsResponse> call = apiService.getNews("Bearer 4857d8cb-af10-3ceb-91f3-fe025244e9eb",language,page,perPage,order);
+        call.enqueue(new Callback<NewsResponse>() {
+            @Override
+            public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
+                mSwipeRefreshLayout.setRefreshing(false);
+                if (response.isSuccessful()) {
+                    if(isRefresh) adapter.setList(response.body().getNews());
+                    else adapter.addList(response.body().getNews());
+                    isRefresh = false;
+                    adapter.notifyDataSetChanged();
+
+                    //int total = response.body().getTotalpages();
+                    //int limit = perPage;
+                    //limitpage = (int)Math.ceil((double)total/perPage);
+                    //limitpage = perPage;
+                    //page++;
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<NewsResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "gagal", Toast.LENGTH_SHORT).show();
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
     private void loadStatus(){
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
