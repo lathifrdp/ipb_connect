@@ -31,50 +31,67 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/alumni2"
-            android:layout_gravity="center"
-            android:layout_marginTop="30dp"/>
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/homeProdi"
-            tools:text="jurusan"
-            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/graduation128" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/homeProdi"
+                    tools:text="jurusan"
+                    android:textSize="16dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/homeKet"
+                    tools:text="jurusan2"
+                    android:layout_marginTop="5dp"
+                    android:textSize="10dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
-            android:textSize="22dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/homeKet"
-            tools:text="jurusan2"
-            android:textSize="10dp"
-            android:layout_gravity="center"/>
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:src="@drawable/person"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/homeTotal"
-            android:layout_gravity="center"
-            tools:text="pengguna"
-            android:layout_marginTop="10dp"
-            android:textSize="22dp"/>
+            android:layout_marginBottom="20dp"
+            android:orientation="horizontal">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/person" />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/homeTotal"
+                    tools:text="pengguna"
+                    android:textSize="16dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/homeTotalKet"
-            tools:text="pengguna2"
-            android:textSize="10dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="30dp"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/homeTotalKet"
+                    tools:text="pengguna2"
+                    android:textSize="10dp"
+                    android:layout_marginTop="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -105,8 +122,6 @@
             android:textSize="16dp"/>
     </LinearLayout>
 
-
-
     <!--<ListView-->
         <!--android:id="@+id/listNews"-->
         <!--android:layout_width="wrap_content"-->
@@ -124,6 +139,69 @@
 
     </com.example.lathifrdp.demoapp.helper.NonScrollListView>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/memuat_lebih_berita"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/putih"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_border"
+        android:text="Memuat lebih"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ddd"
+        />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#ddd"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal">
+        <ImageView
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:src="@drawable/calendarevent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:text="Acara"
+            android:textStyle="bold"
+            android:textSize="16dp"/>
+    </LinearLayout>
+
+    <com.example.lathifrdp.demoapp.helper.NonScrollListView
+        android:id="@+id/listEventHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        >
+
+    </com.example.lathifrdp.demoapp.helper.NonScrollListView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/memuat_lebih_acara"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/putih"
+        android:layout_gravity="center"
+        android:background="@drawable/rounded_border"
+        android:text="Memuat lebih"/>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -131,42 +209,42 @@
         />
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginBottom="10dp"
-        >
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="@dimen/activity_vertical_margin"-->
+        <!--android:layout_marginBottom="10dp"-->
+        <!--&gt;-->
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="170dp"
-            android:layout_weight="1">
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="170dp"-->
+            <!--android:layout_weight="1">-->
 
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piechart_gender"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></com.github.mikephil.charting.charts.PieChart>
+            <!--<com.github.mikephil.charting.charts.PieChart-->
+                <!--android:id="@+id/piechart_gender"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"></com.github.mikephil.charting.charts.PieChart>-->
 
-        </RelativeLayout>
+        <!--</RelativeLayout>-->
 
-        <View
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="#ddd"/>
+        <!--<View-->
+            <!--android:layout_width="1dp"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:background="#ddd"/>-->
 
-        <RelativeLayout
-            android:layout_width="0dp"
-            android:layout_height="170dp"
-            android:layout_weight="1">
-            <com.github.mikephil.charting.charts.PieChart
-                android:id="@+id/piechart_account"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
-            </com.github.mikephil.charting.charts.PieChart>
-        </RelativeLayout>
+        <!--<RelativeLayout-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="170dp"-->
+            <!--android:layout_weight="1">-->
+            <!--<com.github.mikephil.charting.charts.PieChart-->
+                <!--android:id="@+id/piechart_account"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent">-->
+            <!--</com.github.mikephil.charting.charts.PieChart>-->
+        <!--</RelativeLayout>-->
 
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 </LinearLayout>
         </ScrollView>
