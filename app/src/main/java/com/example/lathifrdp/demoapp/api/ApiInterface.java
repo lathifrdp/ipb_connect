@@ -439,4 +439,9 @@ public interface ApiInterface {
     Call<News> getNewsDetail(@Header("X-IPBAPI-TOKEN") String token,
                              @Query("language") String language,
                              @Query("id") String id );
+
+    @GET("events")
+    Call<EventResponse> getEventHome(@Header("Authorization") String token,
+                                 @Query("limit") Integer limit,
+                                 @Query("page") Integer page);
 }
