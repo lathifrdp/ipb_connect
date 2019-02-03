@@ -14,6 +14,7 @@ import com.example.lathifrdp.demoapp.model.News;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.CrowdResponse;
+import com.example.lathifrdp.demoapp.response.DeleteResponse;
 import com.example.lathifrdp.demoapp.response.DonationResponse;
 import com.example.lathifrdp.demoapp.response.DonaturResponse;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
@@ -48,12 +49,14 @@ import java.util.List;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
+import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Part;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -443,5 +446,73 @@ public interface ApiInterface {
     @GET("events")
     Call<EventResponse> getEventHome(@Header("Authorization") String token,
                                  @Query("limit") Integer limit,
+                                 @Query("page") Integer page);
+
+    @FormUrlEncoded
+    @PUT("vacancies/{id}")
+    Call<PostJobResponse> putJob(
+            @Header("Authorization") String token,
+            @Path("id") String id,
+            @Field("title") String title,
+            @Field("company") String company,
+            @Field("jobLocationId") String jobLocationId,
+            @Field("address") String address,
+            @Field("salaryMin") String salaryMin,
+            @Field("salaryMax") String salaryMax,
+            @Field("closeDate") String closeDate,
+            @Field("companyProfile") String companyProfile,
+            @Field("jobQualification") String jobQualification,
+            @Field("jobDescription") String jobDescription,
+            @Field("email") String email,
+            @Field("subject") String subject,
+            @Field("file") String file,
+            @Field("createdBy") String createdBy
+    );
+
+    @DELETE("vacancies/{id}")
+    Call<DeleteResponse> deleteJob(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
+
+    @Multipart
+    @PUT("events/{id}")
+    Call<PostEventResponse> putEvent(@Header("Authorization") String token,
+                                     @Path("id") String id,
+                                      @Part("title") RequestBody title,
+                                      @Part("place") RequestBody place,
+                                      @Part("startDate") RequestBody startDate,
+                                      @Part("endDate") RequestBody endDate,
+                                      @Part("startTime") RequestBody startTime,
+                                      @Part("endTime") RequestBody endTime,
+                                      @Part("description") RequestBody description,
+                                      @Part("contact") RequestBody contact,
+                                      @Part("price") RequestBody price,
+                                      @Part MultipartBody.Part picture,
+                                      @Part("createdBy") RequestBody createdBy);
+
+    @DELETE("events/{id}")
+    Call<DeleteResponse> deleteEvent(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
+
+    @Multipart
+    @PUT("memories/{id}")
+    Call<PostMemoriesResponse> putMemories(@Header("Authorization") String token,
+                                           @Path("id") String id,
+                                            @Part MultipartBody.Part photo,
+                                            @Part("caption") RequestBody caption,
+                                            @Part("createdBy") RequestBody createdBy);
+
+    @DELETE("memories/{id}")
+    Call<DeleteResponse> deleteMemories(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
+
+    @GET("groupdiscussions")
+    Call<GroupResponse> getGroupPost(@Header("Authorization") String token,
+                                 @Query("createdBy") String createdBy,
                                  @Query("page") Integer page);
 }
