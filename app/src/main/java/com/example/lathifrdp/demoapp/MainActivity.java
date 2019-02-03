@@ -31,6 +31,12 @@ import com.example.lathifrdp.demoapp.fragment.home.HomeFragment;
 import com.example.lathifrdp.demoapp.fragment.job.JobFragment;
 import com.example.lathifrdp.demoapp.fragment.memories.MemoriesFragment;
 import com.example.lathifrdp.demoapp.fragment.post.PostFragment;
+import com.example.lathifrdp.demoapp.fragment.post.crowdfunding.PostCrowdFragment;
+import com.example.lathifrdp.demoapp.fragment.post.event.PostEventFragment;
+import com.example.lathifrdp.demoapp.fragment.post.group.PostGroupFragment;
+import com.example.lathifrdp.demoapp.fragment.post.job.PostJobFragment;
+import com.example.lathifrdp.demoapp.fragment.post.memories.PostMemoriesFragment;
+import com.example.lathifrdp.demoapp.fragment.post.sharing.PostSharingFragment;
 import com.example.lathifrdp.demoapp.fragment.sharing.SharingFragment;
 import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
@@ -168,6 +174,17 @@ public class MainActivity extends AppCompatActivity
             NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
             navigationView.setNavigationItemSelectedListener(this);
             navigationView.getMenu().getItem(0).setChecked(true);
+        }
+        else if (cr instanceof PostJobFragment || cr instanceof PostEventFragment ||
+                cr instanceof PostCrowdFragment || cr instanceof PostGroupFragment ||
+                cr instanceof PostMemoriesFragment || cr instanceof PostSharingFragment) {
+            Fragment fragment = null;
+            fragment = new PostFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
         }
         //super.onBackPressed();
         else {
