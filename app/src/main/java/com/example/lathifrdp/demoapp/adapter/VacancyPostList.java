@@ -35,8 +35,8 @@ public class VacancyPostList extends ArrayAdapter<Job> implements View.OnClickLi
         TextView txtTitle;
         TextView txtSubject;
         TextView txtCompany;
-        ImageView edit;
-        ImageView delete;
+//        ImageView edit;
+//        ImageView delete;
     }
 
     public VacancyPostList(List<Job> data, Context context) {
@@ -58,17 +58,17 @@ public class VacancyPostList extends ArrayAdapter<Job> implements View.OnClickLi
         Object object= getItem(position);
         Job dataModel=(Job)object;
 
-        switch (v.getId())
-        {
-            case R.id.edit_vc:
-                Snackbar.make(v, "Edit ", Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                break;
-            case R.id.delete_vc:
-                Snackbar.make(v, "Delete ", Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                break;
-        }
+//        switch (v.getId())
+//        {
+//            case R.id.edit_vc:
+//                Snackbar.make(v, "Edit ", Snackbar.LENGTH_LONG)
+//                        .setAction("No action", null).show();
+//                break;
+//            case R.id.delete_vc:
+//                Snackbar.make(v, "Delete ", Snackbar.LENGTH_LONG)
+//                        .setAction("No action", null).show();
+//                break;
+//        }
     }
 
     private int lastPosition = -1;
@@ -90,8 +90,8 @@ public class VacancyPostList extends ArrayAdapter<Job> implements View.OnClickLi
             viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.title_vc);
             viewHolder.txtSubject = (TextView) convertView.findViewById(R.id.subject_vc);
             viewHolder.txtCompany = (TextView) convertView.findViewById(R.id.company_vc);
-            viewHolder.edit = (ImageView) convertView.findViewById(R.id.edit_vc);
-            viewHolder.delete = (ImageView) convertView.findViewById(R.id.delete_vc);
+//            viewHolder.edit = (ImageView) convertView.findViewById(R.id.edit_vc);
+//            viewHolder.delete = (ImageView) convertView.findViewById(R.id.delete_vc);
 
             result=convertView;
 
@@ -108,10 +108,10 @@ public class VacancyPostList extends ArrayAdapter<Job> implements View.OnClickLi
         viewHolder.txtTitle.setText(dataModel.getTitle());
         viewHolder.txtSubject.setText(dataModel.getSubject());
         viewHolder.txtCompany.setText(dataModel.getCompany());
-        viewHolder.edit.setOnClickListener(this);
-        viewHolder.edit.setTag(position);
-        viewHolder.delete.setOnClickListener(this);
-        viewHolder.delete.setTag(position);
+//        viewHolder.edit.setOnClickListener(this);
+//        viewHolder.edit.setTag(position);
+//        viewHolder.delete.setOnClickListener(this);
+//        viewHolder.delete.setTag(position);
         // Return the completed view to render on screen
         return convertView;
     }
