@@ -21,8 +21,6 @@
         android:id="@+id/homeFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
         tools:text="Home"
         android:textStyle="bold"/>
 
@@ -32,55 +30,58 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:orientation="horizontal">
+            android:layout_gravity="center"
+            android:orientation="vertical">
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:src="@drawable/graduation128" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/homeProdi"
                     tools:text="jurusan"
+                    android:layout_gravity="center"
                     android:textSize="16dp"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/homeKet"
                     tools:text="jurusan2"
+                    android:layout_gravity="center"
                     android:layout_marginTop="5dp"
                     android:textSize="10dp" />
             </LinearLayout>
         </LinearLayout>
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:orientation="horizontal">
+            android:orientation="vertical">
             <ImageView
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center"
                 android:src="@drawable/person" />
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/homeTotal"
                     tools:text="pengguna"
+                    android:layout_gravity="center"
                     android:textSize="16dp"/>
 
                 <TextView
@@ -88,6 +89,7 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/homeTotalKet"
                     tools:text="pengguna2"
+                    android:layout_gravity="center"
                     android:textSize="10dp"
                     android:layout_marginTop="5dp"/>
             </LinearLayout>
