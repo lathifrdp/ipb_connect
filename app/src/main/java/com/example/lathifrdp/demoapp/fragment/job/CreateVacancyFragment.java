@@ -75,7 +75,7 @@ public class CreateVacancyFragment extends Fragment {
         keterangan = (EditText) getView().findViewById(R.id.berkas_lamaran);
         btn = (Button) getView().findViewById(R.id.submit_vc);
 
-        loadDataProdi();
+        loadDataLocation();
         getTanggalAkhir();
 
         btn.setOnClickListener(new View.OnClickListener() {
@@ -90,7 +90,7 @@ public class CreateVacancyFragment extends Fragment {
         });
 
     }
-    private void loadDataProdi(){
+    private void loadDataLocation(){
 
         spinner = (Spinner) getView().findViewById(R.id.lokasi_vc);
         apiService = ApiClient.getClient().create(ApiInterface.class);
@@ -116,8 +116,8 @@ public class CreateVacancyFragment extends Fragment {
                     spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            JobLocation studyProgram = (JobLocation) spinner.getSelectedItem();
-                            jobLocationId = studyProgram.getId();
+                            JobLocation jobLocation = (JobLocation) spinner.getSelectedItem();
+                            jobLocationId = jobLocation.getId();
                             //Toast.makeText(getActivity(), jobLocationId, Toast.LENGTH_SHORT).show();
 //                            Toast.makeText(getActivity(), studyProgram.getName(), Toast.LENGTH_SHORT).show();
                         }
@@ -187,7 +187,7 @@ public class CreateVacancyFragment extends Fragment {
         salaryMin = gajimin.getText().toString();
         salaryMax = gajimax.getText().toString();
         companyProfile = profil.getText().toString();
-        jobQualification = nama.getText().toString();
+        jobQualification = kualifikasi.getText().toString();
         jobDescription = deskripsi.getText().toString();
         email = email2.getText().toString();
         subject = subjek.getText().toString();
