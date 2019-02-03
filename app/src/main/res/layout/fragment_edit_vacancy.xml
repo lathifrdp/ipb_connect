@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="@color/putih"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/createVacancyFragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:text="Create Vacancy Coming Soon"/>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/created_cv_form">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="Informasi Pekerjaan"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="20sp"/>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <EditText
+                android:id="@+id/judul"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Judul Lowongan (sertakan posisi pekerjaan)"
+                android:inputType="text"
+                android:maxLines="1"
+                android:singleLine="true" />
+        </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/nama_perusahaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Nama Perusahaan"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textStyle="bold"
+                    android:text="Lokasi Kerja"/>
+                <Spinner
+                    android:id="@+id/lokasi_vc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:spinnerMode="dropdown"
+                    android:layout_gravity="right"
+                    android:text="Pilih Lokasi">
+                </Spinner>
+            </RelativeLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <EditText
+                    android:id="@+id/alamat_perusahaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat Perusahaan"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="148dp"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/gaji_min"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Gaji Minimal (Rp)"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/minus"/>
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content">
+                    <EditText
+                        android:id="@+id/gaji_max"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Gaji Maximal (Rp)"
+                        android:inputType="number"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <EditText
+                    android:id="@+id/tanggal_berakhir"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Tanggal Berakhir"
+                    android:inputType="date"
+                    android:focusable="false"
+                    />
+
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Informasi Detail Pekerjaan"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+                <EditText
+                    android:id="@+id/profil_perusahaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Profil Perusahaan (opsional)"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/kualifikasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Kualifikasi dan Syarat Pekerjaan"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/deskripsi_pekerjaan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Deskripsi Pekerjaan"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Informasi Berkas Lamaran"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+                <EditText
+                    android:id="@+id/email_vc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Alamat Email"
+                    android:inputType="textEmailAddress"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/email_subject_vc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Email Subject"
+                    android:inputType="textEmailSubject"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/berkas_lamaran"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Keterangan Berkas Lamaran"
+                    android:inputType="textMultiLine"
+                    android:minLines="1"
+                    android:maxLines="10"
+                    android:scrollbars="vertical"/>
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                style="@style/Widget.AppCompat.Button.Colored"
+                android:id="@+id/submit_vc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Ubah Lowongan"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</android.support.constraint.ConstraintLayout>
