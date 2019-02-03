@@ -3,16 +3,20 @@ package com.example.lathifrdp.demoapp.fragment.post;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
+import com.example.lathifrdp.demoapp.fragment.post.crowdfunding.PostCrowdFragment;
+import com.example.lathifrdp.demoapp.fragment.post.event.PostEventFragment;
+import com.example.lathifrdp.demoapp.fragment.post.group.PostGroupFragment;
+import com.example.lathifrdp.demoapp.fragment.post.job.PostJobFragment;
+import com.example.lathifrdp.demoapp.fragment.post.memories.PostMemoriesFragment;
+import com.example.lathifrdp.demoapp.fragment.post.sharing.PostSharingFragment;
 
 public class PostFragment extends Fragment{
 
