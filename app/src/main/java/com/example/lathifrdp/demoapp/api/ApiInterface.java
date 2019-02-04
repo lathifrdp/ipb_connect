@@ -515,4 +515,18 @@ public interface ApiInterface {
     Call<GroupResponse> getGroupPost(@Header("Authorization") String token,
                                  @Query("createdBy") String createdBy,
                                  @Query("page") Integer page);
+
+    @FormUrlEncoded
+    @PUT("groupdiscussions/{id}")
+    Call<PostGroupResponse> putGroup(@Header("Authorization") String token,
+                                     @Path("id") String id,
+                                      @Field("title") String title,
+                                      @Field("description") String description,
+                                      @Field("createdBy") String createdBy);
+
+    @DELETE("groupdiscussions/{id}")
+    Call<DeleteResponse> deleteGroup(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
 }
