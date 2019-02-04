@@ -2,7 +2,9 @@ package com.example.lathifrdp.demoapp.fragment.crowdfunding.mahasiswa;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,12 +71,28 @@ public class CrowdMProgressFragment extends Fragment {
         sessionManager = new SessionManager(getActivity());
         bundle = this.getArguments();
 
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.create_progress);
+        fab.setVisibility(View.GONE);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Fragment createFragment = null;
+                createFragment = new CrowdCreateProgressFragment();
+                createFragment.setArguments(bundle);
+                FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                transaction.replace(R.id.contnya, createFragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
+            }
+        });
+
         if(bundle != null){
             id_crowd = bundle.getString("id");
         }
         else {
             Toast.makeText(getActivity(), "gagal bos", Toast.LENGTH_SHORT).show();
         }
+
         loadDataProgress();
         bundle = new Bundle();
         listProgress = new ArrayList<>();
