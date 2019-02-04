@@ -35,7 +35,7 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
         TextView txtTitle;
         TextView txtSubject;
         TextView txtCompany;
-        ImageView info;
+        //ImageView info;
     }
 
     public VacancyList(List<Job> data, Context context) {
@@ -57,13 +57,13 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
         Object object= getItem(position);
         Job dataModel=(Job)object;
 
-        switch (v.getId())
-        {
-            case R.id.item_info:
-                Snackbar.make(v, "Email " +dataModel.getEmail(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                break;
-        }
+//        switch (v.getId())
+//        {
+//            case R.id.item_info:
+//                Snackbar.make(v, "Email " +dataModel.getEmail(), Snackbar.LENGTH_LONG)
+//                        .setAction("No action", null).show();
+//                break;
+//        }
     }
 
     private int lastPosition = -1;
@@ -85,7 +85,7 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
             viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.title_vc);
             viewHolder.txtSubject = (TextView) convertView.findViewById(R.id.subject_vc);
             viewHolder.txtCompany = (TextView) convertView.findViewById(R.id.company_vc);
-            viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+            //viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
             result=convertView;
 
@@ -102,8 +102,8 @@ public class VacancyList extends ArrayAdapter<Job> implements View.OnClickListen
         viewHolder.txtTitle.setText(dataModel.getTitle());
         viewHolder.txtSubject.setText(dataModel.getSubject());
         viewHolder.txtCompany.setText(dataModel.getCompany());
-        viewHolder.info.setOnClickListener(this);
-        viewHolder.info.setTag(position);
+//        viewHolder.info.setOnClickListener(this);
+//        viewHolder.info.setTag(position);
         // Return the completed view to render on screen
         return convertView;
     }

@@ -41,39 +41,4 @@
         android:textColor="@android:color/black"
         android:textStyle="bold" />
 
-    <ImageView
-        android:id="@+id/item_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_dialog_info" />
-
-
-    <!--<LinearLayout-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_centerInParent="true">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/version_heading"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="Batch: "-->
-            <!--android:layout_marginLeft="120dp"-->
-            <!--android:textColor="@android:color/black"-->
-            <!--android:textStyle="bold" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/version_number"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:text="23"-->
-            <!--android:textAppearance="?android:attr/textAppearanceButton"-->
-            <!--android:textColor="@android:color/black"-->
-            <!--android:textStyle="bold" />-->
-
-    <!--</LinearLayout>-->
-
 </RelativeLayout>
