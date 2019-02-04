@@ -101,7 +101,7 @@ public class PostGroupFragment extends Fragment{
                 //final String str= listEvent.get(i).getFullName();
 
                 Fragment newFragment = null;
-                newFragment = new DetailGroupFragment();
+                newFragment = new DetailGroupPostFragment();
 
                 //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
                 bundle.putString("id_group",listGroup.get(i).getId()); // Put anything what you want
