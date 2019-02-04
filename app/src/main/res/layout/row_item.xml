@@ -17,28 +17,28 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:text="Marshmallow"
+        android:text="Nama"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black" />
 
 
     <TextView
-        android:id="@+id/type"
-        android:layout_width="wrap_content"
+        android:id="@+id/prodi"
+        android:layout_width="210dp"
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:layout_marginTop="5dp"
-        android:text="Android 6.0"
+        android:text="Prodi"
         android:textColor="@android:color/black" />
 
-    <ImageView
-        android:id="@+id/item_info"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_dialog_info" />
+    <!--<ImageView-->
+        <!--android:id="@+id/item_info"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentEnd="true"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_centerVertical="true"-->
+        <!--android:src="@android:drawable/ic_dialog_info" />-->
 
 
     <LinearLayout
@@ -47,16 +47,16 @@
         android:layout_centerInParent="true">
 
         <TextView
-            android:id="@+id/version_heading"
+            android:id="@+id/angkatan_judul"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Batch: "
-            android:layout_marginLeft="120dp"
+            android:text="Angkatan: "
+            android:layout_marginLeft="180dp"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/version_number"
+            android:id="@+id/angkatan_angka"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="23"

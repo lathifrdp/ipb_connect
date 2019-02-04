@@ -38,9 +38,9 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
     // View lookup cache
     private static class ViewHolder {
         TextView txtName;
-        TextView txtType;
-        TextView txtVersion;
-        ImageView info;
+        TextView txtProdi;
+        TextView txtAngkatan;
+        //ImageView info;
         //ListView tes;
     }
 
@@ -63,17 +63,17 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
         Object object= getItem(position);
         User dataModel=(User)object;
 
-        switch (v.getId())
-        {
-            case R.id.item_info:
-                Snackbar.make(v, "Email : " +dataModel.getEmail(), Snackbar.LENGTH_LONG)
-                        .setAction("No action", null).show();
-                break;
-//            case R.id.idnya:
-//                Snackbar.make(v, "Nama : " +dataModel.getFullName(), Snackbar.LENGTH_LONG)
+//        switch (v.getId())
+//        {
+//            case R.id.item_info:
+//                Snackbar.make(v, "Email : " +dataModel.getEmail(), Snackbar.LENGTH_LONG)
 //                        .setAction("No action", null).show();
 //                break;
-        }
+////            case R.id.idnya:
+////                Snackbar.make(v, "Nama : " +dataModel.getFullName(), Snackbar.LENGTH_LONG)
+////                        .setAction("No action", null).show();
+////                break;
+//        }
     }
 
     private int lastPosition = -1;
@@ -93,9 +93,9 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
             LayoutInflater inflater = LayoutInflater.from(getContext());
             convertView = inflater.inflate(R.layout.row_item, parent, false);
             viewHolder.txtName = (TextView) convertView.findViewById(R.id.name);
-            viewHolder.txtType = (TextView) convertView.findViewById(R.id.type);
-            viewHolder.txtVersion = (TextView) convertView.findViewById(R.id.version_number);
-            viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+            viewHolder.txtProdi = (TextView) convertView.findViewById(R.id.prodi);
+            viewHolder.txtAngkatan = (TextView) convertView.findViewById(R.id.angkatan_angka);
+            //viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
             //viewHolder.tes = (ListView) convertView.findViewById(R.id.idnya);
 
             result=convertView;
@@ -106,15 +106,15 @@ public class UserList extends ArrayAdapter<User> implements View.OnClickListener
             result=convertView;
         }
 
-        //Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
-        //result.startAnimation(animation);
+        Animation animation = AnimationUtils.loadAnimation(mContext, (position > lastPosition) ? R.anim.up_from_bottom : R.anim.down_from_top);
+        result.startAnimation(animation);
         lastPosition = position;
 
         viewHolder.txtName.setText(dataModel.getFullName());
-        viewHolder.txtType.setText(dataModel.getStudyProgram().getName());
-        viewHolder.txtVersion.setText(dataModel.getBatch().toString());
-        viewHolder.info.setOnClickListener(this);
-        viewHolder.info.setTag(position);
+        viewHolder.txtProdi.setText(dataModel.getStudyProgram().getName());
+        viewHolder.txtAngkatan.setText(dataModel.getBatch().toString());
+//        viewHolder.info.setOnClickListener(this);
+//        viewHolder.info.setTag(position);
 //        viewHolder.tes.setOnClickListener(this);
 //        viewHolder.tes.setTag(position);
         // Return the completed view to render on screen
