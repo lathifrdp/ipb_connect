@@ -36,7 +36,7 @@ public class GroupList extends ArrayAdapter<GroupDiscussion> implements View.OnC
         TextView txtTitle;
         TextView txtDescription;
         TextView txtCreated;
-        ImageView info;
+        //ImageView info;
     }
 
     public GroupList(List<GroupDiscussion> data, Context context) {
@@ -86,7 +86,7 @@ public class GroupList extends ArrayAdapter<GroupDiscussion> implements View.OnC
             viewHolder.txtTitle = (TextView) convertView.findViewById(R.id.title_gd);
             viewHolder.txtDescription = (TextView) convertView.findViewById(R.id.desc_gd);
             viewHolder.txtCreated = (TextView) convertView.findViewById(R.id.created_gd);
-            viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
+            //viewHolder.info = (ImageView) convertView.findViewById(R.id.item_info);
 
             result=convertView;
 
