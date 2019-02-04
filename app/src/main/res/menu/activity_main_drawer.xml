@@ -23,7 +23,7 @@
         <item
             android:id="@+id/memories"
             android:icon="@drawable/memories"
-            android:title="Memori" />
+            android:title="Memories" />
         <item
             android:id="@+id/sharing"
             android:icon="@drawable/ic_menu_share"
