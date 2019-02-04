@@ -32,7 +32,7 @@ public class PostFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Post Activity");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Aktifitas saya");
         job = (RelativeLayout) getView().findViewById(R.id.post_job);
         event = (RelativeLayout) getView().findViewById(R.id.post_event);
         memories = (RelativeLayout) getView().findViewById(R.id.post_memories);
