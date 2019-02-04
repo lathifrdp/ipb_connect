@@ -2,6 +2,12 @@ package com.example.lathifrdp.demoapp.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.lathifrdp.demoapp.R;
+import com.example.lathifrdp.demoapp.fragment.crowdfunding.mahasiswa.CrowdCreateProgressFragment;
 import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.model.Crowdfunding;
 import com.squareup.picasso.Picasso;
@@ -43,6 +50,7 @@ public class CrowdMahasiswaList extends ArrayAdapter<Crowdfunding> implements Vi
         TextView txtStatus;
 
         ImageView gambar;
+        ImageView progress;
     }
 
     public CrowdMahasiswaList(List<Crowdfunding> data, Context context) {
@@ -64,13 +72,27 @@ public class CrowdMahasiswaList extends ArrayAdapter<Crowdfunding> implements Vi
         Object object= getItem(position);
         Crowdfunding dataModel=(Crowdfunding) object;
 
-//        switch (v.getId())
-//        {
-//            case R.id.item_info:
-//                Snackbar.make(v, "Place: " +dataModel.getPlace(), Snackbar.LENGTH_LONG)
-//                        .setAction("No action", null).show();
-//                break;
-//        }
+        switch (v.getId())
+        {
+            case R.id.tambah_progress:
+                Snackbar.make(v, "progress ", Snackbar.LENGTH_LONG)
+                        .setAction("No action", null).show();
+                Bundle bundle;
+                bundle = new Bundle();
+                Fragment newFragment = null;
+                newFragment = new CrowdCreateProgressFragment();
+
+                bundle.putString("id",dataModel.getId());
+                newFragment.setArguments(bundle);
+
+                AppCompatActivity activity = (AppCompatActivity) v.getContext();
+                FragmentManager fragmentManager = activity.getSupportFragmentManager();
+                FragmentTransaction ft = fragmentManager.beginTransaction();
+                ft.replace(R.id.screen_area, newFragment);
+                ft.addToBackStack(null);
+                ft.commit();
+                break;
+        }
     }
 
     private int lastPosition = -1;
@@ -95,6 +117,7 @@ public class CrowdMahasiswaList extends ArrayAdapter<Crowdfunding> implements Vi
             viewHolder.txtTotal = (TextView) convertView.findViewById(R.id.total_cr);
             viewHolder.gambar = (ImageView) convertView.findViewById(R.id.gambar_cr);
             viewHolder.txtStatus = (TextView) convertView.findViewById(R.id.status_cr);
+            viewHolder.progress = (ImageView) convertView.findViewById(R.id.tambah_progress);
 
             result=convertView;
 
@@ -122,10 +145,12 @@ public class CrowdMahasiswaList extends ArrayAdapter<Crowdfunding> implements Vi
         if(dataModel.isVerified() == true) {
             viewHolder.txtStatus.setText("Sudah diverifikasi");
             viewHolder.txtStatus.setBackgroundColor(Color.parseColor("#2db4aa"));
+            viewHolder.progress.setVisibility(View.VISIBLE);
         }
         else if(dataModel.isVerified() == false) {
             viewHolder.txtStatus.setText("Belum diverifikasi");
             viewHolder.txtStatus.setBackgroundColor(Color.parseColor("#d63030"));
+            viewHolder.progress.setVisibility(View.GONE);
         }
 
         String url = new BaseModel().getCrowdfundingUrl()+dataModel.getProposalImages().get(0).getFile();
@@ -134,8 +159,8 @@ public class CrowdMahasiswaList extends ArrayAdapter<Crowdfunding> implements Vi
                 .placeholder(R.drawable.placegam)
                 .error(R.drawable.placeholdergambar)
                 .into(viewHolder.gambar);
-        //viewHolder.info.setOnClickListener(this);
-        //viewHolder.info.setTag(position);
+        viewHolder.progress.setOnClickListener(this);
+        viewHolder.progress.setTag(position);
         // Return the completed view to render on screen
         return convertView;
     }
