@@ -32,9 +32,13 @@ import com.example.lathifrdp.demoapp.fragment.job.JobFragment;
 import com.example.lathifrdp.demoapp.fragment.memories.MemoriesFragment;
 import com.example.lathifrdp.demoapp.fragment.post.PostFragment;
 import com.example.lathifrdp.demoapp.fragment.post.crowdfunding.PostCrowdFragment;
+import com.example.lathifrdp.demoapp.fragment.post.event.DetailEventPostFragment;
 import com.example.lathifrdp.demoapp.fragment.post.event.PostEventFragment;
+import com.example.lathifrdp.demoapp.fragment.post.group.DetailGroupPostFragment;
 import com.example.lathifrdp.demoapp.fragment.post.group.PostGroupFragment;
+import com.example.lathifrdp.demoapp.fragment.post.job.DetailVacancyPostFragment;
 import com.example.lathifrdp.demoapp.fragment.post.job.PostJobFragment;
+import com.example.lathifrdp.demoapp.fragment.post.memories.DetailMemoriesPostFragment;
 import com.example.lathifrdp.demoapp.fragment.post.memories.PostMemoriesFragment;
 import com.example.lathifrdp.demoapp.fragment.post.sharing.PostSharingFragment;
 import com.example.lathifrdp.demoapp.fragment.sharing.SharingFragment;
@@ -186,6 +190,42 @@ public class MainActivity extends AppCompatActivity
             ft.addToBackStack(null);
             ft.commit();
         }
+        else if (cr instanceof DetailEventPostFragment) {
+            Fragment fragment = null;
+            fragment = new PostEventFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+        else if (cr instanceof DetailGroupPostFragment) {
+            Fragment fragment = null;
+            fragment = new PostGroupFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+        else if (cr instanceof DetailVacancyPostFragment) {
+            Fragment fragment = null;
+            fragment = new PostJobFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+        else if (cr instanceof DetailMemoriesPostFragment) {
+            Fragment fragment = null;
+            fragment = new PostMemoriesFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
         //super.onBackPressed();
         else {
             super.onBackPressed();
@@ -214,7 +254,7 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(MainActivity.this, "Settings Coming Soon", Toast.LENGTH_SHORT).show();
+            Toast.makeText(MainActivity.this, "Pengaturan Coming Soon", Toast.LENGTH_SHORT).show();
             return true;
         }
         if (id == R.id.action_logout) {
