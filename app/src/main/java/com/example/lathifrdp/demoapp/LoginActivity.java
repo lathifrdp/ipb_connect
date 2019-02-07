@@ -240,9 +240,9 @@ public class LoginActivity extends AppCompatActivity {
 //                                .make( coordinatorLayout, lr.getMessage(), Snackbar.LENGTH_LONG);
 //                        snackbar.show();
                         Toast.makeText(LoginActivity.this, lr.getMessage(), Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, userType, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, name, Toast.LENGTH_SHORT).show();
-                        Toast.makeText(LoginActivity.this, crowdfunding, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, userType, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, name, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(LoginActivity.this, crowdfunding, Toast.LENGTH_SHORT).show();
 
 //                        Toast.makeText(LoginActivity.this, lr.getUser().getId(), Toast.LENGTH_SHORT).show();
 //                        Toast.makeText(LoginActivity.this, lr.getUser().getUserType(), Toast.LENGTH_SHORT).show();
