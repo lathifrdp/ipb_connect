@@ -13,6 +13,7 @@ import com.example.lathifrdp.demoapp.model.Memory;
 import com.example.lathifrdp.demoapp.model.News;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.UserProfile;
+import com.example.lathifrdp.demoapp.response.BookmarkResponse;
 import com.example.lathifrdp.demoapp.response.CrowdResponse;
 import com.example.lathifrdp.demoapp.response.DeleteResponse;
 import com.example.lathifrdp.demoapp.response.DonationResponse;
@@ -42,6 +43,7 @@ import com.example.lathifrdp.demoapp.response.RegisterResponse;
 import com.example.lathifrdp.demoapp.response.SharingResponse;
 import com.example.lathifrdp.demoapp.response.StatusResponse;
 import com.example.lathifrdp.demoapp.response.UploadCrowdfundingResponse;
+import com.example.lathifrdp.demoapp.response.UploadProfileResponse;
 import com.example.lathifrdp.demoapp.response.UserResponse;
 
 import java.util.List;
@@ -100,6 +102,7 @@ public interface ApiInterface {
 
     @GET("users")
     Call<UserResponse> getUser(@Header("Authorization") String token,
+                               @Query("userType") String userType,
                                @Query("fullName") String fullName,
                                @Query("page") Integer page,
                                @Query("batch") String batch,
@@ -528,5 +531,61 @@ public interface ApiInterface {
     Call<DeleteResponse> deleteGroup(
             @Header("Authorization") String token,
             @Path("id") String id
+    );
+
+    @Multipart
+    @POST("users/profiles/upload/{id}")
+    Call<UploadProfileResponse> editPhoto(
+            @Path("id") String id,
+            @Part MultipartBody.Part photo);
+
+    @Multipart
+    @PUT("crowdfundings/{id}")
+    Call<PostCrowdfundingResponse> putCrowd(@Header("Authorization") String token,
+                                            @Path("id") String id,
+                                             @Part MultipartBody.Part file,
+                                             @Part("title") RequestBody title,
+                                             @Part("description") RequestBody description,
+                                             @Part("contactPerson") RequestBody contactPerson,
+                                             @Part("location") RequestBody location,
+                                             @Part("projectType") RequestBody projectType,
+                                             @Part("cost") RequestBody cost,
+                                             @Part("deadline") RequestBody deadline,
+                                             @Part("createdBy") RequestBody createdBy);
+
+    @DELETE("crowdfundings/{id}")
+    Call<DeleteResponse> deleteCrowd(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
+
+    @Multipart
+    @PUT("knowledgesharings/{id}")
+    Call<PostSharingResponse> putKnowledge(@Header("Authorization") String token,
+                                           @Path("id") String id,
+                                            @Part MultipartBody.Part file,
+                                            @Part("title") RequestBody title,
+                                            @Part("description") RequestBody description,
+                                            @Part("category") RequestBody category,
+                                            @Part("createdBy") RequestBody createdBy);
+
+    @DELETE("knowledgesharings/{id}")
+    Call<DeleteResponse> deleteKnowledge(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
+
+    @GET("knowledgesharings")
+    Call<SharingResponse> getKnowledgePost(
+            @Header("Authorization") String token,
+            @Query("createdBy") String createdBy,
+            @Query("limit") Integer limit
+    );
+
+    @FormUrlEncoded
+    @POST("knowledgesharings/bookmark")
+    Call<BookmarkResponse> getBookmark(
+            @Header("Authorization") String token,
+            @Field("user") String user
     );
 }
