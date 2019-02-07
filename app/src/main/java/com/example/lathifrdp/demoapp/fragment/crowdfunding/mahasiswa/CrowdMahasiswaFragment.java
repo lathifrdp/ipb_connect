@@ -83,7 +83,6 @@ public class CrowdMahasiswaFragment extends Fragment {
         stat = (TextView) getView().findViewById(R.id.konten_kosong);
 
         sessionManager = new SessionManager(getActivity());
-        //bundle = this.getArguments();
 
         if(bundle != null){
             page=1;
@@ -111,26 +110,14 @@ public class CrowdMahasiswaFragment extends Fragment {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //final String str= listEvent.get(i).getFullName();
-
                 Fragment newFragment = null;
                 newFragment = new CrowdMPagerFragment();
-
-                //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
-                bundle.putString("id",listCrowd.get(i).getId()); // Put anything what you want
-                //bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
-
+                bundle.putString("id",listCrowd.get(i).getId());
                 newFragment.setArguments(bundle);
-                //Toast.makeText(getActivity(), listEvent.get(i).getId(), Toast.LENGTH_SHORT).show();
-//
-                // consider using Java coding conventions (upper first char class names!!!)
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
                 transaction.replace(R.id.screen_area, newFragment);
                 transaction.addToBackStack(null);
-
-                // Commit the transaction
                 transaction.commit();
 
             }
@@ -158,9 +145,7 @@ public class CrowdMahasiswaFragment extends Fragment {
     private void loadDataCrowdMhs(){
 
         final String createdBy = sessionManager.getKeyId();
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
         Call<CrowdResponse> call = apiService.getCrowdMahasiswa("JWT "+ sessionManager.getKeyToken(),createdBy);
         //Call<CrowdResponse> call = apiService.getCrowdMhs("JWT "+ sessionManager.getKeyToken(),page,creator);
