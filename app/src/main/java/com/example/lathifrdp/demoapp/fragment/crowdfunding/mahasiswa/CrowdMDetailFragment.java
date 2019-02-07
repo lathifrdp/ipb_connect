@@ -28,6 +28,9 @@ import com.example.lathifrdp.demoapp.response.DonationResponse;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -40,7 +43,7 @@ public class CrowdMDetailFragment extends Fragment {
 
     Bundle bundle;
     private String id_crowd;
-    TextView judul, lokasi, curr, tot, deskripsi, kontak, nama, angkatan, prodi,proyek, kosong;
+    TextView judul, lokasi, curr, tot, deskripsi, kontak, nama, angkatan, prodi,proyek, kosong, deadline;
     CircleImageView foto;
     ApiInterface apiService;
     SessionManager sessionManager;
@@ -82,6 +85,7 @@ public class CrowdMDetailFragment extends Fragment {
         proyek = (TextView) getView().findViewById(R.id.project_crowd_mahasiswa);
         btn = (Button) getView().findViewById(R.id.crowd_donatur);
         tot = (TextView) getView().findViewById(R.id.donasi_total_crowd_mahasiswa);
+        deadline = (TextView) getView().findViewById(R.id.crowd_deadline);
 
         bundle = this.getArguments();
 
@@ -146,6 +150,16 @@ public class CrowdMDetailFragment extends Fragment {
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    Date date = null;
+                    try {
+                        date = inputFormat.parse(crowd.getDeadline());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String formattedDate = outputFormat.format(date);
+
                     lokasi.setText(crowd.getLocation());
                     judul.setText(crowd.getTitle());
                     deskripsi.setText(crowd.getDescription());
@@ -156,6 +170,7 @@ public class CrowdMDetailFragment extends Fragment {
                     curr.setText(formatRupiah.format((double)sekarang));
                     proyek.setText(crowd.getProjectType());
                     tot.setText(formatRupiah.format((double)total));
+                    deadline.setText("Berakhir pada tanggal "+formattedDate);
 
                     String url = new BaseModel().getProfileUrl()+crowd.getUser().getUserProfile().getPhoto();
                     Picasso.get()

@@ -52,7 +52,7 @@ public class CrowdDetailFragment extends Fragment {
 
     Bundle bundle;
     private String id_crowd;
-    TextView judul, lokasi, curr, tot, deskripsi, kontak, nama, angkatan, prodi,proyek;
+    TextView judul, lokasi, curr, tot, deskripsi, kontak, nama, angkatan, prodi,proyek, deadline;
     CircleImageView foto;
     ApiInterface apiService;
     SessionManager sessionManager;
@@ -96,7 +96,7 @@ public class CrowdDetailFragment extends Fragment {
         foto = (CircleImageView) getView().findViewById(R.id.fotonya);
         proyek = (TextView) getView().findViewById(R.id.project_crowd_alumni);
         btn = (Button) getView().findViewById(R.id.crowd_donasi);
-
+        deadline = (TextView) getView().findViewById(R.id.crowd_deadline);
 
         bundle = this.getArguments();
 
@@ -164,13 +164,7 @@ public class CrowdDetailFragment extends Fragment {
     }
 
     private void loadDataDetail(){
-
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        //final String fullName = full;
-        //final String isVerified = x3;
 
         Call<Crowdfunding> call = apiService.getDetailCrowd("JWT "+ sessionManager.getKeyToken(),id_crowd);
         call.enqueue(new Callback<Crowdfunding>() {
@@ -186,6 +180,16 @@ public class CrowdDetailFragment extends Fragment {
                     Locale localeID = new Locale("in", "ID");
                     NumberFormat formatRupiah = NumberFormat.getCurrencyInstance(localeID);
 
+                    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+                    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+                    Date date = null;
+                    try {
+                        date = inputFormat.parse(crowd.getDeadline());
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                    }
+                    String formattedDate = outputFormat.format(date);
+
                     lokasi.setText(crowd.getLocation());
                     judul.setText(crowd.getTitle());
                     deskripsi.setText(crowd.getDescription());
@@ -196,6 +200,7 @@ public class CrowdDetailFragment extends Fragment {
                     curr.setText(formatRupiah.format((double)sekarang));
                     tot.setText(formatRupiah.format((double)total));
                     proyek.setText(crowd.getProjectType());
+                    deadline.setText("Berakhir pada tanggal "+formattedDate);
 
                     String url = new BaseModel().getProfileUrl()+crowd.getUser().getUserProfile().getPhoto();
                     Picasso.get()
