@@ -163,18 +163,16 @@ public class UserFragment extends Fragment{
 
     }
     private void loadDataUser(){
-
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
         final String fullName = full;
         final String isVerified = x3;
         final String batch = bat;
         final String studyId = stud;
+        final String userType = "Alumni";
         //final String studyProgramId = stud;
 
-        Call<UserResponse> call = apiService.getUser("JWT "+ sessionManager.getKeyToken(),fullName,page,batch,studyId,isVerified);
+        Call<UserResponse> call = apiService.getUser("JWT "+ sessionManager.getKeyToken(),userType,fullName,page,batch,studyId,isVerified);
         call.enqueue(new Callback<UserResponse>() {
             @Override
             public void onResponse(Call<UserResponse> call, final Response<UserResponse> response) {
