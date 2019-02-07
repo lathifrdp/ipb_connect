@@ -132,6 +132,9 @@ public class DetailSharingFragment extends Fragment{
         like = (ImageView) getView().findViewById(R.id.sharing_like);
         bookmark = (ImageView) getView().findViewById(R.id.sharing_bookmark);
 
+        share.setVisibility(View.GONE);
+        download.setVisibility(View.GONE);
+
         if(bundle != null){
             // handle your code here.
             sharing_id = bundle.getString("id_sharing");
