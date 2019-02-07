@@ -97,26 +97,16 @@ public class GroupFragment extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //final String str= listEvent.get(i).getFullName();
-
                 Fragment newFragment = null;
                 newFragment = new DetailGroupFragment();
 
-                //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
-                bundle.putString("id_group",listGroup.get(i).getId()); // Put anything what you want
-                //bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
-
+                bundle.putString("id_group",listGroup.get(i).getId());
                 newFragment.setArguments(bundle);
-                Toast.makeText(getActivity(), listGroup.get(i).getId(), Toast.LENGTH_SHORT).show();
-//
-                // consider using Java coding conventions (upper first char class names!!!)
+                //Toast.makeText(getActivity(), listGroup.get(i).getId(), Toast.LENGTH_SHORT).show();
+
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
                 transaction.replace(R.id.screen_area, newFragment);
                 transaction.addToBackStack(null);
-
-                // Commit the transaction
                 transaction.commit();
 
             }
@@ -142,10 +132,7 @@ public class GroupFragment extends Fragment{
     }
 
     private void loadDataGroup(){
-
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
 
         Call<GroupResponse> call = apiService.getGroup("JWT "+ sessionManager.getKeyToken(),page);
         call.enqueue(new Callback<GroupResponse>() {
