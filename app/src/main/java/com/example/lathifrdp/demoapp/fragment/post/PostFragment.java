@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.example.lathifrdp.demoapp.R;
@@ -17,10 +18,13 @@ import com.example.lathifrdp.demoapp.fragment.post.group.PostGroupFragment;
 import com.example.lathifrdp.demoapp.fragment.post.job.PostJobFragment;
 import com.example.lathifrdp.demoapp.fragment.post.memories.PostMemoriesFragment;
 import com.example.lathifrdp.demoapp.fragment.post.sharing.PostSharingFragment;
+import com.example.lathifrdp.demoapp.helper.SessionManager;
 
 public class PostFragment extends Fragment{
 
     RelativeLayout job, event, memories, sharing, group, crowd;
+    SessionManager sessionManager;
+    String status;
 
     @Nullable
     @Override
@@ -39,6 +43,8 @@ public class PostFragment extends Fragment{
         sharing = (RelativeLayout) getView().findViewById(R.id.post_sharing);
         group = (RelativeLayout) getView().findViewById(R.id.post_group);
         crowd = (RelativeLayout) getView().findViewById(R.id.post_crowd);
+        sessionManager = new SessionManager(getActivity());
+        status = sessionManager.getKeyUsertype();
 
         job.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -102,17 +108,23 @@ public class PostFragment extends Fragment{
             }
         });
 
-        crowd.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Fragment fragment = null;
-                fragment = new PostCrowdFragment();
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.screen_area, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
+        if(status.equals("Mahasiswa")){
+            crowd.setVisibility(View.VISIBLE);
+            crowd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Fragment fragment = null;
+                    fragment = new PostCrowdFragment();
+                    FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                    transaction.replace(R.id.screen_area, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+                }
+            });
+        }
+        else {
+            crowd.setVisibility(View.GONE);
+        }
 
     }
 }
