@@ -40,6 +40,7 @@ import com.example.lathifrdp.demoapp.fragment.post.job.DetailVacancyPostFragment
 import com.example.lathifrdp.demoapp.fragment.post.job.PostJobFragment;
 import com.example.lathifrdp.demoapp.fragment.post.memories.DetailMemoriesPostFragment;
 import com.example.lathifrdp.demoapp.fragment.post.memories.PostMemoriesFragment;
+import com.example.lathifrdp.demoapp.fragment.post.sharing.DetailSharingPostFragment;
 import com.example.lathifrdp.demoapp.fragment.post.sharing.PostSharingFragment;
 import com.example.lathifrdp.demoapp.fragment.sharing.SharingFragment;
 import com.example.lathifrdp.demoapp.helper.BaseModel;
@@ -220,6 +221,15 @@ public class MainActivity extends AppCompatActivity
         else if (cr instanceof DetailMemoriesPostFragment) {
             Fragment fragment = null;
             fragment = new PostMemoriesFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
+        }
+        else if (cr instanceof DetailSharingPostFragment) {
+            Fragment fragment = null;
+            fragment = new PostSharingFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
             FragmentTransaction ft = fragmentManager.beginTransaction();
             ft.replace(R.id.screen_area, fragment);
