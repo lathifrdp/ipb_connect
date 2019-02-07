@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/putih"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/edit_sharing_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ubah"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="60dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:backgroundTint="@color/primarydarknya"
+        app:fabSize="mini" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/delete_sharing_post"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/hapus"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        app:backgroundTint="@color/merah"
+        app:fabSize="mini" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <WebView
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scrollbars="vertical"
+                android:id="@+id/webview">
+            </WebView>
+        </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/sharing_judul_detail"
+                android:text="Judul Knowledge"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:textColor="#000000"
+                android:textSize="20dp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/sharing_detail_deskripsi"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="5dp"
+                android:paddingLeft="10dp"
+                tools:text="isinya"/>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/sharing_like"
+                    android:tint="@color/abu"
+                    android:clickable="true"
+                    android:src="@drawable/baseline_favorite_black_18dp"/>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/sharing_share"
+                    android:layout_marginLeft="20dp"
+                    android:tint="@color/abu"
+                    android:clickable="true"
+                    android:src="@drawable/ic_menu_share"/>
+                <ImageView
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:id="@+id/sharing_download"
+                    android:tint="@color/abu"
+                    android:clickable="true"
+                    android:layout_marginLeft="20dp"
+                    android:src="@drawable/baseline_download_black_18dp"/>
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+                    <ImageView
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:id="@+id/sharing_bookmark"
+                        android:tint="@color/abu"
+                        android:clickable="true"
+                        android:layout_marginRight="10dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="right"
+                        android:src="@drawable/baseline_bookmark_black_18dp"/>
+                </RelativeLayout>
+
+            </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#ddd"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
+                />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="Comments"
+                android:id="@+id/sharing_judul_komen"
+                android:layout_marginLeft="15dp"
+                android:textStyle="bold"
+                android:textSize="20sp"/>
+
+            <android.support.v7.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_marginTop="10dp"
+                android:id="@+id/sharing_detail_comment">
+            </android.support.v7.widget.RecyclerView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="#efefef"
+                android:layout_marginBottom="50dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp"
+                android:id="@+id/sharing_posting"
+                android:text="Diposting oleh:"
+                android:layout_marginLeft="16dp"
+                android:textSize="16dp"
+                android:textStyle="bold"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="10dp">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:id="@+id/sharing_fotonya"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="10dp"
+                    android:elevation="5dp"
+                    android:scaleType="centerCrop"/>
+
+                <TextView
+                    android:id="@+id/sharing_namanya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Nama"
+                    android:layout_toRightOf="@id/sharing_fotonya"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/sharing_studinya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Studi"
+                    android:layout_toRightOf="@id/sharing_fotonya"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/sharing_namanya" />
+
+                <TextView
+                    android:id="@+id/sharing_angkatannya"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Angkatan"
+                    android:layout_toRightOf="@id/sharing_fotonya"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@id/sharing_studinya" />
+            </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#ddd"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+    </LinearLayout>
+
+</RelativeLayout>
