@@ -1,13 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <TextView
         android:id="@+id/bookmarkFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Bookmark Coming Soon"
+        tools:text="Bookmark Coming Soon"
         android:gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#dedbdb"
+            android:id="@+id/bookmark_sharing"
+            android:layout_marginTop="10dp">
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:id="@+id/fotonya_sharing"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:elevation="5dp"
+                android:src="@drawable/folder_flat"
+                android:scaleType="centerCrop"/>
+            <TextView
+                android:id="@+id/namanya_sharing"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Berbagi Ilmu"
+                android:layout_toRightOf="@id/fotonya_sharing"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bookmark"
+                android:layout_toRightOf="@id/fotonya_sharing"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="5dp"
+                android:layout_below="@id/namanya_sharing" />
+        </RelativeLayout>
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
