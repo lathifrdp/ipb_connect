@@ -136,35 +136,5 @@
         <!--android:scrollbars="vertical"-->
     </LinearLayout>
     </ScrollView>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="30dp"
-        android:background="@color/putih"
-        android:layout_alignParentBottom="true">
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="300dp"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/tulis_komentar"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:paddingLeft="10dp"
-                android:hint="Tulis komentar ..."
-                android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true" />
-        </android.support.design.widget.TextInputLayout>
-        <ImageView
-            android:layout_width="30dp"
-            android:layout_height="match_parent"
-            android:layout_gravity="bottom"
-            android:paddingBottom="10dp"
-            android:id="@+id/kirim_komentar"
-            android:clickable="true"
-            android:layout_marginLeft="10dp"
-            android:src="@drawable/ic_menu_send"/>
-    </LinearLayout>
 
 </RelativeLayout>

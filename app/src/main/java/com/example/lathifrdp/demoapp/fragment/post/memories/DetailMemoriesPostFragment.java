@@ -47,8 +47,7 @@ public class DetailMemoriesPostFragment extends Fragment{
 
     SessionManager sessionManager;
     TextView caption,comment,judul_komen,namanya, total_like, nama_capt;
-    EditText tulis;
-    ImageView foto, kirim, suka;
+    ImageView foto, suka;
     String memo, msg;
     Bundle bundle;
     ApiInterface apiService;
@@ -82,8 +81,6 @@ public class DetailMemoriesPostFragment extends Fragment{
         caption = (TextView) getView().findViewById(R.id.caption_memories);
         foto = (ImageView) getView().findViewById(R.id.foto_memories);
         namanya = (TextView) getView().findViewById(R.id.nama_posting_memory);
-        tulis = (EditText) getView().findViewById(R.id.tulis_komentar);
-        kirim = (ImageView) getView().findViewById(R.id.kirim_komentar);
         judul_komen = (TextView) getView().findViewById(R.id.judul_komen);
         pp = (CircleImageView) getView().findViewById(R.id.foto_posting_memory);
         suka = (ImageView) getView().findViewById(R.id.like_memories);
@@ -117,13 +114,6 @@ public class DetailMemoriesPostFragment extends Fragment{
         fab_hapus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Fragment createFragment = null;
-//                createFragment = new CreateVacancyFragment();
-//                createFragment.setArguments(bundle);
-//                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-//                transaction.replace(R.id.screen_area, createFragment);
-//                transaction.addToBackStack(null);
-//                transaction.commit();
                 final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
                 alertDialog.setTitle("Hapus");
                 alertDialog.setMessage("Apakah anda yakin untuk menghapus data ini?");
@@ -156,15 +146,6 @@ public class DetailMemoriesPostFragment extends Fragment{
 
         loadDataMemories();
         loadComment();
-        kirim.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                postComment();
-                //commentAdapter.notifyDataSetChanged();
-                //loadComment();
-                //tulis.getText().clear();//clears the text
-            }
-        });
         suka.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -202,13 +183,7 @@ public class DetailMemoriesPostFragment extends Fragment{
     }
 
     private void loadDataMemories(){
-
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        //final String fullName = full;
-        //final String isVerified = x3;
 
         Call<Memory> call = apiService.getDetailMemory("JWT "+ sessionManager.getKeyToken(),memo);
         call.enqueue(new Callback<Memory>() {
@@ -218,11 +193,9 @@ public class DetailMemoriesPostFragment extends Fragment{
                 if (response.isSuccessful()) {
 
                     Memory memory = response.body();
-                    //commentsList = memory.getComment();
                     List<Liker> like = memory.getLiker();
 
                     int i = 0;
-                    //likeSize = Integer.parseInt(ks.getTotalLike());
                     for(i=0;i<like.size();i++) {
                         if(like.get(i).getCreatedBy().getId().equals(sessionManager.getKeyId())){
                             suka.setColorFilter(getContext().getResources().getColor(R.color.merah));
@@ -232,20 +205,13 @@ public class DetailMemoriesPostFragment extends Fragment{
                             stateLike=false;
                         }
                     }
-//
-//                    commentAdapter = new CommentList(commentsList);
-//                    recyclerViewCom.setAdapter(commentAdapter);
-//                    recyclerViewCom.smoothScrollToPosition(0);
 
                     jumlahlike = memory.getTotalLike()+" orang menyukai";
                     nama_capt.setText(memory.getUser().getFullName());
                     caption.setText(memory.getCaption());
                     namanya.setText(memory.getUser().getFullName());
                     total_like.setText(jumlahlike);
-//                    for(int i=0;i<commentsList.size();i++) {
-//                        comment.setText("Comment: " + commentsList.get(i).getCreated());
-//                    }
-                    //comment.setText("Comment: " + like.size());
+
                     String url = new BaseModel().getMemoryUrl()+memory.getPhoto();
                     Picasso.get()
                             .load(url)
@@ -294,42 +260,6 @@ public class DetailMemoriesPostFragment extends Fragment{
             public void onFailure(Call<GetCommentResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "gagal", Toast.LENGTH_SHORT).show();
                 //mSwipeRefreshLayout.setRefreshing(false);
-            }
-        });
-
-    }
-
-    private void postComment() {
-        apiService = ApiClient.getClient().create(ApiInterface.class);
-
-        final String value = tulis.getText().toString();
-        final String createdBy = sessionManager.getKeyId();
-
-        Call<PostCommentResponse> ucall = apiService.postComment("JWT "+ sessionManager.getKeyToken(),value,createdBy,memo);
-        ucall.enqueue(new Callback<PostCommentResponse>() {
-            @Override
-            public void onResponse(Call<PostCommentResponse> call, Response<PostCommentResponse> response) {
-
-                if (response.isSuccessful()) {
-
-                    PostCommentResponse cr = response.body();
-
-                    if(cr.isSuccess()==false ){
-                        Toast.makeText(getActivity(), cr.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    else {
-                        msg = cr.getMessage();
-                        Toast.makeText(getActivity(), cr.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                    loadComment();
-                    tulis.getText().clear();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<PostCommentResponse> call, Throwable t) {
-
-                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
             }
         });
 
