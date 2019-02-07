@@ -118,13 +118,7 @@ public class EditVacancyFragment extends Fragment {
     }
 
     private void loadDataEdit(){
-
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        //final String fullName = full;
-        //final String isVerified = x3;
 
         Call<Job> call = apiService.getDetailVacancy("JWT "+ sessionManager.getKeyToken(),id_vacancy);
         call.enqueue(new Callback<Job>() {
