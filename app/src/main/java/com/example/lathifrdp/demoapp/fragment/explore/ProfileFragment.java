@@ -1,12 +1,19 @@
 package com.example.lathifrdp.demoapp.fragment.explore;
 
+import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,9 +24,18 @@ import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.model.UserProfile;
+import com.example.lathifrdp.demoapp.response.UploadProfileResponse;
 import com.squareup.picasso.Picasso;
 
+import java.io.File;
+import java.io.IOException;
+
 import de.hdodenhof.circleimageview.CircleImageView;
+import id.zelory.compressor.Compressor;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import pl.aprilapps.easyphotopicker.EasyImage;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +48,14 @@ public class ProfileFragment extends Fragment {
     ApiInterface apiService;
     SessionManager sessionManager;
     CircleImageView foto_profil;
+    ImageView ubah_foto;
+    ImageView gambar,galeri,kamera;
+    public String pathImage,msg;
+    //RecyclerView gambar;
+    public File poto, compoto;
+    ProgressDialog pd;
+    Button postnya;
+    String createdBy;
 
     @Nullable
     @Override
@@ -54,36 +78,142 @@ public class ProfileFragment extends Fragment {
         hobby_profil = (TextView) getView().findViewById(R.id.hobby);
         job_profil = (TextView) getView().findViewById(R.id.current_job);
         marital_profil = (TextView) getView().findViewById(R.id.marital_status);
+        ubah_foto = (ImageView) getView().findViewById(R.id.ubah_profile);
         bundle = this.getArguments();
 
         if(bundle != null){
-            // handle your code here.
-            //String x = bundle.getString("limit");
-            //String x2 = bundle.getString("limit2");
             id_user = bundle.getString("id");
             full = bundle.getString("nama");
             mail = bundle.getString("email");
 
             loadDataProfile();
-            //batch = bundle.getString("batch");
-            //Toast.makeText(getActivity(), full, Toast.LENGTH_SHORT).show();
-            //Toast.makeText(getActivity(), batch, Toast.LENGTH_SHORT).show();
-            //Toast.makeText(getActivity(), id_user, Toast.LENGTH_SHORT).show();
-            //loadDataUser();
         }
         else {
             Toast.makeText(getActivity(), "gagal bos", Toast.LENGTH_SHORT).show();
         }
+
+        createdBy = sessionManager.getKeyId();
+        if(id_user.equals(createdBy)){
+            ubah_foto.setVisibility(View.VISIBLE);
+        }
+        else{
+            ubah_foto.setVisibility(View.GONE);
+        }
+
+        ubah_foto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //Toast.makeText(getActivity(), "ubah foto", Toast.LENGTH_SHORT).show();
+                final AlertDialog alertDialog = new AlertDialog.Builder(getActivity()).create();
+                LayoutInflater inflater = getActivity().getLayoutInflater();
+                //alertDialog.setTitle("Unggah Bukti");
+                View dialogview = inflater.inflate(R.layout.fragment_edit_photo, null);
+                alertDialog.setView(dialogview);
+
+                galeri = (ImageView) dialogview.findViewById(R.id.profile_gallery);
+                kamera = (ImageView) dialogview.findViewById(R.id.profile_camera);
+                postnya = (Button) dialogview.findViewById(R.id.submit_photo);
+                gambar = (ImageView) dialogview.findViewById(R.id.profile_gambar);
+
+                galeri.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getImageGallery();
+                    }
+                });
+                kamera.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        getImageCamera();
+                    }
+                });
+
+                postnya.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        alertDialog.dismiss();
+                        pd = new ProgressDialog(getActivity());
+                        pd.setMessage("Unggah foto profil...");
+                        pd.setCancelable(false);
+                        pd.show();
+                        editFoto();
+                    }
+                });
+
+                alertDialog.setButton(Dialog.BUTTON_POSITIVE, "OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        Toast.makeText(getActivity(), "OK di klik", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                // Showing Alert Message
+                alertDialog.show();
+            }
+        });
+    }
+
+    private void getImageGallery(){
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Membuka Galeri...");
+        pd.setCancelable(false);
+        pd.show();
+        EasyImage.openGallery(this, 0);
+        //EasyImage.openChooserWithGallery(this, "Pick source", 0);
+    }
+
+    private void getImageCamera(){
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Membuka Kamera...");
+        pd.setCancelable(false);
+        pd.show();
+        EasyImage.openCamera(this, 0);
+        //EasyImage.openChooserWithGallery(this, "Pick source", 0);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new EasyImage.Callbacks() {
+            @Override
+            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
+                Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+            }
+
+            @Override
+            public void onImagePicked(File imageFiles, EasyImage.ImageSource source, int type) {
+                try {
+                    poto = new Compressor(getActivity()).compressToFile(imageFiles);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                ;
+                pathImage = imageFiles.getAbsolutePath();
+                onPhotosReturned(poto);
+                Toast.makeText(getActivity(), "picked", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+                //Toast.makeText(getActivity(), pathImage, Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCanceled(EasyImage.ImageSource source, int type) {
+                Toast.makeText(getActivity(), "canceled", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
+            }
+        });
+    }
+
+    private void onPhotosReturned(File returnedPhotos) {
+        Picasso.get()
+                .load(returnedPhotos)
+                .placeholder(R.drawable.placegam)
+                .error(R.drawable.logoipb)
+                .into(gambar);
     }
 
     private void loadDataProfile(){
-
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        //final String fullName = full;
-        //final String isVerified = x3;
 
         Call<UserProfile> call = apiService.getProfile("JWT "+ sessionManager.getKeyToken(),id_user);
         call.enqueue(new Callback<UserProfile>() {
@@ -93,8 +223,6 @@ public class ProfileFragment extends Fragment {
                 if (response.isSuccessful()) {
 
                     UserProfile userProfile = response.body();
-
-
                     nama_profil.setText(full);
                     email_profil.setText(mail);
                     alamat_profil.setText("Alamat: "+userProfile.getAddress());
@@ -110,68 +238,6 @@ public class ProfileFragment extends Fragment {
                             .placeholder(R.drawable.alumni2)
                             .error(R.drawable.logoipb)
                             .into(foto_profil);
-
-                    //Toast.makeText(getActivity(), userProfile.getAddress(), Toast.LENGTH_SHORT).show();
-                    //Toast.makeText(getActivity(), userProfile.getMobileNumber(), Toast.LENGTH_SHORT).show();
-                    //if(isRefresh) adapter.setList(response.body().getUser());
-                    //else adapter.addList(response.body().getUser());
-                    //isRefresh = false;
-                    //adapter.notifyDataSetChanged();
-                    //ur = response.body();
-//                    bundle.putString("fullname",fullName); // Put anything what you want
-//                    bundle.putString("batch",batch); // Put anything what you want
-                    //bundle.putString("limits",ur.getLimit().toString()); // Put anything what you want
-                    //UserResponse ur = response.body();
-                    //int total = response.body().getTotal();
-                    //int limit = response.body().getLimit();
-                    //limitpage = (int)Math.ceil((double)total/limit);
-
-                    //Log.e("limitpage: ",String.valueOf(limitpage));
-
-
-                    //page++;
-
-//                    listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                        @Override
-//                        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                            User user = (User) listView.getSelectedItem();
-//                            //List<User> uus = response.body().getUser();
-//
-//                            //final String item = (String) adapterView.getItemAtPosition(i);
-//                            //studyProgramId = studyProgram.getFacultyId();
-//                            //Toast.makeText(RegisterActivity.this, studyProgram.getFacultyId(), Toast.LENGTH_SHORT).show();
-//                            //final String str= listUser.get(i).getFullName();
-//                            Toast.makeText(getActivity(), user.getFullName(), Toast.LENGTH_SHORT).show();
-////                            Snackbar.make(getView(), "Nama " +user.getFullName(), Snackbar.LENGTH_LONG)
-////                                    .setAction("No action", null).show();
-//                        }
-//
-//                        @Override
-//                        public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                        }
-//                    });
-
-
-//                    for (int i=0;i<usr.size();i++)
-//                    {
-//                        Toast.makeText(getActivity(), usr.get(i).getFullName(), Toast.LENGTH_SHORT).show();
-//                    }
-                    //Toast.makeText(getActivity(),usr.size() , Toast.LENGTH_LONG).show();
-//                    List<String> listSpinner = new ArrayList<String>();
-//                    for (int i = 0; i < allprodi.size(); i++){
-//                        //nama_prodi.add(new StudyProgram(allprodi.get(i).getName()));
-//                        listSpinner.add(allprodi.get(i).getName());
-//                    }
-
-                    //ArrayAdapter<StudyProgram> aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listSpinner);
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this,
-//                            android.R.layout.simple_spinner_item, listSpinner);
-//                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinner.setAdapter(adapter);
-
-
-                    //spinner.setAdapter(new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, nama_prodi));
                 }
             }
 
@@ -179,6 +245,49 @@ public class ProfileFragment extends Fragment {
             public void onFailure(Call<UserProfile> call, Throwable t) {
                 Toast.makeText(getActivity(), "gagal", Toast.LENGTH_SHORT).show();
                 //mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+    }
+
+    public void editFoto(){
+        apiService = ApiClient.getClient().create(ApiInterface.class);
+
+        File filenya = new File(pathImage);
+        try {
+            compoto = new Compressor(getActivity()).compressToFile(filenya);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), compoto);
+        MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", poto.getName(), reqFile);
+        //RequestBody id = RequestBody.create(MediaType.parse("text/plain"), id2);
+        //final String id = id2;
+
+        Call<UploadProfileResponse> ucall = apiService.editPhoto(id_user,photo);
+        ucall.enqueue(new Callback<UploadProfileResponse>() {
+            @Override
+            public void onResponse(Call<UploadProfileResponse> call, Response<UploadProfileResponse> response) {
+
+                if (response.isSuccessful()) {
+
+                    UploadProfileResponse mr = response.body();
+                    msg = mr.getMessage();
+
+                    if(mr.isSuccess()==false ){
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                        loadDataProfile();
+                    }
+                    pd.dismiss();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<UploadProfileResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+                pd.dismiss();
             }
         });
     }
