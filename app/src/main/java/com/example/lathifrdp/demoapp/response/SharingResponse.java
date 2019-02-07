@@ -15,6 +15,12 @@ public class SharingResponse {
     @SerializedName("total")
     private String total;
 
+    @SerializedName("message")
+    private String message;
+
+    @SerializedName("isSuccess")
+    private boolean isSuccess;
+
     public SharingResponse(List<KnowledgeSharing> knowledgeSharings, String page, String total){
         this.knowledgeSharings = knowledgeSharings;
         this.page = page;
@@ -43,5 +49,13 @@ public class SharingResponse {
 
     public void setTotal(String total) {
         this.total = total;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public boolean isSuccess() {
+        return isSuccess;
     }
 }
