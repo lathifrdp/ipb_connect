@@ -52,14 +52,14 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:id="@+id/gambar"/>
-        <!--<android.support.v7.widget.RecyclerView-->
-            <!--android:id="@+id/gambar"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="0dp"-->
-            <!--android:layout_weight="1"-->
-            <!--android:background="@android:color/darker_gray"-->
-            <!--android:gravity="center"-->
-            <!--android:padding="10dp" />-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:textColor="@color/merah"
+            android:text="*Gambar yang diunggah akan di crop centre"/>
     <android.support.design.widget.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
