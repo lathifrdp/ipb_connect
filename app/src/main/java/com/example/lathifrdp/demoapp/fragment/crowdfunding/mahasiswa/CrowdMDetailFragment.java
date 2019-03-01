@@ -25,6 +25,7 @@ import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.Crowdfunding;
 import com.example.lathifrdp.demoapp.model.Donation;
 import com.example.lathifrdp.demoapp.response.DonationResponse;
+import com.example.lathifrdp.demoapp.response.DonationVerifiedResponse;
 import com.squareup.picasso.Picasso;
 
 import java.text.NumberFormat;
@@ -193,19 +194,19 @@ public class CrowdMDetailFragment extends Fragment {
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<DonationResponse> call = apiService.getDonation("JWT "+ sessionManager.getKeyToken(),id_crowd);
-        call.enqueue(new Callback<DonationResponse>() {
+        Call<DonationVerifiedResponse> call = apiService.getDonationVerified("JWT "+ sessionManager.getKeyToken(),id_crowd);
+        call.enqueue(new Callback<DonationVerifiedResponse>() {
             @Override
-            public void onResponse(Call<DonationResponse> call, final Response<DonationResponse> response) {
+            public void onResponse(Call<DonationVerifiedResponse> call, final Response<DonationVerifiedResponse> response) {
                 //mSwipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
 
-                    DonationResponse dr = response.body();
+                    DonationVerifiedResponse dr = response.body();
                     donationList = dr.getDonations();
                     donationAdapter = new DonationList(donationList);
                     recyclerViewDon.setAdapter(donationAdapter);
                     //recyclerViewCom.smoothScrollToPosition(0);
-                    int total = dr.getTotal();
+                    int total = donationList.size();
                     if(total == 0){
                         kosong.setText("Belum ada donatur");
                     }
@@ -213,7 +214,7 @@ public class CrowdMDetailFragment extends Fragment {
             }
 
             @Override
-            public void onFailure(Call<DonationResponse> call, Throwable t) {
+            public void onFailure(Call<DonationVerifiedResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "gagal", Toast.LENGTH_SHORT).show();
                 //mSwipeRefreshLayout.setRefreshing(false);
             }
