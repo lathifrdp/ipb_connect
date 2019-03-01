@@ -58,21 +58,6 @@ public class PostGroupFragment extends Fragment{
         super.onViewCreated(view, savedInstanceState);
 
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Grup Diskusi");
-        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_group);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Snackbar.make(view, "Create", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
-                Fragment createFragment = null;
-                createFragment = new CreateGroupFragment();
-                createFragment.setArguments(bundle);
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.screen_area, createFragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
-            }
-        });
         listView=(ListView)getView().findViewById(R.id.listGroup);
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.swipeToRefresh);
         mSwipeRefreshLayout.setColorSchemeResources(R.color.colorPrimary);
@@ -98,26 +83,15 @@ public class PostGroupFragment extends Fragment{
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                //final String str= listEvent.get(i).getFullName();
-
                 Fragment newFragment = null;
                 newFragment = new DetailGroupPostFragment();
-
-                //bundle.putString("nama",listUser.get(i).getFullName()); // Put anything what you want
-                bundle.putString("id_group",listGroup.get(i).getId()); // Put anything what you want
-                //bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
-
+                bundle.putString("id_group",listGroup.get(i).getId());
                 newFragment.setArguments(bundle);
-                Toast.makeText(getActivity(), listGroup.get(i).getId(), Toast.LENGTH_SHORT).show();
-//
-                // consider using Java coding conventions (upper first char class names!!!)
+                //Toast.makeText(getActivity(), listGroup.get(i).getId(), Toast.LENGTH_SHORT).show();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
                 transaction.replace(R.id.screen_area, newFragment);
                 transaction.addToBackStack(null);
 
-                // Commit the transaction
                 transaction.commit();
 
             }
@@ -144,9 +118,7 @@ public class PostGroupFragment extends Fragment{
 
     private void loadDataGroup(){
 
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
         final String createdBy = sessionManager.getKeyId();
 
         Call<GroupResponse> call = apiService.getGroupPost("JWT "+ sessionManager.getKeyToken(),createdBy,page);
