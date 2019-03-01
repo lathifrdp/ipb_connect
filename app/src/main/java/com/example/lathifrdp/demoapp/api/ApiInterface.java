@@ -17,6 +17,7 @@ import com.example.lathifrdp.demoapp.response.BookmarkResponse;
 import com.example.lathifrdp.demoapp.response.CrowdResponse;
 import com.example.lathifrdp.demoapp.response.DeleteResponse;
 import com.example.lathifrdp.demoapp.response.DonationResponse;
+import com.example.lathifrdp.demoapp.response.DonationVerifiedResponse;
 import com.example.lathifrdp.demoapp.response.DonaturResponse;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
 import com.example.lathifrdp.demoapp.response.NewsResponse;
@@ -381,6 +382,7 @@ public interface ApiInterface {
     Call<PostDonasiResponse> postDonasi(@Header("Authorization") String token,
                                         @Part MultipartBody.Part file,
                                         @Path("id") String id,
+                                        @Part("nominal") RequestBody nominal,
                                         @Part("createdBy") RequestBody createdBy);
 
     @FormUrlEncoded
@@ -391,9 +393,15 @@ public interface ApiInterface {
             @Field("creator") String creator
     );
 
-    @GET("crowdfundings/donations/{id}")
-    Call<DonationResponse> getDonation(@Header("Authorization") String token,
-                                       @Path("id") String id);
+//    @GET("crowdfundings/donations/{id}")
+//    Call<DonationResponse> getDonation(@Header("Authorization") String token,
+//                                       @Path("id") String id);
+
+    @GET("crowdfundings/list/donations/{id}")
+    Call<DonationVerifiedResponse> getDonationVerified(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
 
     @FormUrlEncoded
     @POST("groupdiscussions/like/{id}")
