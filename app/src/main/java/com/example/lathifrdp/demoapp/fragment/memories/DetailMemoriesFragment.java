@@ -135,14 +135,7 @@ public class DetailMemoriesFragment extends Fragment{
     }
 
     private void loadDataMemories(){
-
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        //final String fullName = full;
-        //final String isVerified = x3;
-
         Call<Memory> call = apiService.getDetailMemory("JWT "+ sessionManager.getKeyToken(),memo);
         call.enqueue(new Callback<Memory>() {
             @Override
@@ -151,11 +144,9 @@ public class DetailMemoriesFragment extends Fragment{
                 if (response.isSuccessful()) {
 
                     Memory memory = response.body();
-                    //commentsList = memory.getComment();
                     List<Liker> like = memory.getLiker();
 
                     int i = 0;
-                    //likeSize = Integer.parseInt(ks.getTotalLike());
                     for(i=0;i<like.size();i++) {
                         if(like.get(i).getCreatedBy().getId().equals(sessionManager.getKeyId())){
                             suka.setColorFilter(getContext().getResources().getColor(R.color.merah));
@@ -165,20 +156,12 @@ public class DetailMemoriesFragment extends Fragment{
                             stateLike=false;
                         }
                     }
-//
-//                    commentAdapter = new CommentList(commentsList);
-//                    recyclerViewCom.setAdapter(commentAdapter);
-//                    recyclerViewCom.smoothScrollToPosition(0);
-
                     jumlahlike = memory.getTotalLike()+" orang menyukai";
                     nama_capt.setText(memory.getUser().getFullName());
                     caption.setText(memory.getCaption());
                     namanya.setText(memory.getUser().getFullName());
                     total_like.setText(jumlahlike);
-//                    for(int i=0;i<commentsList.size();i++) {
-//                        comment.setText("Comment: " + commentsList.get(i).getCreated());
-//                    }
-                    //comment.setText("Comment: " + like.size());
+
                     String url = new BaseModel().getMemoryUrl()+memory.getPhoto();
                     Picasso.get()
                             .load(url)

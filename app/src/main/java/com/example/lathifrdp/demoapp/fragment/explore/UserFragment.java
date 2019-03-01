@@ -128,16 +128,9 @@ public class UserFragment extends Fragment{
                 bundle.putString("email",listUser.get(i).getEmail()); // Put anything what you want
 
                 newFragment.setArguments(bundle);
-                //Toast.makeText(getActivity(), str + " "+listUser.get(i).getId(), Toast.LENGTH_SHORT).show();
-
-                // consider using Java coding conventions (upper first char class names!!!)
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
                 transaction.replace(R.id.screen_area, newFragment);
                 transaction.addToBackStack(null);
-
-                // Commit the transaction
                 transaction.commit();
 
             }
@@ -170,7 +163,6 @@ public class UserFragment extends Fragment{
         final String batch = bat;
         final String studyId = stud;
         final String userType = "Alumni";
-        //final String studyProgramId = stud;
 
         Call<UserResponse> call = apiService.getUser("JWT "+ sessionManager.getKeyToken(),userType,fullName,page,batch,studyId,isVerified);
         call.enqueue(new Callback<UserResponse>() {
@@ -178,68 +170,19 @@ public class UserFragment extends Fragment{
             public void onResponse(Call<UserResponse> call, final Response<UserResponse> response) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
-
-                    if(isRefresh) adapter.setList(response.body().getUser());
-                    else adapter.addList(response.body().getUser());
+                    UserResponse ur = response.body();
+                    if(isRefresh) adapter.setList(ur.getUser());
+                    else adapter.addList(ur.getUser());
                     isRefresh = false;
                     adapter.notifyDataSetChanged();
-                    //ur = response.body();
-//                    bundle.putString("fullname",fullName); // Put anything what you want
-//                    bundle.putString("batch",batch); // Put anything what you want
-                    //bundle.putString("limits",ur.getLimit().toString()); // Put anything what you want
-                    //UserResponse ur = response.body();
                     int total = response.body().getTotal();
                     int limit = response.body().getLimit();
                     limitpage = (int)Math.ceil((double)total/limit);
-
-                    //Log.e("limitpage: ",String.valueOf(limitpage));
                     page++;
 
                     if(total == 0){
                         kosong.setText("Maaf, yang anda cari tidak ada");
                     }
-
-//                    listView.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-//                        @Override
-//                        public void onItemSelected(AdapterView<?> adapterView, View view, int position, long id) {
-//                            User user = (User) listView.getSelectedItem();
-//                            //List<User> uus = response.body().getUser();
-//
-//                            //final String item = (String) adapterView.getItemAtPosition(i);
-//                            //studyProgramId = studyProgram.getFacultyId();
-//                            //Toast.makeText(RegisterActivity.this, studyProgram.getFacultyId(), Toast.LENGTH_SHORT).show();
-//                            //final String str= listUser.get(i).getFullName();
-//                            Toast.makeText(getActivity(), user.getFullName(), Toast.LENGTH_SHORT).show();
-////                            Snackbar.make(getView(), "Nama " +user.getFullName(), Snackbar.LENGTH_LONG)
-////                                    .setAction("No action", null).show();
-//                        }
-//
-//                        @Override
-//                        public void onNothingSelected(AdapterView<?> adapterView) {
-//
-//                        }
-//                    });
-
-
-//                    for (int i=0;i<usr.size();i++)
-//                    {
-//                        Toast.makeText(getActivity(), usr.get(i).getFullName(), Toast.LENGTH_SHORT).show();
-//                    }
-                    //Toast.makeText(getActivity(),usr.size() , Toast.LENGTH_LONG).show();
-//                    List<String> listSpinner = new ArrayList<String>();
-//                    for (int i = 0; i < allprodi.size(); i++){
-//                        //nama_prodi.add(new StudyProgram(allprodi.get(i).getName()));
-//                        listSpinner.add(allprodi.get(i).getName());
-//                    }
-
-                    //ArrayAdapter<StudyProgram> aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listSpinner);
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this,
-//                            android.R.layout.simple_spinner_item, listSpinner);
-//                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinner.setAdapter(adapter);
-
-
-                    //spinner.setAdapter(new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, nama_prodi));
                 }
             }
 

@@ -251,19 +251,14 @@ public class HomeFragment extends Fragment {
             public void onResponse(Call<NewsResponse> call, Response<NewsResponse> response) {
                 mSwipeRefreshLayout.setRefreshing(false);
                 if (response.isSuccessful()) {
+                    NewsResponse newsResponse = response.body();
                     if(isRefresh) {
-                        //page=1;
-                        adapter.setList(response.body().getNews());
-                        //adapter.notifyDataSetChanged();
+                        adapter.setList(newsResponse.getNews());
                     }
-                    else adapter.addList(response.body().getNews());
+                    else adapter.addList(newsResponse.getNews());
                     isRefresh = false;
                     adapter.notifyDataSetChanged();
-
-                    //int total = response.body().getTotalpages();
-                    //int limit = perPage;
-                    //limitpage = (int)Math.ceil((double)total/perPage);
-                    limitpage = response.body().getTotalpages();
+                    limitpage = newsResponse.getTotalpages();
                     page++;
                 }
             }
@@ -300,11 +295,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadCount(){
-
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //String token = sessionManager.getKeyToken();
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
         Call<CountResponse> call = apiService.getCount("JWT "+ sessionManager.getKeyToken());
         call.enqueue(new Callback<CountResponse>() {
             @Override
@@ -323,16 +314,6 @@ public class HomeFragment extends Fragment {
                     HomeKet.setText("Anda adalah "+sessionManager.getKeyUsertype()+" dari Program Studi "+sessionManager.getKeyProdi());
                     HomeTotal.setText(total+" Pengguna");
                     HomeTotalKet.setText("Sebanyak "+total+" Alumni dan Mahasiswa yang telah terdaftar");
-
-                    //setPieChartGender();
-                    //setPieChartAccount();
-
-//                    Toast.makeText(getActivity(), "laki: "+laki, Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(getActivity(), "perempuan: "+perempuan, Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(getActivity(), "alumni: "+alumni, Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(getActivity(), "mahasiswa: "+mahasiswa, Toast.LENGTH_SHORT).show();
-//                    Toast.makeText(getActivity(), "total: "+total, Toast.LENGTH_SHORT).show();
-
                 }
             }
 

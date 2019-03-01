@@ -80,14 +80,7 @@ public class DetailEventFragment extends Fragment {
     }
 
     private void loadDataDetail(){
-
-        //spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
-
-        //final String fullName = full;
-        //final String isVerified = x3;
-
         Call<Event> call = apiService.getDetailEvent("JWT "+ sessionManager.getKeyToken(),id_event);
         call.enqueue(new Callback<Event>() {
             @Override

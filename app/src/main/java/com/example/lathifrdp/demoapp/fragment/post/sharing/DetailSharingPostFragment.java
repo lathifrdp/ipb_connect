@@ -279,14 +279,14 @@ public class DetailSharingPostFragment extends Fragment{
                     final String filenya = new BaseModel().getKnowledgeUrl()+ks.getFile();
                     final String fileName = ks.getFile();
                     pd = new ProgressDialog(getActivity());
-                    pd.setMessage("Load document, please wait...");
+                    pd.setMessage("Memuat dokumen, harap menunggu...");
                     pd.setCancelable(false);
                     wv.getSettings().setJavaScriptEnabled(true);
                     wv.setWebViewClient(new WebViewClient(){
                         @Override
                         public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
                             super.onReceivedError(view, request, error);
-                            Toast.makeText(getActivity(), "Maaf, terjadi kesalahan pada saat load document", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(getActivity(), "Maaf, terjadi kesalahan pada saat memuat dokumen", Toast.LENGTH_SHORT).show();
                             pd.dismiss();
                         }
 
@@ -581,14 +581,14 @@ public class DetailSharingPostFragment extends Fragment{
                     KnowledgeSharing ks = response.body();
                     if(ks.isSuccess()==false && ks.getMessage() == null){
                         commentsList = ks.getComment();
-                        judul_komen.setText("Comments (" + commentsList.size() + ") :");
+                        judul_komen.setText("Komentar (" + commentsList.size() + ") :");
                         commentAdapter = new CommentKnowledgeList(commentsList);
                         recyclerViewCom.setAdapter(commentAdapter);
                         //Toast.makeText(getActivity(),"1 "+ks.getMessage(),Toast.LENGTH_SHORT).show();
                         //recyclerViewCom.smoothScrollToPosition(0);
                     }
                     else {
-                        judul_komen.setText("Comments (0) :");
+                        judul_komen.setText("Komentar (0) :");
                         //Toast.makeText(getActivity(),"0 "+ks.getMessage(),Toast.LENGTH_SHORT).show();
                     }
                 }
