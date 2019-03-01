@@ -73,7 +73,7 @@ public class EditEventFragment extends Fragment {
     public Boolean biayaState, selesaiState;
     Bundle bundle;
     private String id_event;
-    public String awalnya, akhirnya;
+    public String awalnya, akhirnya, urlnya;
 
     @Nullable
     @Override
@@ -244,6 +244,7 @@ public class EditEventFragment extends Fragment {
                             .error(R.drawable.placeholdergambar)
                             .into(gambar);
                     posternya = new File(url2);
+                    urlnya = url2;
 
                 }
             }
@@ -449,14 +450,19 @@ public class EditEventFragment extends Fragment {
             endDate2=akhirnya;
         }
 
-        File filenya = new File(pathImage);
-        try {
-            compoto = new Compressor(getActivity()).compressToFile(filenya);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(pathImage==null){
+            compoto = new File(urlnya);
+        }
+        else {
+            File filenya = new File(pathImage);
+            try {
+                compoto = new Compressor(getActivity()).compressToFile(filenya);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), compoto);
-        MultipartBody.Part picture = MultipartBody.Part.createFormData("picture", poto.getName(), reqFile);
+        MultipartBody.Part picture = MultipartBody.Part.createFormData("picture", compoto.getName(), reqFile);
         RequestBody createdBy = RequestBody.create(MediaType.parse("text/plain"), createdBy2);
         RequestBody title = RequestBody.create(MediaType.parse("text/plain"), title2);
         RequestBody place = RequestBody.create(MediaType.parse("text/plain"), place2);
@@ -501,7 +507,8 @@ public class EditEventFragment extends Fragment {
 
             @Override
             public void onFailure(Call<PostEventResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Mohon maaf, untuk saat ini gambar harus diubah", Toast.LENGTH_LONG).show();
                 pd.dismiss();
             }
         });

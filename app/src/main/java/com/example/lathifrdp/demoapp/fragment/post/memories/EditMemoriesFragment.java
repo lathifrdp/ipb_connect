@@ -218,17 +218,19 @@ public class EditMemoriesFragment extends Fragment{
         final String caption2 = capt.getText().toString();
         final String createdBy2 = sessionManager.getKeyId();
 
-//        if(pathImage==null){
-//            pathImage = tesnya.getPath();
-//        }
-        File filenya = new File(pathImage);
-        try {
-            compoto = new Compressor(getActivity()).compressToFile(filenya);
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(pathImage==null){
+            compoto = new File(urlnya);
+        }
+        else {
+            File filenya = new File(pathImage);
+            try {
+                compoto = new Compressor(getActivity()).compressToFile(filenya);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), compoto);
-        MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", poto.getName(), reqFile);
+        MultipartBody.Part photo = MultipartBody.Part.createFormData("photo", compoto.getName(), reqFile);
         RequestBody caption = RequestBody.create(MediaType.parse("text/plain"), caption2);
         RequestBody createdBy = RequestBody.create(MediaType.parse("text/plain"), createdBy2);
 
@@ -249,7 +251,7 @@ public class EditMemoriesFragment extends Fragment{
                                 .setAction("Action", null).show();
                     }
                     else {
-                        //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), compoto.getPath(), Toast.LENGTH_SHORT).show();
                         Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                         Fragment newFragment = null;
@@ -267,7 +269,8 @@ public class EditMemoriesFragment extends Fragment{
 
             @Override
             public void onFailure(Call<PostMemoriesResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Mohon maaf, untuk saat ini gambar harus diubah", Toast.LENGTH_LONG).show();
+                //Toast.makeText(getActivity(), compoto.getPath(), Toast.LENGTH_SHORT).show();
                 pd.dismiss();
             }
         });
