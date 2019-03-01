@@ -36,6 +36,8 @@ import java.util.Calendar;
 import java.util.List;
 
 import id.zelory.compressor.Compressor;
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -52,7 +54,6 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText mDisplayDate;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
     ApiInterface apiService;
-    private Spinner spinner;
     private StudyProgramSpinner adapterProdik;
     private ArrayList<StudyProgram> nama_prodi;
     private ArrayAdapter<String> adapterProdi;
@@ -72,6 +73,9 @@ public class RegisterActivity extends AppCompatActivity {
     public String pathImage,msg;
     public File poto, compoto;
     String iddia;
+    TextView prodinyaa, pilih_prodi;
+    SpinnerDialog spinnerDialog;
+    ArrayList<String> items = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +93,8 @@ public class RegisterActivity extends AppCompatActivity {
         gambar = (ImageView) findViewById(R.id.regis_gambar);
         gallery = (ImageView) findViewById(R.id.regis_gallery);
         camera = (ImageView) findViewById(R.id.regis_camera);
+        prodinyaa = (TextView) findViewById(R.id.prodinya);
+        pilih_prodi = (TextView) findViewById(R.id.prodiCombo);
 
         onRadioButtonJKClicked(radiojkButton);
         onRadioButtonStatClicked(radiostatButton);
@@ -120,6 +126,13 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
                 cek();
+            }
+        });
+
+        pilih_prodi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerDialog.showSpinerDialog();
             }
         });
 
@@ -353,49 +366,33 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void loadDataProdi(){
-
-        spinner = (Spinner) findViewById(R.id.prodi);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<List<StudyProgram>> call = apiService.getProdi();
         call.enqueue(new Callback<List<StudyProgram>>() {
             @Override
             public void onResponse(Call<List<StudyProgram>> call, Response<List<StudyProgram>> response) {
                 if (response.isSuccessful()) {
-                    List<StudyProgram> allprodi = response.body();
-//                    List<String> listSpinner = new ArrayList<String>();
-//                    for (int i = 0; i < allprodi.size(); i++){
-//                        //nama_prodi.add(new StudyProgram(allprodi.get(i).getName()));
-//                        listSpinner.add(allprodi.get(i).getName());
-//                    }
+                    final List<StudyProgram> allprodi = response.body();
+                    studyProgramId = "";
+                    prodinyaa.setText("Belum memilih program studi");
+                    items.clear();
+                    for(int x=0;x<allprodi.size();x++){
+                        items.add(allprodi.get(x).getName());
+                    }
 
-                    //ArrayAdapter<StudyProgram> aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listSpinner);
-                    allprodi.add(0, new StudyProgram("0","Pilih Program Studi"));
-                    adapterProdik = new StudyProgramSpinner(RegisterActivity.this,android.R.layout.simple_spinner_dropdown_item, R.id.prodi_sp,allprodi);
-                    spinner.setAdapter(adapterProdik);
-
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    spinnerDialog=new SpinnerDialog(RegisterActivity.this,items,"Pilih Program Studi",R.style.DialogAnimations_SmileWindow,"Tutup");
+                    spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
                         @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            StudyProgram studyProgram = (StudyProgram) spinner.getSelectedItem();
-                            studyProgramId = studyProgram.getFacultyId();
-                            //Toast.makeText(RegisterActivity.this, studyProgram.getFacultyId(), Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(RegisterActivity.this, studyProgram.getName(), Toast.LENGTH_SHORT).show();
-                        }
+                        public void onClick(String item, int position) {
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
+                            for(int x=0;x<allprodi.size();x++){
+                                if(item.equals(allprodi.get(x).getName())) {
+                                    studyProgramId = allprodi.get(x).getFacultyId();
+                                }
+                            }
+                            prodinyaa.setText(item);
                         }
                     });
-
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this,
-//                            android.R.layout.simple_spinner_item, listSpinner);
-//                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinner.setAdapter(adapter);
-
-
-                    //spinner.setAdapter(new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, nama_prodi));
                 }
             }
 

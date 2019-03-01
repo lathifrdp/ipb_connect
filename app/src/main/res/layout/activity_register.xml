@@ -194,25 +194,34 @@
                     />
 
             </android.support.design.widget.TextInputLayout>
-            <RelativeLayout
+            <TextView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                >
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="Program Studi"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="5dp"
+                android:orientation="horizontal">
                 <TextView
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:text="@string/prodi"/>
-                <Spinner
-                    android:id="@+id/prodi"
-                    android:layout_width="match_parent"
+                    android:id="@+id/prodiCombo"
+                    android:background="@drawable/rounded_border_btn"
+                    android:textColor="@color/putih"
+                    android:text="Pilih program studi"/>
+                <TextView
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="20dp"
-                    android:text="@string/pilihprodi"
-                    >
-
-                </Spinner>
-            </RelativeLayout>
+                    android:id="@+id/prodinya"
+                    android:layout_gravity="center_vertical"
+                    tools:text="Program Studi"
+                    android:layout_marginLeft="20dp"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
