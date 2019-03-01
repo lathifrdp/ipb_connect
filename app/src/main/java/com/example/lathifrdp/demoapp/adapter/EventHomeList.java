@@ -105,7 +105,7 @@ public class EventHomeList extends ArrayAdapter<Event> implements View.OnClickLi
         lastPosition = position;
 
         SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
-        SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("dd MMM yyyy");
         Date date = null;
         try {
             date = inputFormat.parse(dataModel.getStartDate());
