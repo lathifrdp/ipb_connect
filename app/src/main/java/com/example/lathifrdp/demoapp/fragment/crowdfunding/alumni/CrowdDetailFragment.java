@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -62,6 +63,7 @@ public class CrowdDetailFragment extends Fragment {
     public File poto, compoto;
     public ImageView galeri,kamera, gambar;
     Button postnya;
+    EditText nominalnya;
 
     public static CrowdDetailFragment newInstance(String id) {
 
@@ -123,6 +125,7 @@ public class CrowdDetailFragment extends Fragment {
                 kamera = (ImageView) dialogview.findViewById(R.id.crowd_camera);
                 postnya = (Button) dialogview.findViewById(R.id.submit_donasi);
                 gambar = (ImageView) dialogview.findViewById(R.id.crowd_gambar);
+                nominalnya = (EditText) dialogview.findViewById(R.id.nominal_et);
 
                 galeri.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -281,6 +284,7 @@ public class CrowdDetailFragment extends Fragment {
     private void postDonasi(){
 
         final String createdBy2 = sessionManager.getKeyId();
+        final String nominal2 = nominalnya.getText().toString();
 
         File filenya = new File(pathImage);
         try {
@@ -291,10 +295,11 @@ public class CrowdDetailFragment extends Fragment {
         RequestBody reqFile = RequestBody.create(MediaType.parse("image/*"), compoto);
         MultipartBody.Part file = MultipartBody.Part.createFormData("file", poto.getName(), reqFile);
         RequestBody createdBy = RequestBody.create(MediaType.parse("text/plain"), createdBy2);
+        RequestBody nominal = RequestBody.create(MediaType.parse("text/plain"), nominal2);
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<PostDonasiResponse> ucall = apiService.postDonasi("JWT "+ sessionManager.getKeyToken(),file,id_crowd,createdBy);
+        Call<PostDonasiResponse> ucall = apiService.postDonasi("JWT "+ sessionManager.getKeyToken(),file,id_crowd,nominal,createdBy);
         ucall.enqueue(new Callback<PostDonasiResponse>() {
             @Override
             public void onResponse(Call<PostDonasiResponse> call, Response<PostDonasiResponse> response) {
@@ -312,12 +317,12 @@ public class CrowdDetailFragment extends Fragment {
                         //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                         Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        Fragment newFragment = null;
-                        newFragment = new CrowdAlumniFragment();
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.screen_area, newFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
+//                        Fragment newFragment = null;
+//                        newFragment = new CrowdAlumniFragment();
+//                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+//                        transaction.replace(R.id.screen_area, newFragment);
+//                        transaction.addToBackStack(null);
+//                        transaction.commit();
                         Toast.makeText(getActivity(), "Bukti yang anda unggah segera diverifikasi oleh admin. Terima kasih.", Toast.LENGTH_LONG).show();
                     }
                     pd.dismiss();
