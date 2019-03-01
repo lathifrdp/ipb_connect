@@ -27,8 +27,11 @@ import com.example.lathifrdp.demoapp.model.StudyProgram;
 import com.example.lathifrdp.demoapp.model.User;
 import com.example.lathifrdp.demoapp.response.UserResponse;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,7 +39,7 @@ import retrofit2.Response;
 public class ExploreFragment extends Fragment{
 
     ApiInterface apiService;
-    private Spinner spinner;
+    //private Spinner spinner;
     private StudyProgramSpinner adapterProdik;
     public String studyProgramId;
     Button btnExplore;
@@ -49,6 +52,9 @@ public class ExploreFragment extends Fragment{
     Bundle bundle;
     TextView tv;
     public String fullName, batch, prod;
+    SpinnerDialog spinnerDialog;
+    ArrayList<String> items=new ArrayList<>();
+    TextView prodinya, pilih_prodi;
 
     @Nullable
     @Override
@@ -59,46 +65,21 @@ public class ExploreFragment extends Fragment{
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-//        view.findViewById(R.id.exploreFragment).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getActivity(),"Explore Fragment",Toast.LENGTH_SHORT).show();
-//            }
-//        });
-
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mencari Alumni");
 
         loadDataProdi();
         bundle = new Bundle();
-        //tv = (TextView) getView().findViewById(R.id.testext);
-
         fullName2 = (EditText) getView().findViewById(R.id.tesfullNameFragment);
         batch2 = (EditText) getView().findViewById(R.id.tesbatchFragment);
+        prodinya = (TextView) getView().findViewById(R.id.prodinya);
+        pilih_prodi = (TextView) getView().findViewById(R.id.prodiCombo);
 
         isVerified = "1";
-        //prod = studyProgramId;
-
-
         sessionManager = new SessionManager(getActivity());
-
-
-
-        //tv.setText(fullName);
-
-        //loadDataUser();
-
         btnExplore = (Button) getView().findViewById(R.id.exploreBTN);
         btnExplore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-//                if (TextUtils.isEmpty(studyProgramId) || studyProgramId.equals("0")){
-//                    Toast.makeText(getActivity(), "Silahkan pilih program studi", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-
-
                 fullName = fullName2.getText().toString();
                 batch = batch2.getText().toString();
 
@@ -111,75 +92,49 @@ public class ExploreFragment extends Fragment{
                 bundle.putString("isVerified",isVerified.toString()); // Put anything what you want
 
                 newFragment.setArguments(bundle);
-
-//                Toast.makeText(getActivity(), "nama: "+fullName, Toast.LENGTH_SHORT).show();
-//                Toast.makeText(getActivity(), "batch: "+batch, Toast.LENGTH_SHORT).show();
-                //Toast.makeText(getActivity(), "idprodi: "+studyProgramId, Toast.LENGTH_SHORT).show();
-                // consider using Java coding conventions (upper first char class names!!!)
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
-
-                // Replace whatever is in the fragment_container view with this fragment,
-                // and add the transaction to the back stack
                 transaction.replace(R.id.screen_area, newFragment);
                 transaction.addToBackStack(null);
-
-                // Commit the transaction
                 transaction.commit();
-
-
-
-
             }
         });
-
+        pilih_prodi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerDialog.showSpinerDialog();
+            }
+        });
 
     }
 
     private void loadDataProdi(){
-
-        spinner = (Spinner) getView().findViewById(R.id.prodiFragment);
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<List<StudyProgram>> call = apiService.getProdi();
         call.enqueue(new Callback<List<StudyProgram>>() {
             @Override
             public void onResponse(Call<List<StudyProgram>> call, Response<List<StudyProgram>> response) {
                 if (response.isSuccessful()) {
-                    List<StudyProgram> allprodi = response.body();
-//                    List<String> listSpinner = new ArrayList<String>();
-//                    for (int i = 0; i < allprodi.size(); i++){
-//                        //nama_prodi.add(new StudyProgram(allprodi.get(i).getName()));
-//                        listSpinner.add(allprodi.get(i).getName());
-//                    }
+                    final List<StudyProgram> allprodi = response.body();
+                    studyProgramId = "";
+                    prodinya.setText("Semua program studi");
+                    items.clear();
+                    for(int x=0;x<allprodi.size();x++){
+                        items.add(allprodi.get(x).getName());
+                    }
 
-                    //ArrayAdapter<StudyProgram> aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listSpinner);
-                    allprodi.add(0, new StudyProgram("0","Pilih Program Studi"));
-                    adapterProdik = new StudyProgramSpinner(getActivity(),android.R.layout.simple_spinner_dropdown_item, R.id.prodi_sp,allprodi);
-
-                    spinner.setAdapter(adapterProdik);
-
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    spinnerDialog=new SpinnerDialog(getActivity(),items,"Pilih Program Studi",R.style.DialogAnimations_SmileWindow,"Tutup");
+                    spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
                         @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            StudyProgram studyProgram = (StudyProgram) spinner.getSelectedItem();
-                            studyProgramId = studyProgram.getFacultyId();
-//                            Toast.makeText(getActivity(), studyProgramId, Toast.LENGTH_SHORT).show();
-//                            Toast.makeText(getActivity(), studyProgram.getName(), Toast.LENGTH_SHORT).show();
-                        }
+                        public void onClick(String item, int position) {
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
+                            for(int x=0;x<allprodi.size();x++){
+                                if(item.equals(allprodi.get(x).getName())) {
+                                    studyProgramId = allprodi.get(x).getFacultyId();
+                                }
+                            }
+                            prodinya.setText(item);
                         }
                     });
-
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this,
-//                            android.R.layout.simple_spinner_item, listSpinner);
-//                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinner.setAdapter(adapter);
-
-
-                    //spinner.setAdapter(new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, nama_prodi));
                 }
             }
 

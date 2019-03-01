@@ -31,9 +31,12 @@ import com.obsez.android.lib.filechooser.ChooserDialog;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import id.zelory.compressor.Compressor;
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -44,7 +47,6 @@ import retrofit2.Response;
 
 public class CreateSharingFragment extends Fragment {
 
-    private Spinner spinner;
     private CategorySpinner adapterCategory;
     public String categoryId;
     ApiInterface apiService;
@@ -56,6 +58,9 @@ public class CreateSharingFragment extends Fragment {
     File compDoc;
     Button btn;
     ProgressDialog pd;
+    TextView kategorinya, pilih_kategori;
+    SpinnerDialog spinnerDialog;
+    ArrayList<String> items=new ArrayList<>();
 
     @Nullable
     @Override
@@ -74,6 +79,8 @@ public class CreateSharingFragment extends Fragment {
         judul = (EditText) getView().findViewById(R.id.sharingET_judulfile);
         deskripsi = (EditText) getView().findViewById(R.id.sharingET_deskripsi);
         btn = (Button) getView().findViewById(R.id.submit_sharing);
+        kategorinya = (TextView) getView().findViewById(R.id.kategorinya);
+        pilih_kategori = (TextView) getView().findViewById(R.id.kategoriCombo);
 
         loadKategori();
         uploadFile.setOnClickListener(new View.OnClickListener() {
@@ -94,16 +101,16 @@ public class CreateSharingFragment extends Fragment {
             }
         });
 
+        pilih_kategori.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerDialog.showSpinerDialog();
+            }
+        });
+
     }
 
     private void getDocument(){
-//        pd = new ProgressDialog(getActivity());
-//        pd.setMessage("Buka Gallery...");
-//        pd.setCancelable(false);
-//        pd.show();
-        //EasyImage.openDocuments(this, 0);
-        //EasyImage.openChooserWithGallery(this, "Pick source", 0);
-
         new ChooserDialog().with(getActivity())
                 .withFilter(false, false, "ppt", "pptx")
                 .withStartFile(pathnya)
@@ -120,64 +127,35 @@ public class CreateSharingFragment extends Fragment {
                 .show();
     }
 
-//    @Override
-//    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        EasyImage.handleActivityResult(requestCode, resultCode, data, getActivity(), new EasyImage.Callbacks() {
-//            @Override
-//            public void onImagePickerError(Exception e, EasyImage.ImageSource source, int type) {
-//                Toast.makeText(getActivity(), "error", Toast.LENGTH_SHORT).show();
-//                //pd.dismiss();
-//            }
-//
-//            @Override
-//            public void onImagePicked(File imageFiles, EasyImage.ImageSource source, int type) {
-//
-//                pathDir = imageFiles.getAbsolutePath();
-//                //onPhotosReturned(poto);
-//                //Log.e("pathnya: ",pathDir);
-//                Toast.makeText(getActivity(), "picked", Toast.LENGTH_SHORT).show();
-//                urlnya.setText(pathDir);
-//                //pd.dismiss();
-//                //Toast.makeText(getActivity(), pathImage, Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onCanceled(EasyImage.ImageSource source, int type) {
-//                Toast.makeText(getActivity(), "canceled", Toast.LENGTH_SHORT).show();
-//                //pd.dismiss();
-//            }
-//        });
-//    }
-
     private void loadKategori(){
-
-        spinner = (Spinner) getView().findViewById(R.id.sharingET_kategori);
         apiService = ApiClient.getClient().create(ApiInterface.class);
         Call<List<KnowledgeSharingCategory>> call = apiService.getCategory("JWT "+ sessionManager.getKeyToken());
         call.enqueue(new Callback<List<KnowledgeSharingCategory>>() {
             @Override
             public void onResponse(Call<List<KnowledgeSharingCategory>> call, Response<List<KnowledgeSharingCategory>> response) {
                 if (response.isSuccessful()) {
-                    List<KnowledgeSharingCategory> allKategori = response.body();
+                    final List<KnowledgeSharingCategory> allKategori = response.body();
+                    categoryId = "";
+                    kategorinya.setText("Belum memilih kategori");
+                    items.clear();
+                    for(int x=0;x<allKategori.size();x++){
+                        items.add(allKategori.get(x).getName());
+                    }
 
-                    allKategori.add(0, new KnowledgeSharingCategory("0","Pilih Kategori"));
-                    adapterCategory = new CategorySpinner(getActivity(),android.R.layout.simple_spinner_dropdown_item, R.id.category_sp,allKategori);
-
-                    spinner.setAdapter(adapterCategory);
-
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    spinnerDialog=new SpinnerDialog(getActivity(),items,"Pilih Kategori",R.style.DialogAnimations_SmileWindow,"Tutup");
+                    spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
                         @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            KnowledgeSharingCategory kategori = (KnowledgeSharingCategory) spinner.getSelectedItem();
-                            categoryId = kategori.getId();
-                        }
+                        public void onClick(String item, int position) {
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
+                            for(int x=0;x<allKategori.size();x++){
+                                if(item.equals(allKategori.get(x).getName())) {
+                                    categoryId = allKategori.get(x).getId();
+                                }
+                            }
+                            kategorinya.setText(item);
                         }
                     });
+
                 }
             }
 
@@ -195,12 +173,6 @@ public class CreateSharingFragment extends Fragment {
         final String category2 = categoryId;
         final String createdBy2 = sessionManager.getKeyId();
 
-//        File filenya = new File(pathDir);
-//        try {
-//            compDoc = new Compressor(getActivity()).compressToFile(filenya);
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
         RequestBody reqFile = RequestBody.create(MediaType.parse("multipart/form-data"), compDoc);
         MultipartBody.Part file = MultipartBody.Part.createFormData("file",compDoc.getName(), reqFile);
         RequestBody title = RequestBody.create(MediaType.parse("text/plain"), title2);

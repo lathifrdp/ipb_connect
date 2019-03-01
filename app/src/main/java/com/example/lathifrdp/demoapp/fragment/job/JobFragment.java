@@ -14,6 +14,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lathifrdp.demoapp.R;
@@ -23,8 +24,11 @@ import com.example.lathifrdp.demoapp.api.ApiInterface;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.example.lathifrdp.demoapp.model.JobLocation;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import in.galaxyofandroid.spinerdialog.OnSpinerItemClick;
+import in.galaxyofandroid.spinerdialog.SpinnerDialog;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -35,11 +39,12 @@ public class JobFragment extends Fragment {
     private EditText title2;
     Button btnSearch;
     public String title;
-    private Spinner spinner;
-    private JobLocationSpinner adapterLocation;
     public String jobLocationId;
     ApiInterface apiService;
     SessionManager sessionManager;
+    SpinnerDialog spinnerDialog;
+    ArrayList<String> items=new ArrayList<>();
+    TextView lokasinya, pilih_lokasi;
 
     @Nullable
     @Override
@@ -51,12 +56,6 @@ public class JobFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        view.findViewById(R.id.jobFragment).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast.makeText(getActivity(),"Job Fragment",Toast.LENGTH_SHORT).show();
-//            }
-//        });
         ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Mencari Lowongan");
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_vacancy);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -72,10 +71,12 @@ public class JobFragment extends Fragment {
             }
         });
         sessionManager = new SessionManager(getActivity());
-        loadDataProdi();
+        loadDataLocation();
         bundle = new Bundle();
+        lokasinya = (TextView) getView().findViewById(R.id.lokasinya);
         title2 = (EditText) getView().findViewById(R.id.titleFragment);
         btnSearch = (Button) getView().findViewById(R.id.searchBTN);
+        pilih_lokasi = (TextView) getView().findViewById(R.id.lokasiCombo);
         btnSearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,59 +87,47 @@ public class JobFragment extends Fragment {
                 bundle.putString("id_lokasi",jobLocationId);
                 newFragment.setArguments(bundle);
 
-                //Toast.makeText(getActivity(), title, Toast.LENGTH_SHORT).show();
                 FragmentTransaction transaction = getFragmentManager().beginTransaction();
                 transaction.replace(R.id.screen_area, newFragment);
                 transaction.addToBackStack(null);
                 transaction.commit();
             }
         });
+        pilih_lokasi.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                spinnerDialog.showSpinerDialog();
+            }
+        });
     }
-    private void loadDataProdi(){
-
-        spinner = (Spinner) getView().findViewById(R.id.lokasiFragment);
+    private void loadDataLocation(){
         apiService = ApiClient.getClient().create(ApiInterface.class);
-        //ApiService apiService = ApiClient.getClient().create(ApiService.class);
         Call<List<JobLocation>> call = apiService.getLocation("JWT "+ sessionManager.getKeyToken());
         call.enqueue(new Callback<List<JobLocation>>() {
             @Override
             public void onResponse(Call<List<JobLocation>> call, Response<List<JobLocation>> response) {
                 if (response.isSuccessful()) {
-                    List<JobLocation> alllokasi = response.body();
-//                    List<String> listSpinner = new ArrayList<String>();
-//                    for (int i = 0; i < allprodi.size(); i++){
-//                        //nama_prodi.add(new StudyProgram(allprodi.get(i).getName()));
-//                        listSpinner.add(allprodi.get(i).getName());
-//                    }
+                    final List<JobLocation> alllokasi = response.body();
+                    jobLocationId = "";
+                    lokasinya.setText("Semua lokasi");
+                    items.clear();
+                    for(int x=0;x<alllokasi.size();x++){
+                        items.add(alllokasi.get(x).getName());
+                    }
 
-                    //ArrayAdapter<StudyProgram> aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,listSpinner);
-                    alllokasi.add(0, new JobLocation("0","Pilih Lokasi"));
-                    adapterLocation = new JobLocationSpinner(getActivity(),android.R.layout.simple_spinner_dropdown_item, R.id.location_sp,alllokasi);
-
-                    spinner.setAdapter(adapterLocation);
-
-                    spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    spinnerDialog=new SpinnerDialog(getActivity(),items,"Pilih Lokasi",R.style.DialogAnimations_SmileWindow,"Tutup");
+                    spinnerDialog.bindOnSpinerListener(new OnSpinerItemClick() {
                         @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            JobLocation studyProgram = (JobLocation) spinner.getSelectedItem();
-                            jobLocationId = studyProgram.getId();
-                            //Toast.makeText(getActivity(), jobLocationId, Toast.LENGTH_SHORT).show();
-//                            Toast.makeText(getActivity(), studyProgram.getName(), Toast.LENGTH_SHORT).show();
-                        }
+                        public void onClick(String item, int position) {
 
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
+                            for(int x=0;x<alllokasi.size();x++){
+                                if(item.equals(alllokasi.get(x).getName())) {
+                                    jobLocationId = alllokasi.get(x).getId();
+                                }
+                            }
+                            lokasinya.setText(item);
                         }
                     });
-
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(RegisterActivity.this,
-//                            android.R.layout.simple_spinner_item, listSpinner);
-//                    adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//                    spinner.setAdapter(adapter);
-
-
-                    //spinner.setAdapter(new ArrayAdapter<String>(RegisterActivity.this, android.R.layout.simple_spinner_dropdown_item, nama_prodi));
                 }
             }
 
