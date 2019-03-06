@@ -28,6 +28,8 @@ import com.example.lathifrdp.demoapp.fragment.explore.ExploreFragment;
 import com.example.lathifrdp.demoapp.fragment.explore.ProfileFragment;
 import com.example.lathifrdp.demoapp.fragment.group.GroupFragment;
 import com.example.lathifrdp.demoapp.fragment.home.HomeFragment;
+import com.example.lathifrdp.demoapp.fragment.home.PutProfileFragment;
+import com.example.lathifrdp.demoapp.fragment.inbox.InboxFragment;
 import com.example.lathifrdp.demoapp.fragment.job.JobFragment;
 import com.example.lathifrdp.demoapp.fragment.memories.MemoriesFragment;
 import com.example.lathifrdp.demoapp.fragment.post.PostFragment;
@@ -43,6 +45,7 @@ import com.example.lathifrdp.demoapp.fragment.post.memories.PostMemoriesFragment
 import com.example.lathifrdp.demoapp.fragment.post.sharing.DetailSharingPostFragment;
 import com.example.lathifrdp.demoapp.fragment.post.sharing.PostSharingFragment;
 import com.example.lathifrdp.demoapp.fragment.sharing.SharingFragment;
+import com.example.lathifrdp.demoapp.fragment.tracer.TracerFragment;
 import com.example.lathifrdp.demoapp.helper.BaseModel;
 import com.example.lathifrdp.demoapp.helper.SessionManager;
 import com.squareup.picasso.Picasso;
@@ -167,7 +170,8 @@ public class MainActivity extends AppCompatActivity
                 cr instanceof PostFragment || cr instanceof BookmarkFragment ||
                 cr instanceof CrowdMahasiswaFragment || cr instanceof CrowdRequestFragment ||
                 cr instanceof CrowdNotifFragment || cr instanceof CrowdPinFragment ||
-                cr instanceof CrowdAlumniFragment) {
+                cr instanceof CrowdAlumniFragment || cr instanceof TracerFragment ||
+                cr instanceof InboxFragment) {
             Fragment fragment = null;
             fragment = new HomeFragment();
             FragmentManager fragmentManager = getSupportFragmentManager();
@@ -264,7 +268,14 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Toast.makeText(MainActivity.this, "Pengaturan Coming Soon", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(MainActivity.this, "Ubah Profil Akan Datang", Toast.LENGTH_SHORT).show();
+            Fragment fragment = null;
+            fragment = new PutProfileFragment();
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction ft = fragmentManager.beginTransaction();
+            ft.replace(R.id.screen_area, fragment);
+            ft.addToBackStack(null);
+            ft.commit();
             return true;
         }
         if (id == R.id.action_logout) {
@@ -288,6 +299,9 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.home) {
             fragment = new HomeFragment();
             //Log.e("idhome",String.valueOf(id));
+        }
+        else if (id == R.id.inbox) {
+            fragment = new InboxFragment();
         }
         else if (id == R.id.job) {
             fragment = new JobFragment();
@@ -334,6 +348,9 @@ public class MainActivity extends AppCompatActivity
                 fragment = new CrowdAlumniFragment();
                 //Toast.makeText(this, sessionManager.getKeyUsertype(), Toast.LENGTH_SHORT).show();
             }
+        }
+        else if (id == R.id.tracer) {
+            fragment = new TracerFragment();
         }
         else if (id == R.id.bookmark) {
             fragment = new BookmarkFragment();
