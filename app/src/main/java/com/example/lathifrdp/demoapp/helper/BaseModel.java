@@ -7,9 +7,10 @@ public class BaseModel {
     String memoryUrl;
     String knowledgeUrl;
     String crowdfundingUrl;
+    String messageUrl;
 
     public BaseModel(){
-        this.url = "http://api.ipbconnect.cs.ipb.ac.id/";
+        this.url = "http://api.ipbconnect.ipb.ac.id/";
         //this.url = "http://172.20.32.178:3501/";
         //this.url = "http://192.168.43.31:3501/";
         //this.url = "http://192.168.1.9:3501/";
@@ -20,6 +21,7 @@ public class BaseModel {
         this.memoryUrl = this.url + "uploads/memory/";
         this.knowledgeUrl = this.url + "uploads/knowledgesharing/";
         this.crowdfundingUrl = this.url + "uploads/crowdfunding/";
+        this.messageUrl = this.url + "uploads/broadcast/";
     }
 
     public String getUrl() {
@@ -44,5 +46,9 @@ public class BaseModel {
 
     public String getCrowdfundingUrl() {
         return crowdfundingUrl;
+    }
+
+    public String getMessageUrl() {
+        return messageUrl;
     }
 }
