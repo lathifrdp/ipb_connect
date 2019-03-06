@@ -56,7 +56,7 @@ public class GroupFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Grup Diskusi");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Tanya Jawab");
         FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab_group);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

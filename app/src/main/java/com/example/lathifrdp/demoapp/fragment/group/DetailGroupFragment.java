@@ -61,7 +61,7 @@ public class DetailGroupFragment extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Diskusi");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Tanya Jawab");
         sessionManager = new SessionManager(getActivity());
 
         rvDiscuss= (RecyclerView) getView().findViewById(R.id.jawaban_discussion);

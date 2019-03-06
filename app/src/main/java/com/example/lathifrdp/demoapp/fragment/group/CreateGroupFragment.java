@@ -42,7 +42,7 @@ public class CreateGroupFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Diskusi Baru");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Tanya Jawab");
         sessionManager = new SessionManager(getActivity());
         judul = (EditText) getView().findViewById(R.id.judul_pertanyaan);
         tanya = (EditText) getView().findViewById(R.id.pertanyaan);
