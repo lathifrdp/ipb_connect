@@ -10,8 +10,10 @@ import com.example.lathifrdp.demoapp.model.JobLocation;
 import com.example.lathifrdp.demoapp.model.KnowledgeSharing;
 import com.example.lathifrdp.demoapp.model.KnowledgeSharingCategory;
 import com.example.lathifrdp.demoapp.model.Memory;
+import com.example.lathifrdp.demoapp.model.Message;
 import com.example.lathifrdp.demoapp.model.News;
 import com.example.lathifrdp.demoapp.model.StudyProgram;
+import com.example.lathifrdp.demoapp.model.TracerStudy;
 import com.example.lathifrdp.demoapp.model.UserProfile;
 import com.example.lathifrdp.demoapp.response.BookmarkResponse;
 import com.example.lathifrdp.demoapp.response.CrowdResponse;
@@ -20,6 +22,8 @@ import com.example.lathifrdp.demoapp.response.DonationResponse;
 import com.example.lathifrdp.demoapp.response.DonationVerifiedResponse;
 import com.example.lathifrdp.demoapp.response.DonaturResponse;
 import com.example.lathifrdp.demoapp.response.GetCommentResponse;
+import com.example.lathifrdp.demoapp.response.InboxResponse;
+import com.example.lathifrdp.demoapp.response.MessageResponse;
 import com.example.lathifrdp.demoapp.response.NewsResponse;
 import com.example.lathifrdp.demoapp.response.PinResponse;
 import com.example.lathifrdp.demoapp.response.PostBookmarkResponse;
@@ -41,8 +45,10 @@ import com.example.lathifrdp.demoapp.response.PostMemoriesResponse;
 import com.example.lathifrdp.demoapp.response.PostSharingResponse;
 import com.example.lathifrdp.demoapp.response.ProgressResponse;
 import com.example.lathifrdp.demoapp.response.RegisterResponse;
+import com.example.lathifrdp.demoapp.response.SenderResponse;
 import com.example.lathifrdp.demoapp.response.SharingResponse;
 import com.example.lathifrdp.demoapp.response.StatusResponse;
+import com.example.lathifrdp.demoapp.response.TracerResponse;
 import com.example.lathifrdp.demoapp.response.UploadCrowdfundingResponse;
 import com.example.lathifrdp.demoapp.response.UploadProfileResponse;
 import com.example.lathifrdp.demoapp.response.UserResponse;
@@ -596,4 +602,45 @@ public interface ApiInterface {
             @Header("Authorization") String token,
             @Field("user") String user
     );
+
+    @GET("tracerstudy")
+    Call<TracerResponse> getTracer(
+            @Header("Authorization") String token,
+            @Query("actived") String actived
+    );
+
+    @GET("tracerstudy/{id}")
+    Call<TracerStudy> getDetailTracer(
+            @Header("Authorization") String token,
+            @Path("id") String id
+    );
+
+    @FormUrlEncoded
+    @POST("broadcasts/inbox")
+    Call<InboxResponse> getSender(
+            @Header("Authorization") String token,
+            @Field("user") String user
+    );
+
+    @FormUrlEncoded
+    @POST("broadcasts/inbox/detail")
+    Call<MessageResponse> getMessage(
+            @Header("Authorization") String token,
+            @Field("user") String user,
+            @Field("sender") String sender
+    );
+
+    @FormUrlEncoded
+    @PUT("users/profiles/{id}")
+    Call<UploadProfileResponse> putUser(
+            @Header("Authorization") String token,
+            @Field("address") String address,
+            @Field("mobileNumber") String mobileNumber,
+            @Field("currentJob") String currentJob,
+            @Field("interest") String interest,
+            @Field("hobby") String hobby,
+            @Field("maritalStatus") String maritalStatus,
+            @Path("id") String id
+    );
+
 }
