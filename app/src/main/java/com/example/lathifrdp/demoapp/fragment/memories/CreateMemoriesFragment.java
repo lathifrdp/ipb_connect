@@ -65,7 +65,7 @@ public class CreateMemoriesFragment extends Fragment{
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Bagikan Memori");
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setTitle("Bagikan Memories");
         sessionManager = new SessionManager(getActivity());
 
         gambar = (ImageView) getView().findViewById(R.id.gambar);
@@ -96,13 +96,19 @@ public class CreateMemoriesFragment extends Fragment{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Membagikan Memori...");
-                pd.setCancelable(false);
-                pd.show();
-                postMemories();
+                cek();
             }
         });
+    }
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Membagikan Memories...");
+        pd.setCancelable(false);
+        pd.show();
+        postMemories();
     }
 
     private void getImageGallery(){
@@ -217,5 +223,38 @@ public class CreateMemoriesFragment extends Fragment{
                 pd.dismiss();
             }
         });
+    }
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        capt.setError(null);
+        final String caption2 = capt.getText().toString();
+
+        if(cekError==0) {
+            if (gambar.getDrawable() == null) {
+                Toast.makeText(getActivity(), "Gambar tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = gambar;
+                valid = true;
+            } else {
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (caption2.isEmpty()) {
+                capt.setError("Caption tidak boleh kosong");
+                focusView = capt;
+                valid = true;
+            } else {
+                capt.setError(null);
+                cekError=2;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
     }
 }
