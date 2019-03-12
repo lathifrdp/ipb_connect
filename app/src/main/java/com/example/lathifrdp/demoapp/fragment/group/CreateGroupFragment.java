@@ -51,14 +51,19 @@ public class CreateGroupFragment extends Fragment{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Membuat Diskusi ...");
-                pd.setCancelable(false);
-                pd.show();
-                postGroup();
+                cek();
             }
         });
-
+    }
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Membuat Diskusi ...");
+        pd.setCancelable(false);
+        pd.show();
+        postGroup();
     }
     private void postGroup(){
         final String title = judul.getText().toString();
@@ -101,5 +106,42 @@ public class CreateGroupFragment extends Fragment{
                 pd.dismiss();
             }
         });
+    }
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        judul.setError(null);
+        tanya.setError(null);
+
+        String title = judul.getText().toString();
+        String description = tanya.getText().toString();
+
+        if(cekError==0) {
+            if (title.isEmpty()) {
+                judul.setError("Judul tidak boleh kosong");
+                focusView = judul;
+                valid = true;
+            } else {
+                judul.setError(null);
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (description.isEmpty()) {
+                tanya.setError("Pertanyaan tidak boleh kosong");
+                focusView = tanya;
+                valid = true;
+            } else {
+                tanya.setError(null);
+                cekError=2;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
     }
 }
