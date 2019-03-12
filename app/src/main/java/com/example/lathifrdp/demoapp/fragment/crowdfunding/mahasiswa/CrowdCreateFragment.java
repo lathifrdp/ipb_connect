@@ -120,13 +120,19 @@ public class CrowdCreateFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Membagikan Proposal...");
-                pd.setCancelable(false);
-                pd.show();
-                postCrowd();
+                cek();
             }
         });
+    }
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Menyimpan Proposal...");
+        pd.setCancelable(false);
+        pd.show();
+        postCrowd();
     }
 
     private void getBatasWaktu(){
@@ -234,17 +240,11 @@ public class CrowdCreateFragment extends Fragment {
                         //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
                         idnya = cr.getCrowdfunding().getId();
                         postFoto();
-                        postVideo();
                         Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        Fragment newFragment = null;
-                        newFragment = new CrowdMahasiswaFragment();
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.screen_area, newFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
+
                     }
-                    pd.dismiss();
+                    //pd.dismiss();
                 }
             }
 
@@ -278,6 +278,12 @@ public class CrowdCreateFragment extends Fragment {
                     }
                     else {
                         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                        Fragment newFragment = null;
+                        newFragment = new CrowdMahasiswaFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.screen_area, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
                     pd.dismiss();
                 }
@@ -379,8 +385,9 @@ public class CrowdCreateFragment extends Fragment {
                     }
                     else {
                         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                        postVideo();
                     }
-                    pd.dismiss();
+                    //pd.dismiss();
                 }
             }
 
@@ -390,5 +397,144 @@ public class CrowdCreateFragment extends Fragment {
                 pd.dismiss();
             }
         });
+    }
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        judul.setError(null);
+        deskripsi.setError(null);
+        kontak.setError(null);
+        lokasi.setError(null);
+        proyek.setError(null);
+        deskripsi.setError(null);
+        biaya.setError(null);
+        batas_waktu.setError(null);
+
+        String title2 = judul.getText().toString();
+        String description2 = deskripsi.getText().toString();
+        String contactPerson2 = kontak.getText().toString();
+        String location2 = lokasi.getText().toString();
+        String projectType2 = proyek.getText().toString();
+        String cost2 = biaya.getText().toString();
+        String deadline2 = batas_waktu.getText().toString();
+        String urlnya2 = urlnya.getText().toString();
+        String urlnya_video2 = urlnya_video.getText().toString();
+
+        if(cekError==0) {
+            if (title2.isEmpty()) {
+                judul.setError("Judul tidak boleh kosong");
+                focusView = judul;
+                valid = true;
+            } else {
+                judul.setError(null);
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (description2.isEmpty()) {
+                deskripsi.setError("Deskripsi tidak boleh kosong");
+                focusView = deskripsi;
+                valid = true;
+            } else {
+                deskripsi.setError(null);
+                cekError=2;
+            }
+        }
+        if(cekError==2) {
+            if (contactPerson2.isEmpty()) {
+                //Toast.makeText(getActivity(), "Biaya tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                kontak.setError("Info dan kontak tidak boleh kosong");
+                focusView = kontak;
+                valid = true;
+            } else {
+                kontak.setError(null);
+                cekError = 3;
+            }
+        }
+        if(cekError==3) {
+            if (location2.isEmpty()) {
+                //Toast.makeText(getActivity(), "Tanggal awal tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                lokasi.setError("Lokasi tidak boleh kosong");
+                focusView = lokasi;
+                valid = true;
+            }
+            else {
+                lokasi.setError(null);
+                cekError=4;
+            }
+        }
+        if(cekError==4) {
+            if (projectType2.isEmpty()) {
+                //Toast.makeText(getActivity(), "Tanggal akhir tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                proyek.setError("Tipe proyek tidak boleh kosong");
+                focusView = proyek;
+                valid = true;
+            }
+            else {
+                proyek.setError(null);
+                cekError=5;
+            }
+        }
+        if(cekError==5) {
+            if (cost2.isEmpty()) {
+                //Toast.makeText(getActivity(), "Waktu dimulai tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                biaya.setError("Biaya tidak boleh kosong");
+                focusView = biaya;
+                valid = true;
+            } else {
+                biaya.setError(null);
+                cekError = 6;
+            }
+        }
+        if(cekError==6) {
+            if (deadline2.isEmpty()) {
+                Toast.makeText(getActivity(), "Batas waktu tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                batas_waktu.setError("Batas waktu tidak boleh kosong");
+                focusView = batas_waktu;
+                valid = true;
+            } else {
+                //batas_waktu.setError(null);
+                cekError=7;
+            }
+        }
+        if(cekError==7) {
+            if (urlnya2.isEmpty()) {
+                //urlnya.setError("Dokumen tidak boleh kosong");
+                Toast.makeText(getActivity(), "Dokumen tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = urlnya;
+                valid = true;
+            }
+            else {
+                urlnya.setError(null);
+                cekError=8;
+            }
+        }
+        if(cekError==8) {
+            if (urlnya_video2.isEmpty()) {
+                //urlnya_video.setError("Video tidak boleh kosong");
+                Toast.makeText(getActivity(), "Video tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = urlnya_video;
+                valid = true;
+            } else {
+                urlnya_video.setError(null);
+                cekError=9;
+            }
+        }
+        if(cekError==9) {
+            if (gambar.getDrawable() == null) {
+                Toast.makeText(getActivity(), "Gambar tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = gambar;
+                valid = true;
+            } else {
+                cekError=10;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
     }
 }
