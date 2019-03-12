@@ -151,6 +151,10 @@ public class RegisterActivity extends AppCompatActivity {
         if (validate() == true) {
             return;
         }
+        pd = new ProgressDialog(this);
+        pd.setMessage("Melakukan registrasi...");
+        pd.setCancelable(false);
+        pd.show();
         daftarkuy();
     }
 
@@ -239,10 +243,10 @@ public class RegisterActivity extends AppCompatActivity {
                     else {
                         iddia = rr.getUser().getId();
                         uploadFoto();
-                        Toast.makeText(RegisterActivity.this, rr.getUser().getId(), Toast.LENGTH_SHORT).show();
-                        Intent logIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+//                        Toast.makeText(RegisterActivity.this, rr.getUser().getId(), Toast.LENGTH_SHORT).show();
+//                        Intent logIntent = new Intent(RegisterActivity.this, LoginActivity.class);
                         Toast.makeText(RegisterActivity.this, rr.getMessage(), Toast.LENGTH_SHORT).show();
-                        RegisterActivity.this.startActivity(logIntent);
+//                        RegisterActivity.this.startActivity(logIntent);
                     }
                 }
             }
@@ -283,6 +287,8 @@ public class RegisterActivity extends AppCompatActivity {
                     }
                     else {
                         Toast.makeText(RegisterActivity.this, msg, Toast.LENGTH_SHORT).show();
+                        Intent logIntent = new Intent(RegisterActivity.this, LoginActivity.class);
+                        RegisterActivity.this.startActivity(logIntent);
                     }
                     pd.dismiss();
                 }
