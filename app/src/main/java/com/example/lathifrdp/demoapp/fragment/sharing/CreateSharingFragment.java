@@ -93,11 +93,7 @@ public class CreateSharingFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Membagikan Ilmu...");
-                pd.setCancelable(false);
-                pd.show();
-                postSharing();
+                cek();
             }
         });
 
@@ -108,6 +104,16 @@ public class CreateSharingFragment extends Fragment {
             }
         });
 
+    }
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Membagikan Ilmu...");
+        pd.setCancelable(false);
+        pd.show();
+        postSharing();
     }
 
     private void getDocument(){
@@ -217,5 +223,61 @@ public class CreateSharingFragment extends Fragment {
                 pd.dismiss();
             }
         });
+    }
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        judul.setError(null);
+        deskripsi.setError(null);
+
+        String title2 = judul.getText().toString();
+        String description2 = deskripsi.getText().toString();
+        String urlnya2 = urlnya.getText().toString();
+
+        if(cekError==0) {
+            if (title2.isEmpty()) {
+                judul.setError("Judul tidak boleh kosong");
+                focusView = judul;
+                valid = true;
+            } else {
+                judul.setError(null);
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (description2.isEmpty()) {
+                deskripsi.setError("Deskripsi tidak boleh kosong");
+                focusView = deskripsi;
+                valid = true;
+            } else {
+                deskripsi.setError(null);
+                cekError=2;
+            }
+        }
+        if(cekError==2) {
+            if (urlnya2.isEmpty()) {
+                Toast.makeText(getActivity(), "Dokumen tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = urlnya;
+                valid = true;
+            } else {
+                cekError=3;
+            }
+        }
+        if(cekError==3) {
+            if (categoryId.isEmpty()) {
+                Toast.makeText(getActivity(), "Kategori tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = pilih_kategori;
+                valid = true;
+            } else {
+                cekError=4;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
     }
 }
