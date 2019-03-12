@@ -22,7 +22,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Bagikan memori anda"
+            android:text="Bagikan memories anda"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="10dp"
@@ -81,7 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
-            android:text="Bagikan Memori"/>
+            android:text="Bagikan Memories"/>
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

@@ -160,7 +160,7 @@
                                     android:id="@+id/gaji_max"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:hint="Gaji Maximal (Rp)"
+                                    android:hint="Gaji Maksimal (Rp)"
                                     android:inputType="number"
                                     android:maxLines="1"
                                     android:singleLine="true" />
@@ -231,7 +231,7 @@
                             android:id="@+id/profil_perusahaan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="Profil Perusahaan (opsional)"
+                            android:hint="Profil Perusahaan"
                             android:inputType="textMultiLine"
                             android:minLines="1"
                             android:maxLines="10"
