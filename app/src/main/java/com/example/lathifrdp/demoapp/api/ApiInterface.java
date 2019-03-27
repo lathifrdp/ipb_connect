@@ -555,7 +555,7 @@ public interface ApiInterface {
 
     @Multipart
     @PUT("crowdfundings/{id}")
-    Call<PostCrowdfundingResponse> putCrowd(@Header("Authorization") String token,
+    Call<UploadCrowdfundingResponse> putCrowd(@Header("Authorization") String token,
                                             @Path("id") String id,
                                              @Part MultipartBody.Part file,
                                              @Part("title") RequestBody title,
