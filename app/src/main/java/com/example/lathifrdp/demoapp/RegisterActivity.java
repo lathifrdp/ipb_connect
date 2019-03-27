@@ -121,10 +121,10 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (TextUtils.isEmpty(studyProgramId) || studyProgramId.equals("0")){
-                    Toast.makeText(RegisterActivity.this, "Silahkan pilih program studi", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+//                if (TextUtils.isEmpty(studyProgramId) || studyProgramId.equals("0")){
+//                    Toast.makeText(RegisterActivity.this, "Silahkan pilih program studi", Toast.LENGTH_SHORT).show();
+//                    return;
+//                }
                 cek();
             }
         });
@@ -503,6 +503,16 @@ public class RegisterActivity extends AppCompatActivity {
             } else {
                 etAngkatan.setError(null);
                 cekError=6;
+            }
+        }
+        if(cekError==6) {
+            if (studyProgramId.isEmpty()) {
+                Toast.makeText(RegisterActivity.this, "Lokasi kerja tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = pilih_prodi;
+                valid = true;
+            } else {
+                //pilih_lokasi.setError(null);
+                cekError = 7;
             }
         }
         if (valid) {
