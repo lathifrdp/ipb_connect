@@ -69,6 +69,7 @@ public class EditEventFragment extends Fragment {
     //RecyclerView gambar;
     public File poto, compoto, posternya;
     public String title2,place2,startDate2,endDate2,startTime2,endTime2,description2,contact2,price2,createdBy2;
+    public String title3,place3,startDate3,endDate3,startTime3,endTime3,description3,contact3,price3,createdBy3;
     ProgressDialog pd;
     public Boolean biayaState, selesaiState;
     Bundle bundle;
@@ -168,13 +169,20 @@ public class EditEventFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Mengubah Acara...");
-                pd.setCancelable(false);
-                pd.show();
-                putEvent();
+                cek();
             }
         });
+    }
+
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Mengubah Acara...");
+        pd.setCancelable(false);
+        pd.show();
+        putEvent();
     }
 
     private void loadDataEdit(){
@@ -509,8 +517,151 @@ public class EditEventFragment extends Fragment {
             public void onFailure(Call<PostEventResponse> call, Throwable t) {
                 //Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
                 Toast.makeText(getActivity(), "Mohon maaf, untuk saat ini gambar harus diubah", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "atau unggah ulang gambar yang sama", Toast.LENGTH_LONG).show();
                 pd.dismiss();
             }
         });
+    }
+
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        judul.setError(null);
+        alamat.setError(null);
+        biaya.setError(null);
+        wktawal.setError(null);
+        wktakhir.setError(null);
+        deskripsi.setError(null);
+        info.setError(null);
+        tglawal.setError(null);
+        tglakhir.setError(null);
+
+        title3 = judul.getText().toString();
+        place3 = alamat.getText().toString();
+        startTime3 = wktawal.getText().toString();
+        endTime3 = wktakhir.getText().toString();
+        description3 = deskripsi.getText().toString();
+        contact3 = info.getText().toString();
+        price3 = biaya.getText().toString();
+        startDate3 = tglawal.getText().toString();
+        endDate3 = tglakhir.getText().toString();
+
+        if(cekError==0) {
+            if (title3.isEmpty()) {
+                judul.setError("Judul tidak boleh kosong");
+                focusView = judul;
+                valid = true;
+            } else {
+                judul.setError(null);
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (place3.isEmpty()) {
+                alamat.setError("Alamat tidak boleh kosong");
+                focusView = alamat;
+                valid = true;
+            } else {
+                alamat.setError(null);
+                cekError=2;
+            }
+        }
+        if(cekError==2) {
+            if (price3.isEmpty()) {
+                //Toast.makeText(getActivity(), "Biaya tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                biaya.setError("Biaya tidak boleh kosong");
+                focusView = biaya;
+                valid = true;
+            } else {
+                biaya.setError(null);
+                cekError = 3;
+            }
+        }
+        if(cekError==3) {
+            if (startDate3.isEmpty()) {
+                Toast.makeText(getActivity(), "Tanggal awal tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                tglawal.setError("Tanggal awal tidak boleh kosong");
+                focusView = tglawal;
+                valid = true;
+            }
+            else {
+                tglawal.setError(null);
+                cekError=4;
+            }
+        }
+        if(cekError==4) {
+            if (endDate3.isEmpty()) {
+                Toast.makeText(getActivity(), "Tanggal akhir tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                tglakhir.setError("Tanggal Akhir tidak boleh kosong");
+                focusView = tglakhir;
+                valid = true;
+            }
+            else {
+                tglakhir.setError(null);
+                cekError=5;
+            }
+        }
+        if(cekError==5) {
+            if (startTime3.isEmpty()) {
+                Toast.makeText(getActivity(), "Waktu dimulai tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                wktawal.setError("Waktu dimulai tidak boleh kosong");
+                focusView = wktawal;
+                valid = true;
+            } else {
+                wktawal.setError(null);
+                cekError = 6;
+            }
+        }
+        if(cekError==6) {
+            if (endTime3.isEmpty() && cekbox_selesai.isChecked() == false) {
+                Toast.makeText(getActivity(), "Waktu berakhir tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                wktakhir.setError("Waktu berakhir tidak boleh kosong");
+                focusView = wktakhir;
+                valid = true;
+            } else if(endTime3.isEmpty() && cekbox_selesai.isChecked()){
+                wktakhir.setError(null);
+                cekError=7;
+            } else {
+                wktakhir.setError(null);
+                cekError=7;
+            }
+        }
+        if(cekError==7) {
+            if (description3.isEmpty()) {
+                deskripsi.setError("Deskripsi tidak boleh kosong");
+                focusView = deskripsi;
+                valid = true;
+            }
+            else {
+                deskripsi.setError(null);
+                cekError=8;
+            }
+        }
+        if(cekError==8) {
+            if (contact3.isEmpty()) {
+                info.setError("Info dan kontak tidak boleh kosong");
+                focusView = info;
+                valid = true;
+            } else {
+                info.setError(null);
+                cekError=9;
+            }
+        }
+        if(cekError==9) {
+            if (gambar.getDrawable() == null) {
+                Toast.makeText(getActivity(), "Gambar tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = gambar;
+                valid = true;
+            } else {
+                cekError=10;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
     }
 }
