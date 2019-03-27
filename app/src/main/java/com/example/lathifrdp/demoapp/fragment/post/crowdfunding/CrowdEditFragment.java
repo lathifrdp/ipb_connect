@@ -65,9 +65,10 @@ public class CrowdEditFragment extends Fragment {
     ProgressDialog pd;
     ImageView gambar,gallery,camera;
     private DatePickerDialog.OnDateSetListener mDateSetListener;
-    String idnya;
+    //String idnya;
     Bundle bundle;
     private String id_crowd;
+    public String urlnya_gambar,filenya,videonya, batasnya;
 
     @Nullable
     @Override
@@ -140,13 +141,19 @@ public class CrowdEditFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Mengubah Proposal...");
-                pd.setCancelable(false);
-                pd.show();
-                putCrowd();
+                cek();
             }
         });
+    }
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Mengubah Proposal...");
+        pd.setCancelable(false);
+        pd.show();
+        putCrowd();
     }
 
     private void loadDataDetail(){
@@ -164,12 +171,14 @@ public class CrowdEditFragment extends Fragment {
 
                     SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
                     SimpleDateFormat outputFormat = new SimpleDateFormat("d-M-yyyy");
+                    SimpleDateFormat batas = new SimpleDateFormat("yyyy-M-d");
                     Date date = null;
                     try {
                         date = inputFormat.parse(crowd.getDeadline());
                     } catch (ParseException e) {
                         e.printStackTrace();
                     }
+                    batasnya = batas.format(date);
                     String formattedDate = outputFormat.format(date);
 
                     lokasi.setText(crowd.getLocation());
@@ -179,12 +188,16 @@ public class CrowdEditFragment extends Fragment {
                     proyek.setText(crowd.getProjectType());
                     biaya.setText(crowd.getTotalCost());
                     batas_waktu.setText(formattedDate);
-                    urlnya.setText(crowd.getFile());
-                    urlnya_video.setText(crowd.getProposalVideo());
 
-                    String url = new BaseModel().getCrowdfundingUrl()+crowd.getProposalImages().get(0).getFile();
+                    filenya = new BaseModel().getCrowdfundingUrl()+crowd.getFile();
+                    urlnya.setText(filenya);
+
+                    videonya = new BaseModel().getCrowdfundingUrl()+crowd.getProposalVideo();
+                    urlnya_video.setText(videonya);
+
+                    urlnya_gambar = new BaseModel().getCrowdfundingUrl()+crowd.getProposalImages().get(0).getFile();
                     Picasso.get()
-                            .load(url)
+                            .load(urlnya_gambar)
                             .placeholder(R.drawable.placegam)
                             .error(R.drawable.placeholdergambar)
                             .into(gambar);
@@ -264,6 +277,13 @@ public class CrowdEditFragment extends Fragment {
     }
     private void putCrowd(){
 
+        if(compDoc == null){
+            compDoc = new File(filenya);
+        }
+        if(tgl==null){
+            tgl=batasnya;
+        }
+
         final String title2 = judul.getText().toString();
         final String description2 = deskripsi.getText().toString();
         final String contactPerson2 = kontak.getText().toString();
@@ -286,14 +306,14 @@ public class CrowdEditFragment extends Fragment {
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<PostCrowdfundingResponse> ucall = apiService.putCrowd("JWT "+ sessionManager.getKeyToken(),id_crowd,file,title,description,contactPerson,location,projectType,cost,deadline,createdBy);
-        ucall.enqueue(new Callback<PostCrowdfundingResponse>() {
+        Call<UploadCrowdfundingResponse> ucall = apiService.putCrowd("JWT "+ sessionManager.getKeyToken(),id_crowd,file,title,description,contactPerson,location,projectType,cost,deadline,createdBy);
+        ucall.enqueue(new Callback<UploadCrowdfundingResponse>() {
             @Override
-            public void onResponse(Call<PostCrowdfundingResponse> call, Response<PostCrowdfundingResponse> response) {
+            public void onResponse(Call<UploadCrowdfundingResponse> call, Response<UploadCrowdfundingResponse> response) {
 
                 if (response.isSuccessful()) {
 
-                    PostCrowdfundingResponse cr = response.body();
+                    UploadCrowdfundingResponse cr = response.body();
                     msg = cr.getMessage();
 
                     if(cr.isSuccess()==false ){
@@ -302,25 +322,20 @@ public class CrowdEditFragment extends Fragment {
                     }
                     else {
                         //Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
-                        idnya = cr.getCrowdfunding().getId();
+                        //idnya = cr.getCrowdfunding().getId();
                         postFoto();
-                        postVideo();
                         Snackbar.make(getView(), msg, Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
-                        Fragment newFragment = null;
-                        newFragment = new PostCrowdFragment();
-                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                        transaction.replace(R.id.screen_area, newFragment);
-                        transaction.addToBackStack(null);
-                        transaction.commit();
+
                     }
-                    pd.dismiss();
+                    //pd.dismiss();
                 }
             }
 
             @Override
-            public void onFailure(Call<PostCrowdfundingResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Mohon maaf, gagal posting", Toast.LENGTH_SHORT).show();
+            public void onFailure(Call<UploadCrowdfundingResponse> call, Throwable t) {
+                Toast.makeText(getActivity(), "Mohon maaf, untuk saat ini dokumen, video dan gambar harus diubah", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "atau unggah ulang dengan file yang sama", Toast.LENGTH_LONG).show();
                 pd.dismiss();
             }
         });
@@ -328,12 +343,15 @@ public class CrowdEditFragment extends Fragment {
 
     private void postVideo(){
 
+        if(compVid == null){
+            compVid = new File(videonya);
+        }
         RequestBody reqFile3 = RequestBody.create(MediaType.parse("multipart/form-data"), compVid);
         MultipartBody.Part file = MultipartBody.Part.createFormData("file",compVid.getName(), reqFile3);
 
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
-        Call<UploadCrowdfundingResponse> ucall = apiService.uploadVideoCrowd("JWT "+ sessionManager.getKeyToken(),idnya,file);
+        Call<UploadCrowdfundingResponse> ucall = apiService.uploadVideoCrowd("JWT "+ sessionManager.getKeyToken(),id_crowd,file);
         ucall.enqueue(new Callback<UploadCrowdfundingResponse>() {
             @Override
             public void onResponse(Call<UploadCrowdfundingResponse> call, Response<UploadCrowdfundingResponse> response) {
@@ -348,6 +366,12 @@ public class CrowdEditFragment extends Fragment {
                     }
                     else {
                         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                        Fragment newFragment = null;
+                        newFragment = new PostCrowdFragment();
+                        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+                        transaction.replace(R.id.screen_area, newFragment);
+                        transaction.addToBackStack(null);
+                        transaction.commit();
                     }
                     pd.dismiss();
                 }
@@ -423,6 +447,9 @@ public class CrowdEditFragment extends Fragment {
     public void postFoto(){
         apiService = ApiClient.getClient().create(ApiInterface.class);
 
+        if(pathImage==null){
+            compoto = new File(urlnya_gambar);
+        }
         File filenya = new File(pathImage);
         try {
             compoto = new Compressor(getActivity()).compressToFile(filenya);
@@ -434,7 +461,7 @@ public class CrowdEditFragment extends Fragment {
         //RequestBody id = RequestBody.create(MediaType.parse("text/plain"), id2);
         //final String id = id2;
 
-        Call<UploadCrowdfundingResponse> ucall = apiService.uploadPhotoCrowd("JWT "+ sessionManager.getKeyToken(),idnya,file);
+        Call<UploadCrowdfundingResponse> ucall = apiService.uploadPhotoCrowd("JWT "+ sessionManager.getKeyToken(),id_crowd,file);
         ucall.enqueue(new Callback<UploadCrowdfundingResponse>() {
             @Override
             public void onResponse(Call<UploadCrowdfundingResponse> call, Response<UploadCrowdfundingResponse> response) {
@@ -449,16 +476,157 @@ public class CrowdEditFragment extends Fragment {
                     }
                     else {
                         Toast.makeText(getActivity(), msg, Toast.LENGTH_SHORT).show();
+                        postVideo();
                     }
-                    pd.dismiss();
+                    //pd.dismiss();
                 }
             }
 
             @Override
             public void onFailure(Call<UploadCrowdfundingResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Mohon maaf sedang terjadi gangguan", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Mohon maaf, untuk saat ini gambar harus diubah", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "atau unggah ulang gambar yang sama", Toast.LENGTH_LONG).show();
                 pd.dismiss();
             }
         });
+    }
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        judul.setError(null);
+        deskripsi.setError(null);
+        kontak.setError(null);
+        lokasi.setError(null);
+        proyek.setError(null);
+        deskripsi.setError(null);
+        biaya.setError(null);
+        batas_waktu.setError(null);
+
+        String title2 = judul.getText().toString();
+        String description2 = deskripsi.getText().toString();
+        String contactPerson2 = kontak.getText().toString();
+        String location2 = lokasi.getText().toString();
+        String projectType2 = proyek.getText().toString();
+        String cost2 = biaya.getText().toString();
+        String deadline2 = batas_waktu.getText().toString();
+        String urlnya2 = urlnya.getText().toString();
+        String urlnya_video2 = urlnya_video.getText().toString();
+
+        if(cekError==0) {
+            if (title2.isEmpty()) {
+                judul.setError("Judul tidak boleh kosong");
+                focusView = judul;
+                valid = true;
+            } else {
+                judul.setError(null);
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (description2.isEmpty()) {
+                deskripsi.setError("Deskripsi tidak boleh kosong");
+                focusView = deskripsi;
+                valid = true;
+            } else {
+                deskripsi.setError(null);
+                cekError=2;
+            }
+        }
+        if(cekError==2) {
+            if (contactPerson2.isEmpty()) {
+                //Toast.makeText(getActivity(), "Biaya tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                kontak.setError("Info dan kontak tidak boleh kosong");
+                focusView = kontak;
+                valid = true;
+            } else {
+                kontak.setError(null);
+                cekError = 3;
+            }
+        }
+        if(cekError==3) {
+            if (location2.isEmpty()) {
+                //Toast.makeText(getActivity(), "Tanggal awal tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                lokasi.setError("Lokasi tidak boleh kosong");
+                focusView = lokasi;
+                valid = true;
+            }
+            else {
+                lokasi.setError(null);
+                cekError=4;
+            }
+        }
+        if(cekError==4) {
+            if (projectType2.isEmpty()) {
+                //Toast.makeText(getActivity(), "Tanggal akhir tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                proyek.setError("Tipe proyek tidak boleh kosong");
+                focusView = proyek;
+                valid = true;
+            }
+            else {
+                proyek.setError(null);
+                cekError=5;
+            }
+        }
+        if(cekError==5) {
+            if (cost2.isEmpty()) {
+                //Toast.makeText(getActivity(), "Waktu dimulai tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                biaya.setError("Biaya tidak boleh kosong");
+                focusView = biaya;
+                valid = true;
+            } else {
+                biaya.setError(null);
+                cekError = 6;
+            }
+        }
+        if(cekError==6) {
+            if (deadline2.isEmpty()) {
+                Toast.makeText(getActivity(), "Batas waktu tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                batas_waktu.setError("Batas waktu tidak boleh kosong");
+                focusView = batas_waktu;
+                valid = true;
+            } else {
+                //batas_waktu.setError(null);
+                cekError=7;
+            }
+        }
+        if(cekError==7) {
+            if (urlnya2.isEmpty()) {
+                //urlnya.setError("Dokumen tidak boleh kosong");
+                Toast.makeText(getActivity(), "Dokumen tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = urlnya;
+                valid = true;
+            }
+            else {
+                urlnya.setError(null);
+                cekError=8;
+            }
+        }
+        if(cekError==8) {
+            if (urlnya_video2.isEmpty()) {
+                //urlnya_video.setError("Video tidak boleh kosong");
+                Toast.makeText(getActivity(), "Video tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = urlnya_video;
+                valid = true;
+            } else {
+                urlnya_video.setError(null);
+                cekError=9;
+            }
+        }
+        if(cekError==9) {
+            if (gambar.getDrawable() == null) {
+                Toast.makeText(getActivity(), "Gambar tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = gambar;
+                valid = true;
+            } else {
+                cekError=10;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
     }
 }
