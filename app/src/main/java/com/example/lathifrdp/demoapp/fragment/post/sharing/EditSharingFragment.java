@@ -71,7 +71,7 @@ public class EditSharingFragment extends Fragment {
     File compDoc;
     Button btn;
     ProgressDialog pd;
-    String sharing_id;
+    String sharing_id, filenya;
     Bundle bundle;
     String kategorinya;
 
@@ -111,14 +111,19 @@ public class EditSharingFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Mengubah...");
-                pd.setCancelable(false);
-                pd.show();
-                putSharing();
+                cek();
             }
         });
-
+    }
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Mengubah...");
+        pd.setCancelable(false);
+        pd.show();
+        putSharing();
     }
 
     private void getDocument(){
@@ -129,7 +134,7 @@ public class EditSharingFragment extends Fragment {
                 .withChosenListener(new ChooserDialog.Result() {
                     @Override
                     public void onChoosePath(String path, File pathFile) {
-                        Toast.makeText(getActivity(), "FILE: " + path, Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(), "FILE: " + path, Toast.LENGTH_SHORT).show();
                         compDoc = pathFile;
                         urlnya.setText(path);
                     }
@@ -154,8 +159,9 @@ public class EditSharingFragment extends Fragment {
                     judul.setText(ks.getTitle());
                     deskripsi.setText(ks.getDescription());
                     kategorinya = ks.getCategory().getId();
+                    //categoryId = kategorinya;
 
-                    final String filenya = new BaseModel().getKnowledgeUrl()+ks.getFile();
+                    filenya = new BaseModel().getKnowledgeUrl()+ks.getFile();
                     urlnya.setText(filenya);
                     loadKategori();
                 }
@@ -222,6 +228,9 @@ public class EditSharingFragment extends Fragment {
         if(kategorinya!=null){
             categoryId = kategorinya;
         }
+        if(compDoc == null){
+            compDoc = new File(filenya);
+        }
 
         final String title2 = judul.getText().toString();
         final String description2 = deskripsi.getText().toString();
@@ -269,9 +278,67 @@ public class EditSharingFragment extends Fragment {
 
             @Override
             public void onFailure(Call<PostSharingResponse> call, Throwable t) {
-                Toast.makeText(getActivity(), "Mohon maaf, gagal posting", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "Mohon maaf, untuk saat ini dokumen harus diubah", Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), "atau unggah ulang dokumen yang sama", Toast.LENGTH_LONG).show();
                 pd.dismiss();
             }
         });
+    }
+
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        judul.setError(null);
+        deskripsi.setError(null);
+
+        String title2 = judul.getText().toString();
+        String description2 = deskripsi.getText().toString();
+        String urlnya2 = urlnya.getText().toString();
+
+        if(cekError==0) {
+            if (title2.isEmpty()) {
+                judul.setError("Judul tidak boleh kosong");
+                focusView = judul;
+                valid = true;
+            } else {
+                judul.setError(null);
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (description2.isEmpty()) {
+                deskripsi.setError("Deskripsi tidak boleh kosong");
+                focusView = deskripsi;
+                valid = true;
+            } else {
+                deskripsi.setError(null);
+                cekError=2;
+            }
+        }
+        if(cekError==2) {
+            if (urlnya2.isEmpty()) {
+                Toast.makeText(getActivity(), "Dokumen tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = urlnya;
+                valid = true;
+            } else {
+                cekError=4;
+            }
+        }
+        if(cekError==3) {
+            if (categoryId==null) {
+                Toast.makeText(getActivity(), "Kategori tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = spinner;
+                valid = true;
+            } else {
+                cekError=4;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
     }
 }
