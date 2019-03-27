@@ -9,6 +9,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -110,13 +111,19 @@ public class EditMemoriesFragment extends Fragment{
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Mengubah Memories...");
-                pd.setCancelable(false);
-                pd.show();
-                putMemories();
+                cek();
             }
         });
+    }
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Mengubah Memories...");
+        pd.setCancelable(false);
+        pd.show();
+        putMemories();
     }
 
     private void loadDataMemories(){
@@ -220,6 +227,13 @@ public class EditMemoriesFragment extends Fragment{
 
         if(pathImage==null){
             compoto = new File(urlnya);
+            //File y = new File(urlnya.replace("http://",""));
+            //Log.e("stringnya: ",urlnya.replace("http://","")+" 0");
+            //Log.e("stringnya: ",compoto.toString().replace("http:/","http://")+" 00");
+            //Log.e("stringnya: ",compoto.toString()+" 1");
+            //Log.e("stringnya: ",compoto.toString().split("/",1)+" 2");
+            //File x = new File(compoto.toString().replace("http:/","http://"));
+            //Log.e("stringnya: ",y+" 1");
         }
         else {
             File filenya = new File(pathImage);
@@ -270,9 +284,42 @@ public class EditMemoriesFragment extends Fragment{
             @Override
             public void onFailure(Call<PostMemoriesResponse> call, Throwable t) {
                 Toast.makeText(getActivity(), "Mohon maaf, untuk saat ini gambar harus diubah", Toast.LENGTH_LONG).show();
-                //Toast.makeText(getActivity(), compoto.getPath(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "atau unggah ulang gambar yang sama", Toast.LENGTH_LONG).show();
                 pd.dismiss();
             }
         });
+    }
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        capt.setError(null);
+        final String caption2 = capt.getText().toString();
+
+        if(cekError==0) {
+            if (gambar.getDrawable() == null) {
+                Toast.makeText(getActivity(), "Gambar tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                focusView = gambar;
+                valid = true;
+            } else {
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (caption2.isEmpty()) {
+                capt.setError("Caption tidak boleh kosong");
+                focusView = capt;
+                valid = true;
+            } else {
+                capt.setError(null);
+                cekError=2;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
     }
 }
