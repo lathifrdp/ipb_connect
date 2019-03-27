@@ -57,6 +57,7 @@ public class EditVacancyFragment extends Fragment {
     private String closeDate;
     Button btn;
     public String title,subject,company,email,companyProfile,jobQualification,jobDescription,salaryMax,salaryMin,file,address;
+    public String title3,subject3,company3,email3,companyProfile3,jobQualification3,jobDescription3,salaryMax3,salaryMin3,file3,address3;
     ProgressDialog pd;
     public String strmin,strmax;
     public int numbermin,numbermax;
@@ -107,14 +108,20 @@ public class EditVacancyFragment extends Fragment {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pd = new ProgressDialog(getActivity());
-                pd.setMessage("Mengubah Lowongan...");
-                pd.setCancelable(false);
-                pd.show();
-                putJob();
+                cek();
             }
         });
 
+    }
+    public void cek() {
+        if (validate() == true) {
+            return;
+        }
+        pd = new ProgressDialog(getActivity());
+        pd.setMessage("Mengubah Lowongan...");
+        pd.setCancelable(false);
+        pd.show();
+        putJob();
     }
 
     private void loadDataEdit(){
@@ -310,5 +317,184 @@ public class EditVacancyFragment extends Fragment {
                 pd.dismiss();
             }
         });
+    }
+    public boolean validate() {
+        boolean valid = false;
+        View focusView = null;
+
+        int cekError = 0;
+
+        judul.setError(null);
+        nama.setError(null);
+        alamat.setError(null);
+        gajimin.setError(null);
+        gajimax.setError(null);
+        profil.setError(null);
+        kualifikasi.setError(null);
+        deskripsi.setError(null);
+        email2.setError(null);
+        subjek.setError(null);
+        keterangan.setError(null);
+
+
+        title3 = judul.getText().toString();
+        company3 = nama.getText().toString();
+        address3 = alamat.getText().toString();
+        salaryMin3 = gajimin.getText().toString();
+        salaryMax3 = gajimax.getText().toString();
+        companyProfile3 = profil.getText().toString();
+        jobQualification3 = kualifikasi.getText().toString();
+        jobDescription3 = deskripsi.getText().toString();
+        email3 = email2.getText().toString();
+        subject3 = subjek.getText().toString();
+        file3 = keterangan.getText().toString();
+
+        if(cekError==0) {
+            if (title3.isEmpty()) {
+                judul.setError("Judul tidak boleh kosong");
+                focusView = judul;
+                valid = true;
+            } else {
+                judul.setError(null);
+                cekError=1;
+            }
+        }
+        if(cekError==1) {
+            if (company3.isEmpty()) {
+                nama.setError("Nama perusahaan tidak boleh kosong");
+                focusView = nama;
+                valid = true;
+            } else {
+                nama.setError(null);
+                cekError=3;
+            }
+        }
+        if(cekError==2) {
+            if (jobLocationId.isEmpty()) {
+                Toast.makeText(getActivity(), "Lokasi kerja tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                //focusView = pilih_lokasi;
+                valid = true;
+            } else {
+                //pilih_lokasi.setError(null);
+                cekError = 3;
+            }
+        }
+        if(cekError==3) {
+            if (address3.isEmpty()) {
+                alamat.setError("Alamat tidak boleh kosong");
+                focusView = alamat;
+                valid = true;
+            } else {
+                alamat.setError(null);
+                cekError = 4;
+            }
+        }
+        if(cekError==4) {
+            if (salaryMin3.isEmpty()) {
+                //Toast.makeText(getActivity(), "Gaji minimal tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                gajimin.setError("Gaji minimal tidak boleh kosong");
+                focusView = gajimin;
+                valid = true;
+            }
+            else {
+                gajimin.setError(null);
+                cekError=5;
+            }
+        }
+        if(cekError==5) {
+            if (salaryMax3.isEmpty()) {
+                //Toast.makeText(getActivity(), "Gaji maksimal tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                gajimax.setError("Gaji maksimal tidak boleh kosong");
+                focusView = gajimax;
+                valid = true;
+            } else {
+                gajimax.setError(null);
+                cekError = 6;
+            }
+        }
+        if(cekError==6) {
+            if (closenya2 == null) {
+                Toast.makeText(getActivity(), "Tanggal berakhir tidak boleh kosong", Toast.LENGTH_SHORT).show();
+                tglakhir.setError("Tanggal berakhir tidak boleh kosong");
+                focusView = tglakhir;
+                valid = true;
+            } else {
+                tglakhir.setError(null);
+                cekError=7;
+            }
+        }
+        if(cekError==7) {
+            if (companyProfile3.isEmpty()) {
+                profil.setError("Profil perusahaan tidak boleh kosong");
+                focusView = profil;
+                valid = true;
+            }
+            else {
+                profil.setError(null);
+                cekError=8;
+            }
+        }
+        if(cekError==8) {
+            if (jobQualification3.isEmpty()) {
+                kualifikasi.setError("Kualifikasi dan syarat pekerjaan tidak boleh kosong");
+                focusView = kualifikasi;
+                valid = true;
+            } else {
+                kualifikasi.setError(null);
+                cekError=9;
+            }
+        }
+        if(cekError==9) {
+            if (jobDescription3.isEmpty()) {
+                deskripsi.setError("Deskripsi tidak boleh kosong");
+                focusView = deskripsi;
+                valid = true;
+            } else {
+                deskripsi.setError(null);
+                cekError=10;
+            }
+        }
+        if(cekError==10) {
+            if (email3.isEmpty()) {
+                email2.setError("Email tidak boleh kosong");
+                focusView = email2;
+                valid = true;
+            } else if (!isEmailValid(email3)) {
+                email2.setError("Email tidak valid");
+                focusView = email2;
+                valid = true;
+            } else {
+                email2.setError(null);
+                cekError=11;
+            }
+        }
+        if(cekError==11) {
+            if (subject3.isEmpty()) {
+                subjek.setError("Subjek tidak boleh kosong");
+                focusView = subjek;
+                valid = true;
+            } else {
+                subjek.setError(null);
+                cekError=12;
+            }
+        }
+        if(cekError==12) {
+            if (file3.isEmpty()) {
+                keterangan.setError("Keterangan berkas lamaran tidak boleh kosong");
+                focusView = keterangan;
+                valid = true;
+            } else {
+                keterangan.setError(null);
+                cekError=13;
+            }
+        }
+        if (valid) {
+            focusView.requestFocus();
+        }
+        return valid;
+    }
+    private boolean isEmailValid(String email) {
+        //TODO: Replace this with your own logic
+        return email.contains("@") && email.contains(".");
     }
 }
